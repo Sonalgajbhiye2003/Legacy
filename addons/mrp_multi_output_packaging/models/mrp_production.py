@@ -365,6 +365,7 @@ class MrpProduction(models.Model):
     def _refresh_actual_packaging_calculations(self):
         Calculation = self.env["mrp.production.packaging.line"]
         for production in self:
+            lines_by_move = defaultdict(lambda: self.env["mrp.production.packaging.line"])
             for line in production.packaging_line_ids:
                 output = line.output_line_id
                 expected = Calculation.calculate_requirement(
@@ -374,8 +375,18 @@ class MrpProduction(models.Model):
                 line.write({
                     "actual_output_qty": output.actual_qty,
                     "expected_actual_packaging_qty": expected,
-                    "actual_consumed_qty": line.stock_move_id.quantity if line.stock_move_id else line.actual_consumed_qty,
                 })
+                if line.stock_move_id:
+                    lines_by_move[line.stock_move_id.id] |= line
+            for move_id, lines in lines_by_move.items():
+                move = self.env["stock.move"].browse(move_id)
+                total_expected = sum(lines.mapped("expected_actual_packaging_qty"))
+                for line in lines:
+                    allocated = (
+                        move.quantity * line.expected_actual_packaging_qty / total_expected
+                        if total_expected else 0.0
+                    )
+                    line.actual_consumed_qty = allocated
 
     def _rebuild_packaging_moves(self):
         Move = self.env["stock.move"]
@@ -405,6 +416,58 @@ class MrpProduction(models.Model):
                 move = Move.create(move_values)
                 values["lines"].write({"stock_move_id": move.id})
 
+    def _rebuild_finished_output_moves(self):
+        """Create the stock moves that will receive every custom finished output."""
+        Move = self.env["stock.move"]
+        for production in self.filtered(
+            lambda mo: mo.manufacturing_workflow == "custom_multi_output"
+            and mo.custom_process_type == "integrated_production_packaging"
+        ):
+            production._sync_primary_bulk_output_line()
+            output_lines = production.output_line_ids.filtered(
+                lambda line: line.output_classification in ("primary_packaged", "primary_bulk")
+            )
+            bulk_line = output_lines.filtered(
+                lambda line: line.output_classification == "primary_bulk"
+            )[:1]
+            main_move = production.move_finished_ids.filtered(
+                lambda move: move.product_id == production.product_id
+                and not move.byproduct_id
+                and move.state == "draft"
+            )[:1]
+
+            for output in output_lines:
+                move = output.stock_move_id.filtered(lambda item: item.state == "draft")
+                if output == bulk_line and main_move:
+                    move = main_move
+                values = production._get_move_finished_values(
+                    output.product_id.id,
+                    output.planned_qty,
+                    output.product_uom_id.id,
+                )
+                if move:
+                    move.write(values)
+                else:
+                    move = Move.create(values)
+                output.with_context(skip_multi_output_sync=True).write({"stock_move_id": move.id})
+
+    def _sync_finished_output_move_quantities(self):
+        """Apply recorded actual quantities to their linked finished stock moves."""
+        for production in self.filtered(
+            lambda mo: mo.manufacturing_workflow == "custom_multi_output"
+            and mo.custom_process_type == "integrated_production_packaging"
+        ):
+            production._sync_primary_bulk_output_line()
+            for output in production.output_line_ids.filtered(
+                lambda line: line.output_classification in ("primary_packaged", "primary_bulk")
+            ):
+                if not output.stock_move_id:
+                    raise UserError(_("Finished stock move is missing for %s.", output.product_id.display_name))
+                output.stock_move_id.write({
+                    "product_uom_qty": output.planned_qty,
+                    "quantity": output.actual_qty,
+                })
+
     def _prepare_packaging(self):
         """Build recipe snapshots, calculations, and moves in one operation.
 
@@ -432,8 +495,32 @@ class MrpProduction(models.Model):
         custom = self.filtered(lambda mo: mo.manufacturing_workflow == "custom_multi_output")
         custom._ensure_default_packaged_output()
         custom._prepare_packaging()
+        custom._rebuild_finished_output_moves()
         return super().action_confirm()
 
     def pre_button_mark_done(self):
-        self.filtered(lambda mo: mo.manufacturing_workflow == "custom_multi_output")._validate_custom_output_plan(completion=True)
+        custom = self.filtered(lambda mo: mo.manufacturing_workflow == "custom_multi_output")
+        custom._sync_finished_output_move_quantities()
+        custom._refresh_actual_packaging_calculations()
+        custom._validate_custom_output_plan(completion=True)
         return super().pre_button_mark_done()
+
+    def _post_inventory(self, cancel_backorder=False):
+        """Post the remaining bulk as the main finished quantity.
+
+        Core Odoo always writes ``qty_producing`` onto the main finished move.
+        For an integrated order the main move represents only the bulk that was
+        not converted into packaged variants, so expose that amount while the
+        stock moves are posted and retain it as Odoo's produced bulk quantity.
+        """
+        custom = self.filtered(
+            lambda mo: mo.manufacturing_workflow == "custom_multi_output"
+            and mo.custom_process_type == "integrated_production_packaging"
+        )
+        for production in custom:
+            bulk_line = production.output_line_ids.filtered(
+                lambda line: line.output_classification == "primary_bulk"
+            )[:1]
+            if bulk_line:
+                production.qty_producing = bulk_line.actual_qty
+        return super()._post_inventory(cancel_backorder=cancel_backorder)

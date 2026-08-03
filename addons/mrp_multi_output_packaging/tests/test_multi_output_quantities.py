@@ -78,6 +78,62 @@ class TestMultiOutputQuantities(MultiOutputCommon):
         self.assertTrue(mo.packaging_line_ids)
         self.assertTrue(mo.move_raw_ids.filtered(lambda move: move.component_source == "packaging_recipe"))
 
+    def test_confirm_creates_finished_moves_for_packaged_and_remaining_bulk(self):
+        mo = self.create_custom_mo(planned=1000.0)
+        output_100 = self.add_output(mo, self.pack_100, self.recipe_100, 137.0)
+        output_500 = self.add_output(mo, self.pack_500, self.recipe_500, 83.0)
+
+        mo.action_confirm()
+
+        bulk_output = mo.output_line_ids.filtered(
+            lambda line: line.output_classification == "primary_bulk"
+        )
+        self.assertAlmostEqual(bulk_output.planned_qty, 944.8)
+        self.assertEqual(output_100.stock_move_id.product_id, self.pack_100)
+        self.assertEqual(output_500.stock_move_id.product_id, self.pack_500)
+        self.assertEqual(bulk_output.stock_move_id.product_id, self.bulk)
+        self.assertAlmostEqual(output_100.stock_move_id.product_uom_qty, 137.0)
+        self.assertAlmostEqual(output_500.stock_move_id.product_uom_qty, 83.0)
+        self.assertAlmostEqual(bulk_output.stock_move_id.product_uom_qty, 944.8)
+        self.assertEqual(
+            set(mo.move_finished_ids.product_id.ids),
+            {self.bulk.id, self.pack_100.id, self.pack_500.id},
+        )
+
+    def test_completion_posts_packaged_and_remaining_bulk_quantities(self):
+        mo = self.create_custom_mo(planned=1000.0, actual=1000.0)
+        output_100 = self.add_output(mo, self.pack_100, self.recipe_100, 137.0, 137.0)
+        output_500 = self.add_output(mo, self.pack_500, self.recipe_500, 83.0, 83.0)
+        source = mo.location_src_id
+        self.env["stock.quant"]._update_available_quantity(self.process_component, source, 1000.0)
+        self.env["stock.quant"]._update_available_quantity(self.pouch, source, 220.0)
+        self.env["stock.quant"]._update_available_quantity(self.carton, source, 20.0)
+
+        bulk_before = self.bulk.qty_available
+        pack_100_before = self.pack_100.qty_available
+        pack_500_before = self.pack_500.qty_available
+        mo.action_confirm()
+        mo.action_assign()
+        if "check_ids" in mo._fields:
+            for check in mo.check_ids.filtered(lambda item: item.quality_state == "none"):
+                check.do_pass()
+        mo.qty_producing = 1000.0
+        for move in mo.move_raw_ids:
+            move.write({"quantity": move.product_uom_qty, "picked": True})
+        result = mo.with_context(skip_consumption=True, skip_backorder=True).button_mark_done()
+
+        self.assertTrue(result)
+        self.assertEqual(mo.state, "done")
+        self.assertAlmostEqual(output_100.stock_move_id.quantity, 137.0)
+        self.assertAlmostEqual(output_500.stock_move_id.quantity, 83.0)
+        bulk_output = mo.output_line_ids.filtered(
+            lambda line: line.output_classification == "primary_bulk"
+        )
+        self.assertAlmostEqual(bulk_output.actual_qty, 944.8)
+        self.assertAlmostEqual(self.bulk.qty_available - bulk_before, 944.8)
+        self.assertAlmostEqual(self.pack_100.qty_available - pack_100_before, 137.0)
+        self.assertAlmostEqual(self.pack_500.qty_available - pack_500_before, 83.0)
+
     def test_duplicate_output_is_rejected(self):
         mo = self.create_custom_mo()
         self.add_output(mo, self.pack_100, self.recipe_100, 10)
