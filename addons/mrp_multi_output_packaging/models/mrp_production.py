@@ -171,7 +171,17 @@ class MrpProduction(models.Model):
                         )
                     )
                 ]
-        return super().copy(default)
+        duplicate = super().copy(default)
+        if self.manufacturing_workflow == "custom_multi_output":
+            # Core Odoo copies the previous work-order dependency graph and
+            # remaps it by record order.  Custom packaging operations can make
+            # that order differ from the routing sequence, producing a loop
+            # when confirmation links the work orders again.  A duplicate is a
+            # fresh draft, so let confirmation rebuild the graph from the BoM.
+            duplicate.workorder_ids.write({
+                "blocked_by_workorder_ids": [Command.clear()],
+            })
+        return duplicate
 
     @api.constrains("manufacturing_workflow", "custom_process_type", "bulk_product_id", "bulk_uom_id")
     def _check_custom_configuration(self):

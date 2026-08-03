@@ -1,3 +1,4 @@
+from odoo import Command
 from odoo.exceptions import UserError, ValidationError
 from odoo.tests import tagged
 
@@ -216,6 +217,25 @@ class TestMultiOutputQuantities(MultiOutputCommon):
         self.assertAlmostEqual(pouch_line.variance_percentage, -8)
 
     def test_duplicate_starts_with_empty_packaging_execution_review(self):
+        workcenter = self.env["mrp.workcenter"].create({
+            "name": "Test Duplication Workcenter",
+        })
+        self.bom.write({
+            "operation_ids": [
+                Command.create({
+                    "name": "Prepare",
+                    "sequence": 10,
+                    "workcenter_id": workcenter.id,
+                    "time_cycle_manual": 1.0,
+                }),
+                Command.create({
+                    "name": "Pack",
+                    "sequence": 20,
+                    "workcenter_id": workcenter.id,
+                    "time_cycle_manual": 1.0,
+                }),
+            ],
+        })
         mo = self.create_custom_mo(planned=1000, actual=900)
         output = self.add_output(mo, self.pack_500, self.recipe_500, 100, 90)
         mo.action_confirm()
@@ -242,8 +262,18 @@ class TestMultiOutputQuantities(MultiOutputCommon):
         self.assertFalse(duplicate.move_raw_ids.filtered(
             lambda move: move.component_source == "packaging_recipe"
         ))
+        self.assertTrue(duplicate.workorder_ids)
+        self.assertFalse(duplicate.workorder_ids.blocked_by_workorder_ids)
 
         duplicate.action_confirm()
+        ordered_workorders = duplicate.workorder_ids.sorted(
+            key=lambda workorder: (workorder.operation_id.sequence, workorder.id)
+        )
+        self.assertFalse(ordered_workorders[0].blocked_by_workorder_ids)
+        self.assertEqual(
+            ordered_workorders[1].blocked_by_workorder_ids,
+            ordered_workorders[0],
+        )
         self.assertTrue(duplicate.packaging_line_ids)
         self.assertTrue(all(
             line.actual_consumed_qty == 0 for line in duplicate.packaging_line_ids
