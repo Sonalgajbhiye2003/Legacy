@@ -198,6 +198,46 @@ class TestMultiOutputQuantities(MultiOutputCommon):
         self.assertAlmostEqual(pouch_line.variance_qty, -2)
         self.assertAlmostEqual(pouch_line.variance_percentage, -8)
 
+    def test_duplicate_starts_with_empty_packaging_execution_review(self):
+        mo = self.create_custom_mo(planned=1000, actual=900)
+        output = self.add_output(mo, self.pack_500, self.recipe_500, 100, 90)
+        mo.action_confirm()
+        mo.process_loss_qty = 5
+        mo.variance_reason = "Previous run"
+        packaging_line = mo.packaging_line_ids.filtered(
+            lambda line: line.packaging_product_id == self.pouch
+        )
+        packaging_line.write({
+            "actual_consumed_qty": 88,
+            "variance_reason": "Previous packaging loss",
+        })
+
+        duplicate = mo.copy()
+
+        self.assertEqual(duplicate.state, "draft")
+        self.assertAlmostEqual(duplicate.actual_usable_output_qty, 0)
+        self.assertAlmostEqual(duplicate.process_loss_qty, 0)
+        self.assertFalse(duplicate.variance_reason)
+        self.assertFalse(duplicate.variance_approved)
+        self.assertTrue(all(line.actual_qty == 0 for line in duplicate.output_line_ids))
+        self.assertFalse(duplicate.recipe_snapshot_ids)
+        self.assertFalse(duplicate.packaging_line_ids)
+        self.assertFalse(duplicate.move_raw_ids.filtered(
+            lambda move: move.component_source == "packaging_recipe"
+        ))
+
+        duplicate.action_confirm()
+        self.assertTrue(duplicate.packaging_line_ids)
+        self.assertTrue(all(
+            line.actual_consumed_qty == 0 for line in duplicate.packaging_line_ids
+        ))
+        self.assertEqual(
+            duplicate.output_line_ids.filtered(
+                lambda line: line.product_id == output.product_id
+            ).planned_qty,
+            output.planned_qty,
+        )
+
     def test_actual_quantity_refreshes_packaging_expectation(self):
         mo = self.create_custom_mo(actual=900)
         output = self.add_output(mo, self.pack_500, self.recipe_500, 1000, 900)

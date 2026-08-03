@@ -20,7 +20,7 @@ class MrpProduction(models.Model):
 
     bulk_product_id = fields.Many2one("product.product", check_company=True)
     planned_usable_output_qty = fields.Float(digits="Product Unit of Measure")
-    actual_usable_output_qty = fields.Float(digits="Product Unit of Measure")
+    actual_usable_output_qty = fields.Float(digits="Product Unit of Measure", copy=False)
     bulk_uom_id = fields.Many2one("uom.uom")
     total_planned_packaged_equivalent = fields.Float(
         compute="_compute_reconciliation", store=True, digits="Product Unit of Measure"
@@ -29,7 +29,7 @@ class MrpProduction(models.Model):
         compute="_compute_reconciliation", store=True, digits="Product Unit of Measure"
     )
     planned_process_loss_qty = fields.Float(digits="Product Unit of Measure")
-    process_loss_qty = fields.Float(digits="Product Unit of Measure")
+    process_loss_qty = fields.Float(digits="Product Unit of Measure", copy=False)
     remaining_bulk_qty = fields.Float(
         compute="_compute_reconciliation", store=True, digits="Product Unit of Measure"
     )
@@ -43,7 +43,7 @@ class MrpProduction(models.Model):
         [("balanced", "Balanced"), ("warning", "Warning"), ("blocked", "Blocked")],
         compute="_compute_reconciliation", store=True,
     )
-    variance_reason = fields.Char()
+    variance_reason = fields.Char(copy=False)
     variance_approved = fields.Boolean(string="Variance Approved", copy=False)
 
     @api.depends(
@@ -146,6 +146,32 @@ class MrpProduction(models.Model):
         } & set(vals):
             self._sync_primary_bulk_output_line()
         return result
+
+    def copy(self, default=None):
+        """Duplicate the plan, never the previous order's execution review."""
+        self.ensure_one()
+        default = dict(default or {})
+        if self.manufacturing_workflow == "custom_multi_output":
+            default.update({
+                "actual_usable_output_qty": 0.0,
+                "process_loss_qty": 0.0,
+                "variance_reason": False,
+                "variance_approved": False,
+                "recipe_snapshot_ids": [Command.clear()],
+                "packaging_line_ids": [Command.clear()],
+            })
+            if "move_raw_ids" not in default:
+                default["move_raw_ids"] = [
+                    Command.create(move.copy_data()[0])
+                    for move in self.move_raw_ids.filtered(
+                        lambda move: move.component_source != "packaging_recipe"
+                        and not float_is_zero(
+                            move.product_uom_qty,
+                            precision_rounding=move.product_uom.rounding,
+                        )
+                    )
+                ]
+        return super().copy(default)
 
     @api.constrains("manufacturing_workflow", "custom_process_type", "bulk_product_id", "bulk_uom_id")
     def _check_custom_configuration(self):

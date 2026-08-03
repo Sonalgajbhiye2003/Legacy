@@ -21,7 +21,9 @@ class StockMove(models.Model):
     packaging_variance_qty = fields.Float(
         compute="_compute_packaging_variance", store=True, digits="Product Unit of Measure"
     )
-    packaging_line_ids = fields.One2many("mrp.production.packaging.line", "stock_move_id")
+    packaging_line_ids = fields.One2many(
+        "mrp.production.packaging.line", "stock_move_id", copy=False
+    )
     expected_byproduct_qty = fields.Float(
         string="Expected Quantity", compute="_compute_byproduct_variance", store=True,
         digits="Product Unit of Measure",
