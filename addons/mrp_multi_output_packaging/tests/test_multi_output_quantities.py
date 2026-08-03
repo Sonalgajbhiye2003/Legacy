@@ -20,6 +20,23 @@ class TestMultiOutputQuantities(MultiOutputCommon):
         self.assertAlmostEqual(packaged.planned_qty, 2000.0)
         self.assertEqual(packaged.packaging_recipe_id, self.recipe_500)
 
+    def test_possible_packaged_quantity_uses_main_mo_quantity(self):
+        mo = self.create_custom_mo(planned=1000.0)
+        output_100 = self.add_output(mo, self.pack_100, self.recipe_100, 137.0)
+        output_500 = self.add_output(mo, self.pack_500, self.recipe_500, 83.0)
+        output_1000 = self.add_output(mo, self.pack_1000, self.recipe_1000, 29.0)
+
+        self.assertAlmostEqual(output_100.possible_qty_from_mo, 10000.0)
+        self.assertAlmostEqual(output_500.possible_qty_from_mo, 2000.0)
+        self.assertAlmostEqual(output_1000.possible_qty_from_mo, 1000.0)
+        self.assertAlmostEqual(output_100.planned_qty, 137.0)
+        self.assertAlmostEqual(output_500.planned_qty, 83.0)
+
+        mo.product_qty = 750.5
+        self.assertAlmostEqual(output_100.possible_qty_from_mo, 7505.0)
+        self.assertAlmostEqual(output_500.possible_qty_from_mo, 1501.0)
+        self.assertAlmostEqual(output_1000.possible_qty_from_mo, 750.0)
+
     def test_confirm_repairs_existing_mo_after_bom_default_is_configured(self):
         mo = self.create_custom_mo(planned=1000.0)
         self.assertFalse(

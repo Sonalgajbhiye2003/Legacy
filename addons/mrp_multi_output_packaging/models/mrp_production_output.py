@@ -31,6 +31,17 @@ class MrpProductionOutputLine(models.Model):
     equivalent_bulk_qty = fields.Float(
         compute="_compute_equivalent_bulk_qty", store=True, digits="Product Unit of Measure"
     )
+    possible_qty_from_mo = fields.Float(
+        string="Possible from MO Qty",
+        compute="_compute_possible_qty_from_mo",
+        store=True,
+        digits="Product Unit of Measure",
+        help=(
+            "Maximum packaged units if the MO's entire main quantity is packed "
+            "into this variant. This is a planning guide and does not change the "
+            "Quantity to Produce."
+        ),
+    )
     packaging_recipe_id = fields.Many2one("mrp.packaging.recipe", check_company=True)
     packaging_recipe_version = fields.Char(readonly=True)
     lot_id = fields.Many2one("stock.lot", check_company=True, copy=False)
@@ -53,6 +64,40 @@ class MrpProductionOutputLine(models.Model):
             bulk_uom = line.bulk_equivalent_product_id.uom_id
             if line.net_content_uom_id.category_id == bulk_uom.category_id:
                 line.equivalent_bulk_qty = line.net_content_uom_id._compute_quantity(content, bulk_uom)
+
+    @api.depends(
+        "production_id.product_qty",
+        "production_id.product_uom_id",
+        "net_content_qty",
+        "net_content_uom_id",
+        "product_uom_id",
+        "output_classification",
+    )
+    def _compute_possible_qty_from_mo(self):
+        for line in self:
+            line.possible_qty_from_mo = 0.0
+            production = line.production_id
+            if (
+                line.output_classification != "primary_packaged"
+                or not production.product_uom_id
+                or not line.net_content_uom_id
+                or line.net_content_qty <= 0
+                or production.product_uom_id.category_id != line.net_content_uom_id.category_id
+            ):
+                continue
+            main_qty_in_content_uom = production.product_uom_id._compute_quantity(
+                production.product_qty,
+                line.net_content_uom_id,
+                round=False,
+            )
+            possible_qty = main_qty_in_content_uom / line.net_content_qty
+            line.possible_qty_from_mo = float_round(
+                possible_qty,
+                # Finished packs are discrete units; never suggest a fraction
+                # such as 0.2 of a 50 kg bag or 2.5 retail boxes.
+                precision_rounding=max(line.product_uom_id.rounding, 1.0),
+                rounding_method="DOWN",
+            )
 
     @api.onchange("product_id")
     def _onchange_product_id(self):

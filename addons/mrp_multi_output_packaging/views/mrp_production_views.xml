@@ -71,6 +71,7 @@
                            readonly="state in ('done', 'cancel')">
                         <tree editable="bottom">
                             <field name="product_id" string="Packaged Product"/>
+                            <field name="possible_qty_from_mo" string="Possible from MO Qty" readonly="1"/>
                             <field name="planned_qty" string="Quantity to Produce" readonly="parent.state != 'draft'"/>
                             <field name="actual_qty" string="Produced Quantity" readonly="parent.state in ('done', 'cancel')"/>
                             <field name="product_uom_id" string="UoM"/>
