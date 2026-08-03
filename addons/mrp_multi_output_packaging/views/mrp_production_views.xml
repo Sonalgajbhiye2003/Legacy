@@ -92,13 +92,13 @@
                       groups="mrp_multi_output_packaging.group_multi_output_supervisor">
                     <field name="packaging_line_ids" readonly="state in ('done', 'cancel')">
                         <tree create="0" delete="0">
+                            <field name="finished_product_id" string="Packaged Variant"/>
                             <field name="packaging_product_id"/>
                             <field name="planned_packaging_qty" string="Required Quantity"/>
                             <field name="actual_consumed_qty"/>
                             <field name="product_uom_id"/>
                             <field name="variance_qty" readonly="1"/>
                             <field name="variance_reason"/>
-                            <field name="finished_product_id" optional="hide"/>
                             <field name="qty_per_unit" optional="hide"/>
                             <field name="planned_output_qty" optional="hide"/>
                             <field name="actual_output_qty" optional="hide"/>

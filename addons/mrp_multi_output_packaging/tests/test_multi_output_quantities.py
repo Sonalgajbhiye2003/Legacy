@@ -155,6 +155,49 @@ class TestMultiOutputQuantities(MultiOutputCommon):
         self.assertEqual(len(carton_move.packaging_line_ids), 3)
         self.assertTrue(all(move.component_source == "process_bom" for move in mo.move_raw_ids.filtered("bom_line_id")))
 
+    def test_zero_quantity_variant_does_not_add_packaging_materials(self):
+        mo = self.create_custom_mo()
+        selected = self.add_output(mo, self.pack_100, self.recipe_100, 25)
+        ignored = self.add_output(mo, self.pack_500, self.recipe_500, 0)
+
+        mo.action_confirm()
+
+        self.assertEqual(mo.packaging_line_ids.mapped("output_line_id"), selected)
+        self.assertNotIn(ignored, mo.packaging_line_ids.mapped("output_line_id"))
+
+    def test_prepared_draft_removes_packaging_when_variant_is_zeroed(self):
+        mo = self.create_custom_mo()
+        selected = self.add_output(mo, self.pack_100, self.recipe_100, 25)
+        removed = self.add_output(mo, self.pack_500, self.recipe_500, 20)
+        mo._prepare_packaging()
+
+        removed.planned_qty = 0
+
+        self.assertEqual(mo.packaging_line_ids.mapped("output_line_id"), selected)
+        self.assertNotIn(removed, mo.packaging_line_ids.mapped("output_line_id"))
+        self.assertEqual(
+            set(mo.recipe_snapshot_ids.mapped("output_line_id").ids),
+            {selected.id},
+        )
+
+    def test_packaging_variance_uses_displayed_required_quantity(self):
+        mo = self.create_custom_mo()
+        self.add_output(mo, self.pack_500, self.recipe_500, 25)
+
+        mo.action_confirm()
+
+        pouch_line = mo.packaging_line_ids.filtered(
+            lambda line: line.packaging_product_id == self.pouch
+        )
+        self.assertAlmostEqual(pouch_line.planned_packaging_qty, 25)
+        self.assertAlmostEqual(pouch_line.actual_consumed_qty, 0)
+        self.assertAlmostEqual(pouch_line.variance_qty, -25)
+        self.assertAlmostEqual(pouch_line.variance_percentage, -100)
+
+        pouch_line.actual_consumed_qty = 23
+        self.assertAlmostEqual(pouch_line.variance_qty, -2)
+        self.assertAlmostEqual(pouch_line.variance_percentage, -8)
+
     def test_actual_quantity_refreshes_packaging_expectation(self):
         mo = self.create_custom_mo(actual=900)
         output = self.add_output(mo, self.pack_500, self.recipe_500, 1000, 900)

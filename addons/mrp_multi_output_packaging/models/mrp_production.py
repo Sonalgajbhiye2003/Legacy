@@ -268,6 +268,11 @@ class MrpProduction(models.Model):
         for production in self.filtered(lambda mo: mo.manufacturing_workflow == "custom_multi_output"):
             packaged = production.output_line_ids.filtered(
                 lambda line: line.output_classification == "primary_packaged"
+                and float_compare(
+                    line.planned_qty,
+                    0.0,
+                    precision_rounding=line.product_uom_id.rounding,
+                ) > 0
             )
             if not packaged:
                 raise UserError(
@@ -306,6 +311,11 @@ class MrpProduction(models.Model):
             production.recipe_snapshot_ids.unlink()
             for output in production.output_line_ids.filtered(
                 lambda line: line.output_classification == "primary_packaged"
+                and float_compare(
+                    line.planned_qty,
+                    0.0,
+                    precision_rounding=line.product_uom_id.rounding,
+                ) > 0
             ):
                 recipe = output.packaging_recipe_id
                 snapshot = Snapshot.create({
@@ -334,7 +344,17 @@ class MrpProduction(models.Model):
         Calculation = self.env["mrp.production.packaging.line"]
         for production in self:
             production.packaging_line_ids.unlink()
-            for snapshot in production.recipe_snapshot_ids:
+            current_outputs = production.output_line_ids.filtered(
+                lambda line: line.output_classification == "primary_packaged"
+                and float_compare(
+                    line.planned_qty,
+                    0.0,
+                    precision_rounding=line.product_uom_id.rounding,
+                ) > 0
+            )
+            for snapshot in production.recipe_snapshot_ids.filtered(
+                lambda item: item.output_line_id in current_outputs
+            ):
                 output = snapshot.output_line_id
                 for snap_line in snapshot.line_ids:
                     planned = Calculation.calculate_requirement(
@@ -365,6 +385,17 @@ class MrpProduction(models.Model):
     def _refresh_actual_packaging_calculations(self):
         Calculation = self.env["mrp.production.packaging.line"]
         for production in self:
+            current_outputs = production.output_line_ids.filtered(
+                lambda line: line.output_classification == "primary_packaged"
+                and float_compare(
+                    line.planned_qty,
+                    0.0,
+                    precision_rounding=line.product_uom_id.rounding,
+                ) > 0
+            )
+            production.packaging_line_ids.filtered(
+                lambda line: line.output_line_id not in current_outputs
+            ).unlink()
             lines_by_move = defaultdict(lambda: self.env["mrp.production.packaging.line"])
             for line in production.packaging_line_ids:
                 output = line.output_line_id
@@ -484,6 +515,23 @@ class MrpProduction(models.Model):
             production._rebuild_packaging_calculations()
             production._rebuild_packaging_moves()
         return True
+
+    def _refresh_prepared_draft_packaging(self):
+        """Keep a prepared draft aligned with its current packaged outputs."""
+        prepared = self.filtered(
+            lambda production: production.state == "draft"
+            and (
+                production.recipe_snapshot_ids
+                or production.packaging_line_ids
+                or production.move_raw_ids.filtered(
+                    lambda move: move.component_source == "packaging_recipe"
+                )
+            )
+        )
+        for production in prepared:
+            production._snapshot_packaging_recipes()
+            production._rebuild_packaging_calculations()
+            production._rebuild_packaging_moves()
 
     def action_reload_packaging_recipes(self):
         return self._prepare_packaging()

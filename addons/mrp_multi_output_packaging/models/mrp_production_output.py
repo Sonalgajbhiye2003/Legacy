@@ -116,6 +116,7 @@ class MrpProductionOutputLine(models.Model):
                 line.packaging_recipe_version = line.packaging_recipe_id.version
         if not self.env.context.get("skip_multi_output_sync"):
             productions._sync_primary_bulk_output_line()
+            productions._refresh_prepared_draft_packaging()
         return lines
 
     def write(self, vals):
@@ -127,13 +128,29 @@ class MrpProductionOutputLine(models.Model):
             self.production_id._sync_primary_bulk_output_line()
             if "actual_qty" in vals:
                 self.production_id._refresh_actual_packaging_calculations()
+            if {
+                "product_id", "output_classification", "planned_qty", "product_uom_id",
+                "packaging_recipe_id",
+            } & set(vals):
+                self.production_id._refresh_prepared_draft_packaging()
         return result
 
     def unlink(self):
         productions = self.production_id
+        prepared = productions.filtered(
+            lambda production: production.state == "draft"
+            and (
+                production.recipe_snapshot_ids
+                or production.packaging_line_ids
+                or production.move_raw_ids.filtered(
+                    lambda move: move.component_source == "packaging_recipe"
+                )
+            )
+        )
         result = super().unlink()
         if not self.env.context.get("skip_multi_output_sync"):
             productions._sync_primary_bulk_output_line()
+            prepared._refresh_prepared_draft_packaging()
         return result
 
 
@@ -166,13 +183,17 @@ class MrpProductionPackagingLine(models.Model):
     operation_id = fields.Many2one("mrp.routing.workcenter", check_company=True)
     company_id = fields.Many2one(related="production_id.company_id", store=True, index=True)
 
-    @api.depends("actual_consumed_qty", "expected_actual_packaging_qty")
+    @api.depends("actual_consumed_qty", "planned_packaging_qty")
     def _compute_variance(self):
         for line in self:
-            line.variance_qty = line.actual_consumed_qty - line.expected_actual_packaging_qty
+            # The review's Required Quantity is the planned packaging demand,
+            # so variance must use that same value.  Comparing against the
+            # expected quantity for an as-yet unrecorded finished output made
+            # an untouched line misleadingly display a zero variance.
+            line.variance_qty = line.actual_consumed_qty - line.planned_packaging_qty
             line.variance_percentage = (
-                line.variance_qty / line.expected_actual_packaging_qty * 100.0
-                if line.expected_actual_packaging_qty else 0.0
+                line.variance_qty / line.planned_packaging_qty * 100.0
+                if line.planned_packaging_qty else 0.0
             )
 
     @api.model
