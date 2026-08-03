@@ -203,7 +203,33 @@ class MrpProduction(models.Model):
             product_id, product_uom_qty, product_uom, operation_id=operation_id, bom_line=bom_line
         )
         values["component_source"] = "process_bom" if bom_line else "manual"
+        storage_location = self._legacy_component_storage_location(product_id)
+        if storage_location:
+            values["location_id"] = storage_location.id
         return values
+
+    def _legacy_component_storage_location(self, product):
+        """Return the category-specific component store when configured."""
+        mapping = (
+            ("legacy_mrp_master_data.cat_raw_materials", "legacy_mrp_master_data.loc_legacy_stock_raw_materials"),
+            ("legacy_mrp_master_data.cat_packaging_materials", "legacy_mrp_master_data.loc_legacy_stock_packaging_materials"),
+            ("legacy_mrp_master_data.cat_spares", "legacy_mrp_master_data.loc_legacy_stock_spares"),
+        )
+        for category_xmlid, location_xmlid in mapping:
+            category = self.env.ref(category_xmlid, raise_if_not_found=False)
+            location = self.env.ref(location_xmlid, raise_if_not_found=False)
+            if category and location and (
+                product.categ_id == category
+                or str(category.id) in (product.categ_id.parent_path or "").split("/")
+            ):
+                return location
+        return self.env["stock.location"]
+
+    def _legacy_finished_goods_location(self):
+        return self.env.ref(
+            "legacy_mrp_master_data.loc_legacy_stock_finished_goods",
+            raise_if_not_found=False,
+        ) or self.env["stock.location"]
 
     def _ensure_default_packaged_output(self):
         """Add the BoM's packaged product when the user has not planned one."""
@@ -245,7 +271,10 @@ class MrpProduction(models.Model):
                 "net_content_uom_id": product.net_content_uom_id.id,
                 "bulk_equivalent_product_id": product.bulk_equivalent_product_id.id,
                 "packaging_recipe_id": recipe.id,
-                "location_dest_id": production.location_dest_id.id,
+                "location_dest_id": (
+                    production._legacy_finished_goods_location()
+                    or production.location_dest_id
+                ).id,
             }
             if production._origin.id:
                 values["production_id"] = production.id
@@ -289,7 +318,10 @@ class MrpProduction(models.Model):
                 "product_uom_id": production.bulk_uom_id.id,
                 "planned_qty": max(planned_remaining, 0.0),
                 "actual_qty": max(actual_remaining, 0.0) if production.actual_usable_output_qty else 0.0,
-                "location_dest_id": production.location_dest_id.id,
+                "location_dest_id": (
+                    production._legacy_finished_goods_location()
+                    or production.location_dest_id
+                ).id,
                 "output_classification": "primary_bulk",
             }
             if bulk_lines:
@@ -512,6 +544,9 @@ class MrpProduction(models.Model):
                     output.planned_qty,
                     output.product_uom_id.id,
                 )
+                finished_location = production._legacy_finished_goods_location()
+                if finished_location:
+                    values["location_dest_id"] = finished_location.id
                 if move:
                     move.write(values)
                 else:

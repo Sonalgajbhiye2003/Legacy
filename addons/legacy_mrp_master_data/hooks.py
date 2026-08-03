@@ -72,6 +72,7 @@ def post_init_hook(env):
     _ensure_location(env, "loc_legacy_stock_raw_materials", "Raw Materials", "internal", stock_parent)
     _ensure_location(env, "loc_legacy_stock_packaging_materials", "Packaging Materials", "internal", stock_parent)
     _ensure_location(env, "loc_legacy_stock_finished_goods", "Finished Goods", "internal", stock_parent)
+    _ensure_location(env, "loc_legacy_stock_spares", "Spares", "internal", stock_parent)
     _ensure_location(env, "loc_legacy_stock_by_products", "By-products", "internal", stock_parent)
     _ensure_location(env, "loc_legacy_production_wip", "Work in Progress", "internal", production_parent)
 

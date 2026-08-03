@@ -104,7 +104,10 @@ class MrpProductionOutputLine(models.Model):
         if not self.product_id:
             return
         self.product_uom_id = self.product_id.uom_id
-        self.location_dest_id = self.production_id.location_dest_id
+        self.location_dest_id = (
+            self.production_id._legacy_finished_goods_location()
+            or self.production_id.location_dest_id
+        )
         if self.output_classification == "primary_packaged":
             self.net_content_qty = self.product_id.net_content_qty
             self.net_content_uom_id = self.product_id.net_content_uom_id

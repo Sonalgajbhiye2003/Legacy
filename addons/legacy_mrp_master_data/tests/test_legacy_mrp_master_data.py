@@ -7,12 +7,14 @@ class TestLegacyMrpMasterData(TransactionCase):
 
     def test_installation_created_no_transactions(self):
         self.assertTrue(self.env.ref("legacy_mrp_master_data.warehouse_legacy_main"))
-        self.assertEqual(self.env["mrp.production"].search_count([]), 0)
-        self.assertEqual(self.env["stock.move"].search_count([]), 0)
-        self.assertEqual(self.env["account.move"].search_count([]), 0)
+        for model_name in ("mrp.production", "stock.move", "account.move"):
+            self.assertFalse(self.env["ir.model.data"].search([
+                ("module", "=", "legacy_mrp_master_data"),
+                ("model", "=", model_name),
+            ]))
 
     def test_product_categories_and_internal_refs(self):
-        for xmlid in ["cat_raw_materials", "cat_packaging_materials", "cat_work_in_progress", "cat_by_products", "cat_finished_goods"]:
+        for xmlid in ["cat_raw_materials", "cat_packaging_materials", "cat_work_in_progress", "cat_by_products", "cat_finished_goods", "cat_spares"]:
             self.assertTrue(self.env.ref(f"legacy_mrp_master_data.{xmlid}"))
         product_ids = self.env["ir.model.data"].search([
             ("module", "=", "legacy_mrp_master_data"),
@@ -103,3 +105,93 @@ class TestLegacyMrpMasterData(TransactionCase):
             ("code", "like", "LEGACY-"), ("active", "=", False)
         ])
         self.assertTrue(inactive_boms)
+
+    def test_category_storage_routes_and_locations(self):
+        expected = {
+            "route_legacy_raw_materials_storage": (
+                "cat_raw_materials", "loc_legacy_stock_raw_materials"
+            ),
+            "route_legacy_packaging_storage": (
+                "cat_packaging_materials", "loc_legacy_stock_packaging_materials"
+            ),
+            "route_legacy_spares_storage": (
+                "cat_spares", "loc_legacy_stock_spares"
+            ),
+        }
+        for route_xmlid, (category_xmlid, location_xmlid) in expected.items():
+            route = self.env.ref(f"legacy_mrp_master_data.{route_xmlid}")
+            category = self.env.ref(f"legacy_mrp_master_data.{category_xmlid}")
+            location = self.env.ref(f"legacy_mrp_master_data.{location_xmlid}")
+            self.assertIn(category, route.categ_ids)
+            self.assertTrue(route.rule_ids.filtered(
+                lambda rule: rule.action == "push" and rule.location_dest_id == location
+            ))
+            self.assertTrue(route.rule_ids.filtered(
+                lambda rule: rule.action == "pull" and rule.location_src_id == location
+            ))
+
+        finished_route = self.env.ref(
+            "legacy_mrp_master_data.route_legacy_finished_goods_storage"
+        )
+        finished_location = self.env.ref(
+            "legacy_mrp_master_data.loc_legacy_stock_finished_goods"
+        )
+        self.assertIn(
+            self.env.ref("legacy_mrp_master_data.cat_finished_goods"),
+            finished_route.categ_ids,
+        )
+        self.assertIn(
+            self.env.ref("legacy_mrp_master_data.cat_work_in_progress"),
+            finished_route.categ_ids,
+        )
+        self.assertTrue(finished_route.rule_ids.filtered(
+            lambda rule: rule.action == "push"
+            and rule.location_dest_id == finished_location
+        ))
+
+    def test_manufacturing_moves_use_category_storage_locations(self):
+        bom = self.env.ref(
+            "legacy_mrp_master_data.bom_instant_porridge_box_20_x_500g"
+        )
+        mo = self.env["mrp.production"].create({
+            "product_id": bom.product_id.id,
+            "product_qty": 10.0,
+            "product_uom_id": bom.product_uom_id.id,
+            "bom_id": bom.id,
+            "manufacturing_workflow": "custom_multi_output",
+            "custom_process_type": "integrated_production_packaging",
+            "bulk_product_id": bom.product_id.id,
+            "bulk_uom_id": bom.product_uom_id.id,
+            "planned_usable_output_qty": 10.0,
+        })
+
+        mo.action_confirm()
+
+        raw_location = self.env.ref(
+            "legacy_mrp_master_data.loc_legacy_stock_raw_materials"
+        )
+        packaging_location = self.env.ref(
+            "legacy_mrp_master_data.loc_legacy_stock_packaging_materials"
+        )
+        finished_location = self.env.ref(
+            "legacy_mrp_master_data.loc_legacy_stock_finished_goods"
+        )
+        self.assertTrue(mo.move_raw_ids.filtered(
+            lambda move: move.component_source == "process_bom"
+        ))
+        self.assertTrue(all(
+            move.location_id == raw_location
+            for move in mo.move_raw_ids.filtered(
+                lambda move: move.component_source == "process_bom"
+            )
+        ))
+        self.assertTrue(all(
+            move.location_id == packaging_location
+            for move in mo.move_raw_ids.filtered(
+                lambda move: move.component_source == "packaging_recipe"
+            )
+        ))
+        self.assertTrue(all(
+            move.location_dest_id == finished_location
+            for move in mo.move_finished_ids
+        ))

@@ -15,6 +15,7 @@
         "data/products.xml",
         "data/variant_products.xml",
         "data/warehouse_locations.xml",
+        "data/warehouse_routes.xml",
         "data/workcenters.xml",
         "data/boms.xml",
         "data/operations.xml",
