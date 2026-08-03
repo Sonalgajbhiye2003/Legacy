@@ -88,6 +88,16 @@ class TestLegacyMrpMasterData(TransactionCase):
                 seen.add(key)
                 self.assertEqual(line.product_uom_id.category_id, line.packaging_product_id.uom_id.category_id)
 
+    def test_every_packaging_enabled_variant_has_an_active_default_recipe(self):
+        products = self.env["product.product"].search([("packaging_enabled", "=", True)])
+        self.assertTrue(products)
+        for product in products:
+            recipe = product.packaging_recipe_id
+            self.assertTrue(recipe, f"Missing default packaging recipe for {product.display_name}")
+            self.assertTrue(recipe.active, f"Inactive packaging recipe for {product.display_name}")
+            self.assertEqual(recipe.product_id, product)
+            self.assertTrue(recipe.line_ids, f"Packaging recipe has no materials for {product.display_name}")
+
     def test_inactive_boms_exist_for_unresolved_sources(self):
         inactive_boms = self.env["mrp.bom"].with_context(active_test=False).search([
             ("code", "like", "LEGACY-"), ("active", "=", False)

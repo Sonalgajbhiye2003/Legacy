@@ -46,7 +46,7 @@
         <field name="version">1.0</field>
         <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_box_10_x_1kg_packaging"/>
         <field name="workcenter_id" ref="legacy_mrp_master_data.wc_por_01"/>
-        <field name="active" eval="False"/>
+        <field name="active" eval="True"/>
     </record>
 
     <record id="pack_recipe_line_instant_porridge_box_10_x_1kg_porridge_sachet_1kg_10" model="mrp.packaging.recipe.line">
@@ -80,7 +80,7 @@
         <field name="version">1.0</field>
         <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_10kg_bag_packaging"/>
         <field name="workcenter_id" ref="legacy_mrp_master_data.wc_por_01"/>
-        <field name="active" eval="False"/>
+        <field name="active" eval="True"/>
     </record>
 
     <record id="pack_recipe_line_instant_porridge_10kg_bag_inner_liner_10kg_10" model="mrp.packaging.recipe.line">
@@ -114,7 +114,7 @@
         <field name="version">1.0</field>
         <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_50kg_bag_packaging"/>
         <field name="workcenter_id" ref="legacy_mrp_master_data.wc_por_01"/>
-        <field name="active" eval="False"/>
+        <field name="active" eval="True"/>
     </record>
 
     <record id="pack_recipe_line_instant_porridge_50kg_bag_outer_bags_90g_10" model="mrp.packaging.recipe.line">
@@ -148,7 +148,7 @@
         <field name="version">1.0</field>
         <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_box_8_x_500g_packaging"/>
         <field name="workcenter_id" ref="legacy_mrp_master_data.wc_por_01"/>
-        <field name="active" eval="False"/>
+        <field name="active" eval="True"/>
     </record>
 
     <record id="pack_recipe_line_instant_porridge_box_8_x_500g_plain_sachet_500g_10" model="mrp.packaging.recipe.line">
@@ -192,7 +192,7 @@
         <field name="version">1.0</field>
         <field name="operation_id" ref="legacy_mrp_master_data.op_instant_thobwa_case_50_x_50g_packaging"/>
         <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tho_01"/>
-        <field name="active" eval="False"/>
+        <field name="active" eval="True"/>
     </record>
 
     <record id="pack_recipe_line_instant_thobwa_case_50_x_50g_thobwa_rolls_50g_10" model="mrp.packaging.recipe.line">
@@ -226,7 +226,7 @@
         <field name="version">1.0</field>
         <field name="operation_id" ref="legacy_mrp_master_data.op_instant_thobwa_25kg_bag_packaging"/>
         <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tho_01"/>
-        <field name="active" eval="False"/>
+        <field name="active" eval="True"/>
     </record>
 
     <record id="pack_recipe_line_instant_thobwa_25kg_bag_outer_packaging_700g_10" model="mrp.packaging.recipe.line">
@@ -270,7 +270,7 @@
         <field name="version">1.0</field>
         <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_case_20_x_90g_packaging"/>
         <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tsp_01"/>
-        <field name="active" eval="False"/>
+        <field name="active" eval="True"/>
     </record>
 
     <record id="pack_recipe_line_tsp_case_20_x_90g_soya_beef_spice_rolls_7" model="mrp.packaging.recipe.line">
@@ -348,7 +348,7 @@
         <field name="version">1.0</field>
         <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_case_5_x_700g_packaging"/>
         <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tsp_01"/>
-        <field name="active" eval="False"/>
+        <field name="active" eval="True"/>
     </record>
 
     <record id="pack_recipe_line_tsp_case_5_x_700g_inner_packaging_700g_6" model="mrp.packaging.recipe.line">
@@ -382,7 +382,7 @@
         <field name="version">1.0</field>
         <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_3kg_bag_packaging"/>
         <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tsp_01"/>
-        <field name="active" eval="False"/>
+        <field name="active" eval="True"/>
     </record>
 
     <record id="pack_recipe_line_tsp_3kg_bag_plastic_packaging_3kg_6" model="mrp.packaging.recipe.line">
@@ -406,7 +406,7 @@
         <field name="version">1.0</field>
         <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_3kg_woven_bag_packaging"/>
         <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tsp_01"/>
-        <field name="active" eval="False"/>
+        <field name="active" eval="True"/>
     </record>
 
     <record id="pack_recipe_line_tsp_3kg_woven_bag_woven_bag_3kg_6" model="mrp.packaging.recipe.line">
@@ -454,7 +454,7 @@
         <field name="version">1.0</field>
         <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_case_50_x_16g_packaging"/>
         <field name="workcenter_id" ref="legacy_mrp_master_data.wc_puf_01"/>
-        <field name="active" eval="False"/>
+        <field name="active" eval="True"/>
     </record>
 
     <record id="pack_recipe_line_puffs_case_50_x_16g_puffs_rolls_16g_12" model="mrp.packaging.recipe.line">
@@ -522,7 +522,7 @@
         <field name="version">1.0</field>
         <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_case_30_x_60g_packaging"/>
         <field name="workcenter_id" ref="legacy_mrp_master_data.wc_puf_01"/>
-        <field name="active" eval="False"/>
+        <field name="active" eval="True"/>
     </record>
 
     <record id="pack_recipe_line_puffs_case_30_x_60g_puffs_rolls_60g_12" model="mrp.packaging.recipe.line">
@@ -561,6 +561,78 @@
         <field name="packaging_recipe_id" ref="legacy_mrp_master_data.pack_recipe_tsp_8kg_woven_bag"/>
         <field name="default_packaging_operation_id" ref="legacy_mrp_master_data.op_tsp_8kg_woven_bag_packaging"/>
         <field name="default_packaging_workcenter_id" ref="legacy_mrp_master_data.wc_tsp_01"/>
+    </record>
+
+    <record id="prod_instant_porridge_box_10_x_1kg" model="product.product">
+        <field name="packaging_recipe_id" ref="legacy_mrp_master_data.pack_recipe_instant_porridge_box_10_x_1kg"/>
+        <field name="default_packaging_operation_id" ref="legacy_mrp_master_data.op_instant_porridge_box_10_x_1kg_packaging"/>
+        <field name="default_packaging_workcenter_id" ref="legacy_mrp_master_data.wc_por_01"/>
+    </record>
+
+    <record id="prod_instant_porridge_10kg_bag" model="product.product">
+        <field name="packaging_recipe_id" ref="legacy_mrp_master_data.pack_recipe_instant_porridge_10kg_bag"/>
+        <field name="default_packaging_operation_id" ref="legacy_mrp_master_data.op_instant_porridge_10kg_bag_packaging"/>
+        <field name="default_packaging_workcenter_id" ref="legacy_mrp_master_data.wc_por_01"/>
+    </record>
+
+    <record id="prod_instant_porridge_50kg_bag" model="product.product">
+        <field name="packaging_recipe_id" ref="legacy_mrp_master_data.pack_recipe_instant_porridge_50kg_bag"/>
+        <field name="default_packaging_operation_id" ref="legacy_mrp_master_data.op_instant_porridge_50kg_bag_packaging"/>
+        <field name="default_packaging_workcenter_id" ref="legacy_mrp_master_data.wc_por_01"/>
+    </record>
+
+    <record id="prod_instant_porridge_box_8_x_500g" model="product.product">
+        <field name="packaging_recipe_id" ref="legacy_mrp_master_data.pack_recipe_instant_porridge_box_8_x_500g"/>
+        <field name="default_packaging_operation_id" ref="legacy_mrp_master_data.op_instant_porridge_box_8_x_500g_packaging"/>
+        <field name="default_packaging_workcenter_id" ref="legacy_mrp_master_data.wc_por_01"/>
+    </record>
+
+    <record id="prod_instant_thobwa_case_50_x_50g" model="product.product">
+        <field name="packaging_recipe_id" ref="legacy_mrp_master_data.pack_recipe_instant_thobwa_case_50_x_50g"/>
+        <field name="default_packaging_operation_id" ref="legacy_mrp_master_data.op_instant_thobwa_case_50_x_50g_packaging"/>
+        <field name="default_packaging_workcenter_id" ref="legacy_mrp_master_data.wc_tho_01"/>
+    </record>
+
+    <record id="prod_instant_thobwa_25kg_bag" model="product.product">
+        <field name="packaging_recipe_id" ref="legacy_mrp_master_data.pack_recipe_instant_thobwa_25kg_bag"/>
+        <field name="default_packaging_operation_id" ref="legacy_mrp_master_data.op_instant_thobwa_25kg_bag_packaging"/>
+        <field name="default_packaging_workcenter_id" ref="legacy_mrp_master_data.wc_tho_01"/>
+    </record>
+
+    <record id="prod_tsp_case_20_x_90g" model="product.product">
+        <field name="packaging_recipe_id" ref="legacy_mrp_master_data.pack_recipe_tsp_case_20_x_90g"/>
+        <field name="default_packaging_operation_id" ref="legacy_mrp_master_data.op_tsp_case_20_x_90g_packaging"/>
+        <field name="default_packaging_workcenter_id" ref="legacy_mrp_master_data.wc_tsp_01"/>
+    </record>
+
+    <record id="prod_tsp_case_5_x_700g" model="product.product">
+        <field name="packaging_recipe_id" ref="legacy_mrp_master_data.pack_recipe_tsp_case_5_x_700g"/>
+        <field name="default_packaging_operation_id" ref="legacy_mrp_master_data.op_tsp_case_5_x_700g_packaging"/>
+        <field name="default_packaging_workcenter_id" ref="legacy_mrp_master_data.wc_tsp_01"/>
+    </record>
+
+    <record id="prod_tsp_3kg_bag" model="product.product">
+        <field name="packaging_recipe_id" ref="legacy_mrp_master_data.pack_recipe_tsp_3kg_bag"/>
+        <field name="default_packaging_operation_id" ref="legacy_mrp_master_data.op_tsp_3kg_bag_packaging"/>
+        <field name="default_packaging_workcenter_id" ref="legacy_mrp_master_data.wc_tsp_01"/>
+    </record>
+
+    <record id="prod_tsp_3kg_woven_bag" model="product.product">
+        <field name="packaging_recipe_id" ref="legacy_mrp_master_data.pack_recipe_tsp_3kg_woven_bag"/>
+        <field name="default_packaging_operation_id" ref="legacy_mrp_master_data.op_tsp_3kg_woven_bag_packaging"/>
+        <field name="default_packaging_workcenter_id" ref="legacy_mrp_master_data.wc_tsp_01"/>
+    </record>
+
+    <record id="prod_puffs_case_50_x_16g" model="product.product">
+        <field name="packaging_recipe_id" ref="legacy_mrp_master_data.pack_recipe_puffs_case_50_x_16g"/>
+        <field name="default_packaging_operation_id" ref="legacy_mrp_master_data.op_puffs_case_50_x_16g_packaging"/>
+        <field name="default_packaging_workcenter_id" ref="legacy_mrp_master_data.wc_puf_01"/>
+    </record>
+
+    <record id="prod_puffs_case_30_x_60g" model="product.product">
+        <field name="packaging_recipe_id" ref="legacy_mrp_master_data.pack_recipe_puffs_case_30_x_60g"/>
+        <field name="default_packaging_operation_id" ref="legacy_mrp_master_data.op_puffs_case_30_x_60g_packaging"/>
+        <field name="default_packaging_workcenter_id" ref="legacy_mrp_master_data.wc_puf_01"/>
     </record>
 
     </data>
