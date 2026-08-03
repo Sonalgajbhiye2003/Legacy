@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_product_variant_form_packaging" model="ir.ui.view">
+        <field name="name">product.product.form.packaging</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_packaging_recipes" type="object" class="oe_stat_button"
+                        icon="fa-archive" groups="mrp_multi_output_packaging.group_multi_output_user">
+                    <field name="packaging_recipe_count" widget="statinfo" string="Packaging Recipes"/>
+                </button>
+            </xpath>
+            <xpath expr="//field[@name='default_code']" position="after">
+                <field name="packaging_enabled"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Packaging" name="multi_output_packaging" invisible="not packaging_enabled">
+                    <group>
+                        <group>
+                            <field name="net_content_qty" required="packaging_enabled"/>
+                            <field name="net_content_uom_id" required="packaging_enabled"/>
+                            <field name="bulk_equivalent_product_id" required="packaging_enabled"/>
+                            <field name="packaging_recipe_id"/>
+                        </group>
+                        <group>
+                            <field name="default_packaging_operation_id" groups="mrp.group_mrp_routings"/>
+                            <field name="default_packaging_workcenter_id" groups="mrp.group_mrp_routings"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

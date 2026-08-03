@@ -1,0 +1,719 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+    <record id="prod_baking_powder" model="product.product">
+        <field name="name">Baking Powder</field>
+        <field name="default_code">RM-BAKING-POWDER</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_raw_materials"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="True"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('purchase_stock.route_warehouse0_buy'))]"/>
+    </record>
+
+    <record id="prod_beef_soya_spice" model="product.product">
+        <field name="name">Beef Soya Spice</field>
+        <field name="default_code">RM-BEEF-SOYA-SPICE</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_raw_materials"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="True"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('purchase_stock.route_warehouse0_buy'))]"/>
+    </record>
+
+    <record id="prod_brea_fast_meal" model="product.product">
+        <field name="name">Brea Fast Meal</field>
+        <field name="default_code">RM-BREA-FAST-MEAL</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_raw_materials"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="True"/>
+        <field name="active" eval="False"/>
+        <field name="route_ids" eval="[(4, ref('purchase_stock.route_warehouse0_buy'))]"/>
+    </record>
+
+    <record id="prod_breakfast_meal" model="product.product">
+        <field name="name">Breakfast Meal</field>
+        <field name="default_code">RM-BREAKFAST-MEAL</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_raw_materials"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="True"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('purchase_stock.route_warehouse0_buy'))]"/>
+    </record>
+
+    <record id="prod_bulk_instant_porridge" model="product.product">
+        <field name="name">Bulk Instant Porridge</field>
+        <field name="default_code">WIP-BULK-INSTANT-PORRIDGE</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_work_in_progress"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="False"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('mrp.route_warehouse0_manufacture'))]"/>
+    </record>
+
+    <record id="prod_bulk_tsp" model="product.product">
+        <field name="name">Bulk TSP</field>
+        <field name="default_code">WIP-BULK-TSP</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_work_in_progress"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="False"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('mrp.route_warehouse0_manufacture'))]"/>
+    </record>
+
+    <record id="prod_bulk_thobwa" model="product.product">
+        <field name="name">Bulk Thobwa</field>
+        <field name="default_code">WIP-BULK-THOBWA</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_work_in_progress"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="False"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('mrp.route_warehouse0_manufacture'))]"/>
+    </record>
+
+    <record id="prod_calcium_carbonate" model="product.product">
+        <field name="name">Calcium Carbonate</field>
+        <field name="default_code">RM-CALCIUM-CARBONATE</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_raw_materials"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="True"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('purchase_stock.route_warehouse0_buy'))]"/>
+    </record>
+
+    <record id="prod_cheese_spice" model="product.product">
+        <field name="name">Cheese Spice</field>
+        <field name="default_code">RM-CHEESE-SPICE</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_raw_materials"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="True"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('purchase_stock.route_warehouse0_buy'))]"/>
+    </record>
+
+    <record id="prod_cooking_oil" model="product.product">
+        <field name="name">Cooking Oil</field>
+        <field name="default_code">RM-COOKING-OIL</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_raw_materials"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="True"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('purchase_stock.route_warehouse0_buy'))]"/>
+    </record>
+
+    <record id="prod_corn_puffs" model="product.product">
+        <field name="name">Corn Puffs</field>
+        <field name="default_code">WIP-CORN-PUFFS</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_work_in_progress"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="False"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('mrp.route_warehouse0_manufacture'))]"/>
+    </record>
+
+    <record id="prod_crude_oil" model="product.product">
+        <field name="name">Crude Oil</field>
+        <field name="default_code">BYP-CRUDE-OIL</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_by_products"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="True"/>
+        <field name="purchase_ok" eval="False"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('mrp.route_warehouse0_manufacture'))]"/>
+    </record>
+
+    <record id="prod_full_fat_meal" model="product.product">
+        <field name="name">Full Fat Meal</field>
+        <field name="default_code">WIP-FULL-FAT-MEAL</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_work_in_progress"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="False"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('mrp.route_warehouse0_manufacture'))]"/>
+    </record>
+
+    <record id="prod_full_fat_porridge" model="product.product">
+        <field name="name">Full Fat Porridge</field>
+        <field name="default_code">WIP-FULL-FAT-PORRIDGE</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_work_in_progress"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="False"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('mrp.route_warehouse0_manufacture'))]"/>
+    </record>
+
+    <record id="prod_inner_liner_10kg" model="product.product">
+        <field name="name">Inner Liner - 10kg</field>
+        <field name="default_code">PKG-INNER-LINER-10KG</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_packaging_materials"/>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="True"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('purchase_stock.route_warehouse0_buy'))]"/>
+    </record>
+
+    <record id="prod_inner_packaging_700g" model="product.product">
+        <field name="name">Inner Packaging - 700g</field>
+        <field name="default_code">PKG-INNER-PACKAGING-700G</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_packaging_materials"/>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="True"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('purchase_stock.route_warehouse0_buy'))]"/>
+    </record>
+
+    <record id="prod_inner_packaging_zed_crunch" model="product.product">
+        <field name="name">Inner Packaging - Zed Crunch</field>
+        <field name="default_code">PKG-INNER-PACKAGING-ZED-CRUNCH</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_packaging_materials"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="True"/>
+        <field name="active" eval="False"/>
+        <field name="route_ids" eval="[(4, ref('purchase_stock.route_warehouse0_buy'))]"/>
+    </record>
+
+    <record id="prod_low_fat_cake" model="product.product">
+        <field name="name">Low - Fat Cake</field>
+        <field name="default_code">BYP-LOW-FAT-CAKE</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_by_products"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="True"/>
+        <field name="purchase_ok" eval="False"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('mrp.route_warehouse0_manufacture'))]"/>
+    </record>
+
+    <record id="prod_low_fat" model="product.product">
+        <field name="name">Low Fat</field>
+        <field name="default_code">WIP-LOW-FAT</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_work_in_progress"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="False"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('mrp.route_warehouse0_manufacture'))]"/>
+    </record>
+
+    <record id="prod_byp_low_fat" model="product.product">
+        <field name="name">Low Fat</field>
+        <field name="default_code">BYP-LOW-FAT</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_by_products"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="True"/>
+        <field name="purchase_ok" eval="False"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('mrp.route_warehouse0_manufacture'))]"/>
+    </record>
+
+    <record id="prod_maize" model="product.product">
+        <field name="name">Maize</field>
+        <field name="default_code">RM-MAIZE</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_raw_materials"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="True"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('purchase_stock.route_warehouse0_buy'))]"/>
+    </record>
+
+    <record id="prod_maize_meal" model="product.product">
+        <field name="name">Maize Meal</field>
+        <field name="default_code">WIP-MAIZE-MEAL</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_work_in_progress"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="False"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('mrp.route_warehouse0_manufacture'))]"/>
+    </record>
+
+    <record id="prod_outer_bags_90g" model="product.product">
+        <field name="name">Outer Bags - 90g</field>
+        <field name="default_code">PKG-OUTER-BAGS-90G</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_packaging_materials"/>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="True"/>
+        <field name="active" eval="False"/>
+        <field name="route_ids" eval="[(4, ref('purchase_stock.route_warehouse0_buy'))]"/>
+    </record>
+
+    <record id="prod_outer_packaging" model="product.product">
+        <field name="name">Outer Packaging</field>
+        <field name="default_code">PKG-OUTER-PACKAGING</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_packaging_materials"/>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="True"/>
+        <field name="active" eval="False"/>
+        <field name="route_ids" eval="[(4, ref('purchase_stock.route_warehouse0_buy'))]"/>
+    </record>
+
+    <record id="prod_pkg_outer_packaging_700g" model="product.product">
+        <field name="name">Outer Packaging - 700g (kg review)</field>
+        <field name="default_code">PKG-OUTER-PACKAGING-700G-KG-REVIEW</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_packaging_materials"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="True"/>
+        <field name="active" eval="False"/>
+        <field name="route_ids" eval="[(4, ref('purchase_stock.route_warehouse0_buy'))]"/>
+    </record>
+
+    <record id="prod_plain_sachet_500g" model="product.product">
+        <field name="name">Plain Sachet - 500g</field>
+        <field name="default_code">PKG-PLAIN-SACHET-500G</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_packaging_materials"/>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="True"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('purchase_stock.route_warehouse0_buy'))]"/>
+    </record>
+
+    <record id="prod_plastic_packaging_3kg" model="product.product">
+        <field name="name">Plastic Packaging - 3kg</field>
+        <field name="default_code">PKG-PLASTIC-PACKAGING-3KG</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_packaging_materials"/>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="True"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('purchase_stock.route_warehouse0_buy'))]"/>
+    </record>
+
+    <record id="prod_porridge_carton_500g" model="product.product">
+        <field name="name">Porridge Carton - 500g</field>
+        <field name="default_code">PKG-PORRIDGE-CARTON-500G</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_packaging_materials"/>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="True"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('purchase_stock.route_warehouse0_buy'))]"/>
+    </record>
+
+    <record id="prod_porridge_puffs" model="product.product">
+        <field name="name">Porridge Puffs</field>
+        <field name="default_code">WIP-PORRIDGE-PUFFS</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_work_in_progress"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="False"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('mrp.route_warehouse0_manufacture'))]"/>
+    </record>
+
+    <record id="prod_roller_meal" model="product.product">
+        <field name="name">Roller Meal</field>
+        <field name="default_code">RM-ROLLER-MEAL</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_raw_materials"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="True"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('purchase_stock.route_warehouse0_buy'))]"/>
+    </record>
+
+    <record id="prod_salt" model="product.product">
+        <field name="name">Salt</field>
+        <field name="default_code">RM-SALT</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_raw_materials"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="True"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('purchase_stock.route_warehouse0_buy'))]"/>
+    </record>
+
+    <record id="prod_sludge" model="product.product">
+        <field name="name">Sludge</field>
+        <field name="default_code">BYP-SLUDGE</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_by_products"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="True"/>
+        <field name="purchase_ok" eval="False"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('mrp.route_warehouse0_manufacture'))]"/>
+    </record>
+
+    <record id="prod_soya_beans" model="product.product">
+        <field name="name">Soya Beans</field>
+        <field name="default_code">RM-SOYA-BEANS</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_raw_materials"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="True"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('purchase_stock.route_warehouse0_buy'))]"/>
+    </record>
+
+    <record id="prod_soya_beef_spice_rolls" model="product.product">
+        <field name="name">Soya Beef Spice Rolls</field>
+        <field name="default_code">PKG-SOYA-BEEF-SPICE-ROLLS</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_packaging_materials"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="True"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('purchase_stock.route_warehouse0_buy'))]"/>
+    </record>
+
+    <record id="prod_sticker" model="product.product">
+        <field name="name">Sticker</field>
+        <field name="default_code">PKG-STICKER</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_packaging_materials"/>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="True"/>
+        <field name="active" eval="False"/>
+        <field name="route_ids" eval="[(4, ref('purchase_stock.route_warehouse0_buy'))]"/>
+    </record>
+
+    <record id="prod_sugar" model="product.product">
+        <field name="name">Sugar</field>
+        <field name="default_code">RM-SUGAR</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_raw_materials"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="True"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('purchase_stock.route_warehouse0_buy'))]"/>
+    </record>
+
+    <record id="prod_sunset_yellow" model="product.product">
+        <field name="name">Sunset Yellow</field>
+        <field name="default_code">RM-SUNSET-YELLOW</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_raw_materials"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="True"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('purchase_stock.route_warehouse0_buy'))]"/>
+    </record>
+
+    <record id="prod_sweetener" model="product.product">
+        <field name="name">Sweetener</field>
+        <field name="default_code">RM-SWEETENER</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_raw_materials"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="True"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('purchase_stock.route_warehouse0_buy'))]"/>
+    </record>
+
+    <record id="prod_tsp_cake" model="product.product">
+        <field name="name">TSP Cake</field>
+        <field name="default_code">WIP-TSP-CAKE</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_work_in_progress"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="False"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('mrp.route_warehouse0_manufacture'))]"/>
+    </record>
+
+    <record id="prod_tsp_meal" model="product.product">
+        <field name="name">TSP Meal</field>
+        <field name="default_code">WIP-TSP-MEAL</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_work_in_progress"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="False"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('mrp.route_warehouse0_manufacture'))]"/>
+    </record>
+
+    <record id="prod_tsp_rolls_90g" model="product.product">
+        <field name="name">TSP Rolls - 90g</field>
+        <field name="default_code">PKG-TSP-ROLLS-90G</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_packaging_materials"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="True"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('purchase_stock.route_warehouse0_buy'))]"/>
+    </record>
+
+    <record id="prod_thobwa_meal" model="product.product">
+        <field name="name">Thobwa Meal</field>
+        <field name="default_code">WIP-THOBWA-MEAL</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_work_in_progress"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="False"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('mrp.route_warehouse0_manufacture'))]"/>
+    </record>
+
+    <record id="prod_thobwa_puffs" model="product.product">
+        <field name="name">Thobwa Puffs</field>
+        <field name="default_code">WIP-THOBWA-PUFFS</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_work_in_progress"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="False"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('mrp.route_warehouse0_manufacture'))]"/>
+    </record>
+
+    <record id="prod_thobwa_rolls_50g" model="product.product">
+        <field name="name">Thobwa Rolls - 50g</field>
+        <field name="default_code">PKG-THOBWA-ROLLS-50G</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_packaging_materials"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="True"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('purchase_stock.route_warehouse0_buy'))]"/>
+    </record>
+
+    <record id="prod_thobwa_woven_bag" model="product.product">
+        <field name="name">Thobwa Woven Bag</field>
+        <field name="default_code">PKG-THOBWA-WOVEN-BAG</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_packaging_materials"/>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="True"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('purchase_stock.route_warehouse0_buy'))]"/>
+    </record>
+
+    <record id="prod_tomato_flavour" model="product.product">
+        <field name="name">Tomato Flavour</field>
+        <field name="default_code">RM-TOMATO-FLAVOUR</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_raw_materials"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="True"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('purchase_stock.route_warehouse0_buy'))]"/>
+    </record>
+
+    <record id="prod_unprocessed_granules" model="product.product">
+        <field name="name">Unprocessed Granules</field>
+        <field name="default_code">BYP-UNPROCESSED-GRANULES</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_by_products"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="True"/>
+        <field name="purchase_ok" eval="False"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('mrp.route_warehouse0_manufacture'))]"/>
+    </record>
+
+    <record id="prod_work_in_progress_tsp" model="product.product">
+        <field name="name">Work in Progress - TSP</field>
+        <field name="default_code">WIP-WORK-IN-PROGRESS-TSP</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_work_in_progress"/>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="False"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('mrp.route_warehouse0_manufacture'))]"/>
+    </record>
+
+    <record id="prod_zambia_sugar_baler" model="product.product">
+        <field name="name">Zambia Sugar Baler</field>
+        <field name="default_code">PKG-ZAMBIA-SUGAR-BALER</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_packaging_materials"/>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="True"/>
+        <field name="active" eval="False"/>
+        <field name="route_ids" eval="[(4, ref('purchase_stock.route_warehouse0_buy'))]"/>
+    </record>
+
+    <record id="prod_zed_crunchy_corn_sticks_inner_packaging" model="product.product">
+        <field name="name">Zed Crunchy Corn Sticks Inner Packaging</field>
+        <field name="default_code">PKG-ZED-CRUNCHY-CORN-STICKS-INNER-PACKAGING</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_packaging_materials"/>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="True"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('purchase_stock.route_warehouse0_buy'))]"/>
+    </record>
+
+    <record id="prod_corn_sticks" model="product.product">
+        <field name="name">Corn Sticks</field>
+        <field name="default_code">FG-CORN-STICKS</field>
+        <field name="detailed_type">product</field>
+        <field name="categ_id" ref="legacy_mrp_master_data.cat_finished_goods"/>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="sale_ok" eval="True"/>
+        <field name="purchase_ok" eval="False"/>
+        <field name="active" eval="True"/>
+        <field name="route_ids" eval="[(4, ref('mrp.route_warehouse0_manufacture'))]"/>
+    </record>
+
+    </data>
+</odoo>

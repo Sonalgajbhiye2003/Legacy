@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+    <record id="bom_line_instant_porridge_box_20_x_500g_maize_5" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_porridge_box_20_x_500g"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_maize"/>
+        <field name="product_qty" eval="6.471910112359551"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_box_20_x_500g_maize_cleaning"/>
+        <field name="sequence" eval="10"/>
+    </record>
+
+    <record id="bom_line_instant_porridge_box_20_x_500g_soya_beans_6" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_porridge_box_20_x_500g"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_soya_beans"/>
+        <field name="product_qty" eval="2.51685393258427"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_box_20_x_500g_soya_bean_cleaning"/>
+        <field name="sequence" eval="20"/>
+    </record>
+
+    <record id="bom_line_instant_porridge_box_20_x_500g_sugar_7" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_porridge_box_20_x_500g"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_sugar"/>
+        <field name="product_qty" eval="0.9363295880149813"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_box_20_x_500g_salt_and_sugar_mixing"/>
+        <field name="sequence" eval="30"/>
+    </record>
+
+    <record id="bom_line_instant_porridge_box_20_x_500g_salt_8" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_porridge_box_20_x_500g"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_salt"/>
+        <field name="product_qty" eval="0.06516853932584268"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_box_20_x_500g_salt_and_sugar_mixing"/>
+        <field name="sequence" eval="40"/>
+    </record>
+
+    <record id="bom_line_instant_porridge_box_20_x_500g_sweetener_9" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_porridge_box_20_x_500g"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_sweetener"/>
+        <field name="product_qty" eval="0.0026217228464419477"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_box_20_x_500g_salt_and_sugar_mixing"/>
+        <field name="sequence" eval="50"/>
+    </record>
+
+    <record id="bom_line_instant_porridge_box_10_x_1kg_maize_5" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_porridge_box_10_x_1kg"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_maize"/>
+        <field name="product_qty" eval="6.471910112359551"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_box_10_x_1kg_maize_cleaning"/>
+        <field name="sequence" eval="10"/>
+    </record>
+
+    <record id="bom_line_instant_porridge_box_10_x_1kg_soya_beans_6" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_porridge_box_10_x_1kg"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_soya_beans"/>
+        <field name="product_qty" eval="2.51685393258427"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_box_10_x_1kg_soya_bean_cleaning"/>
+        <field name="sequence" eval="20"/>
+    </record>
+
+    <record id="bom_line_instant_porridge_box_10_x_1kg_sugar_7" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_porridge_box_10_x_1kg"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_sugar"/>
+        <field name="product_qty" eval="0.9363295880149813"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_box_10_x_1kg_salt_and_sugar_mixing"/>
+        <field name="sequence" eval="30"/>
+    </record>
+
+    <record id="bom_line_instant_porridge_box_10_x_1kg_salt_8" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_porridge_box_10_x_1kg"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_salt"/>
+        <field name="product_qty" eval="0.06516853932584268"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_box_10_x_1kg_salt_and_sugar_mixing"/>
+        <field name="sequence" eval="40"/>
+    </record>
+
+    <record id="bom_line_instant_porridge_box_10_x_1kg_sweetener_9" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_porridge_box_10_x_1kg"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_sweetener"/>
+        <field name="product_qty" eval="0.0026217228464419477"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_box_10_x_1kg_salt_and_sugar_mixing"/>
+        <field name="sequence" eval="50"/>
+    </record>
+
+    <record id="bom_line_instant_porridge_10kg_bag_maize_5" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_porridge_10kg_bag"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_maize"/>
+        <field name="product_qty" eval="6.471910112359551"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_10kg_bag_maize_cleaning"/>
+        <field name="sequence" eval="10"/>
+    </record>
+
+    <record id="bom_line_instant_porridge_10kg_bag_soya_beans_6" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_porridge_10kg_bag"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_soya_beans"/>
+        <field name="product_qty" eval="2.51685393258427"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_10kg_bag_soya_bean_cleaning"/>
+        <field name="sequence" eval="20"/>
+    </record>
+
+    <record id="bom_line_instant_porridge_10kg_bag_sugar_7" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_porridge_10kg_bag"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_sugar"/>
+        <field name="product_qty" eval="0.9363295880149813"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_10kg_bag_salt_and_sugar_mixing"/>
+        <field name="sequence" eval="30"/>
+    </record>
+
+    <record id="bom_line_instant_porridge_10kg_bag_salt_8" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_porridge_10kg_bag"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_salt"/>
+        <field name="product_qty" eval="0.06516853932584268"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_10kg_bag_salt_and_sugar_mixing"/>
+        <field name="sequence" eval="40"/>
+    </record>
+
+    <record id="bom_line_instant_porridge_10kg_bag_sweetener_9" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_porridge_10kg_bag"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_sweetener"/>
+        <field name="product_qty" eval="0.0026217228464419477"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_10kg_bag_salt_and_sugar_mixing"/>
+        <field name="sequence" eval="50"/>
+    </record>
+
+    <record id="bom_line_instant_porridge_50kg_bag_maize_5" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_porridge_50kg_bag"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_maize"/>
+        <field name="product_qty" eval="32.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_50kg_bag_maize_cleaning"/>
+        <field name="sequence" eval="10"/>
+    </record>
+
+    <record id="bom_line_instant_porridge_50kg_bag_soya_beans_6" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_porridge_50kg_bag"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_soya_beans"/>
+        <field name="product_qty" eval="12.44"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_50kg_bag_soya_bean_cleaning"/>
+        <field name="sequence" eval="20"/>
+    </record>
+
+    <record id="bom_line_instant_porridge_50kg_bag_sugar_7" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_porridge_50kg_bag"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_sugar"/>
+        <field name="product_qty" eval="4.63"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_50kg_bag_salt_and_sugar_mixing"/>
+        <field name="sequence" eval="30"/>
+    </record>
+
+    <record id="bom_line_instant_porridge_50kg_bag_salt_8" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_porridge_50kg_bag"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_salt"/>
+        <field name="product_qty" eval="0.32"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_50kg_bag_salt_and_sugar_mixing"/>
+        <field name="sequence" eval="40"/>
+    </record>
+
+    <record id="bom_line_instant_porridge_50kg_bag_sweetener_9" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_porridge_50kg_bag"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_sweetener"/>
+        <field name="product_qty" eval="0.01"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_50kg_bag_salt_and_sugar_mixing"/>
+        <field name="sequence" eval="50"/>
+    </record>
+
+    <record id="bom_line_instant_porridge_box_8_x_500g_maize_5" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_porridge_box_8_x_500g"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_maize"/>
+        <field name="product_qty" eval="6.471910112359551"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_box_8_x_500g_maize_cleaning"/>
+        <field name="sequence" eval="10"/>
+    </record>
+
+    <record id="bom_line_instant_porridge_box_8_x_500g_soya_beans_6" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_porridge_box_8_x_500g"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_soya_beans"/>
+        <field name="product_qty" eval="2.51685393258427"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_box_8_x_500g_soya_bean_cleaning"/>
+        <field name="sequence" eval="20"/>
+    </record>
+
+    <record id="bom_line_instant_porridge_box_8_x_500g_sugar_7" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_porridge_box_8_x_500g"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_sugar"/>
+        <field name="product_qty" eval="0.9363295880149813"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_box_8_x_500g_salt_and_sugar_mixing"/>
+        <field name="sequence" eval="30"/>
+    </record>
+
+    <record id="bom_line_instant_porridge_box_8_x_500g_salt_8" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_porridge_box_8_x_500g"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_salt"/>
+        <field name="product_qty" eval="0.06516853932584268"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_box_8_x_500g_salt_and_sugar_mixing"/>
+        <field name="sequence" eval="40"/>
+    </record>
+
+    <record id="bom_line_instant_porridge_box_8_x_500g_sweetener_9" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_porridge_box_8_x_500g"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_sweetener"/>
+        <field name="product_qty" eval="0.0026217228464419477"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_box_8_x_500g_salt_and_sugar_mixing"/>
+        <field name="sequence" eval="50"/>
+    </record>
+
+    <record id="bom_line_instant_thobwa_case_50_x_50g_maize_5" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_thobwa_case_50_x_50g"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_maize"/>
+        <field name="product_qty" eval="1.9636363636363638"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_thobwa_case_50_x_50g_maize_cleaning"/>
+        <field name="sequence" eval="10"/>
+    </record>
+
+    <record id="bom_line_instant_thobwa_case_50_x_50g_soya_beans_6" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_thobwa_case_50_x_50g"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_soya_beans"/>
+        <field name="product_qty" eval="0.19090909090909092"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_thobwa_case_50_x_50g_soya_bean_cleaning"/>
+        <field name="sequence" eval="20"/>
+    </record>
+
+    <record id="bom_line_instant_thobwa_case_50_x_50g_sugar_7" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_thobwa_case_50_x_50g"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_sugar"/>
+        <field name="product_qty" eval="0.3409090909090909"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_thobwa_case_50_x_50g_ingredient_mixing"/>
+        <field name="sequence" eval="30"/>
+    </record>
+
+    <record id="bom_line_instant_thobwa_case_50_x_50g_salt_8" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_thobwa_case_50_x_50g"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_salt"/>
+        <field name="product_qty" eval="0.025"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_thobwa_case_50_x_50g_ingredient_mixing"/>
+        <field name="sequence" eval="40"/>
+    </record>
+
+    <record id="bom_line_instant_thobwa_case_50_x_50g_sweetener_9" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_thobwa_case_50_x_50g"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_sweetener"/>
+        <field name="product_qty" eval="0.001931818181818182"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_thobwa_case_50_x_50g_ingredient_mixing"/>
+        <field name="sequence" eval="50"/>
+    </record>
+
+    <record id="bom_line_instant_thobwa_25kg_bag_maize_5" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_thobwa_25kg_bag"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_maize"/>
+        <field name="product_qty" eval="19.636363636363637"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_thobwa_25kg_bag_maize_cleaning"/>
+        <field name="sequence" eval="10"/>
+    </record>
+
+    <record id="bom_line_instant_thobwa_25kg_bag_soya_beans_6" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_thobwa_25kg_bag"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_soya_beans"/>
+        <field name="product_qty" eval="1.9090909090909092"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_thobwa_25kg_bag_soya_bean_cleaning"/>
+        <field name="sequence" eval="20"/>
+    </record>
+
+    <record id="bom_line_instant_thobwa_25kg_bag_sugar_7" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_thobwa_25kg_bag"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_sugar"/>
+        <field name="product_qty" eval="3.409090909090909"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_thobwa_25kg_bag_ingredient_mixing"/>
+        <field name="sequence" eval="30"/>
+    </record>
+
+    <record id="bom_line_instant_thobwa_25kg_bag_salt_8" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_thobwa_25kg_bag"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_salt"/>
+        <field name="product_qty" eval="0.25"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_thobwa_25kg_bag_ingredient_mixing"/>
+        <field name="sequence" eval="40"/>
+    </record>
+
+    <record id="bom_line_instant_thobwa_25kg_bag_sweetener_9" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_thobwa_25kg_bag"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_sweetener"/>
+        <field name="product_qty" eval="0.01931818181818182"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_thobwa_25kg_bag_ingredient_mixing"/>
+        <field name="sequence" eval="50"/>
+    </record>
+
+    <record id="bom_line_tsp_case_20_x_90g_soya_beans_5" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_tsp_case_20_x_90g"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_soya_beans"/>
+        <field name="product_qty" eval="1.7999999999999998"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_case_20_x_90g_soya_bean_cleaning"/>
+        <field name="sequence" eval="10"/>
+    </record>
+
+    <record id="bom_line_tsp_case_20_x_90g_beef_soya_spice_6" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_tsp_case_20_x_90g"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_beef_soya_spice"/>
+        <field name="product_qty" eval="0.16"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_case_20_x_90g_second_extrusion"/>
+        <field name="sequence" eval="20"/>
+    </record>
+
+    <record id="bom_line_tsp_case_10_x_700g_soya_beans_5" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_tsp_case_10_x_700g"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_soya_beans"/>
+        <field name="product_qty" eval="7.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_case_10_x_700g_soya_bean_cleaning"/>
+        <field name="sequence" eval="10"/>
+    </record>
+
+    <record id="bom_line_tsp_case_5_x_700g_soya_beans_5" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_tsp_case_5_x_700g"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_soya_beans"/>
+        <field name="product_qty" eval="7.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_case_5_x_700g_soya_bean_cleaning"/>
+        <field name="sequence" eval="10"/>
+    </record>
+
+    <record id="bom_line_tsp_3kg_bag_soya_beans_5" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_tsp_3kg_bag"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_soya_beans"/>
+        <field name="product_qty" eval="3.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_3kg_bag_soya_bean_cleaning"/>
+        <field name="sequence" eval="10"/>
+    </record>
+
+    <record id="bom_line_tsp_3kg_woven_bag_soya_beans_5" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_tsp_3kg_woven_bag"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_soya_beans"/>
+        <field name="product_qty" eval="3.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_3kg_woven_bag_soya_bean_cleaning"/>
+        <field name="sequence" eval="10"/>
+    </record>
+
+    <record id="bom_line_tsp_8kg_woven_bag_soya_beans_5" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_tsp_8kg_woven_bag"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_soya_beans"/>
+        <field name="product_qty" eval="8.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_8kg_woven_bag_soya_bean_cleaning"/>
+        <field name="sequence" eval="10"/>
+    </record>
+
+    <record id="bom_line_puffs_case_50_x_16g_breakfast_meal_5" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_puffs_case_50_x_16g"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_breakfast_meal"/>
+        <field name="product_qty" eval="0.7246376811594203"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_case_50_x_16g_ingredient_mixing"/>
+        <field name="sequence" eval="10"/>
+    </record>
+
+    <record id="bom_line_puffs_case_50_x_16g_sunset_yellow_6" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_puffs_case_50_x_16g"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_sunset_yellow"/>
+        <field name="product_qty" eval="0.0014492753623188408"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_case_50_x_16g_ingredient_mixing"/>
+        <field name="sequence" eval="20"/>
+    </record>
+
+    <record id="bom_line_puffs_case_50_x_16g_salt_7" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_puffs_case_50_x_16g"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_salt"/>
+        <field name="product_qty" eval="0.00481159420289855"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_case_50_x_16g_ingredient_mixing"/>
+        <field name="sequence" eval="30"/>
+    </record>
+
+    <record id="bom_line_puffs_case_50_x_16g_calcium_carbonate_8" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_puffs_case_50_x_16g"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_calcium_carbonate"/>
+        <field name="product_qty" eval="0.0007246376811594204"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_case_50_x_16g_ingredient_mixing"/>
+        <field name="sequence" eval="40"/>
+    </record>
+
+    <record id="bom_line_puffs_case_50_x_16g_baking_powder_9" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_puffs_case_50_x_16g"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_baking_powder"/>
+        <field name="product_qty" eval="0.0014492753623188408"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_case_50_x_16g_ingredient_mixing"/>
+        <field name="sequence" eval="50"/>
+    </record>
+
+    <record id="bom_line_puffs_case_50_x_16g_cooking_oil_10" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_puffs_case_50_x_16g"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_cooking_oil"/>
+        <field name="product_qty" eval="0.052173913043478265"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_case_50_x_16g_ingredient_mixing"/>
+        <field name="sequence" eval="60"/>
+    </record>
+
+    <record id="bom_line_puffs_case_50_x_16g_cheese_spice_11" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_puffs_case_50_x_16g"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_cheese_spice"/>
+        <field name="product_qty" eval="0.016231884057971015"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_case_50_x_16g_seasoning"/>
+        <field name="sequence" eval="70"/>
+    </record>
+
+    <record id="bom_line_zed_crunch_puffs_case_6_x_22_breakfast_meal_5" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_zed_crunch_puffs_case_6_x_22"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_breakfast_meal"/>
+        <field name="product_qty" eval="1.0392857142857141"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_zed_crunch_puffs_case_6_x_22_ingredient_mixing"/>
+        <field name="sequence" eval="10"/>
+    </record>
+
+    <record id="bom_line_zed_crunch_puffs_case_6_x_22_sunset_yellow_6" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_zed_crunch_puffs_case_6_x_22"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_sunset_yellow"/>
+        <field name="product_qty" eval="0.0020785714285714288"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_zed_crunch_puffs_case_6_x_22_ingredient_mixing"/>
+        <field name="sequence" eval="20"/>
+    </record>
+
+    <record id="bom_line_zed_crunch_puffs_case_6_x_22_salt_7" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_zed_crunch_puffs_case_6_x_22"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_salt"/>
+        <field name="product_qty" eval="0.0069008571428571435"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_zed_crunch_puffs_case_6_x_22_ingredient_mixing"/>
+        <field name="sequence" eval="30"/>
+    </record>
+
+    <record id="bom_line_zed_crunch_puffs_case_6_x_22_calcium_carbonate_8" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_zed_crunch_puffs_case_6_x_22"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_calcium_carbonate"/>
+        <field name="product_qty" eval="0.0010392857142857144"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_zed_crunch_puffs_case_6_x_22_ingredient_mixing"/>
+        <field name="sequence" eval="40"/>
+    </record>
+
+    <record id="bom_line_zed_crunch_puffs_case_6_x_22_baking_powder_9" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_zed_crunch_puffs_case_6_x_22"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_baking_powder"/>
+        <field name="product_qty" eval="0.0020785714285714288"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_zed_crunch_puffs_case_6_x_22_ingredient_mixing"/>
+        <field name="sequence" eval="50"/>
+    </record>
+
+    <record id="bom_line_zed_crunch_puffs_case_6_x_22_cooking_oil_10" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_zed_crunch_puffs_case_6_x_22"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_cooking_oil"/>
+        <field name="product_qty" eval="0.06651428571428572"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_zed_crunch_puffs_case_6_x_22_ingredient_mixing"/>
+        <field name="sequence" eval="60"/>
+    </record>
+
+    <record id="bom_line_zed_crunch_puffs_case_6_x_22_tomato_flavour_11" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_zed_crunch_puffs_case_6_x_22"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_tomato_flavour"/>
+        <field name="product_qty" eval="0.05529"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_zed_crunch_puffs_case_6_x_22_seasoning"/>
+        <field name="sequence" eval="70"/>
+    </record>
+
+    <record id="bom_line_puffs_case_30_x_60g_brea_fast_meal_5" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_puffs_case_30_x_60g"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_brea_fast_meal"/>
+        <field name="product_qty" eval="1.6304347826086956"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_case_30_x_60g_ingredient_mixing"/>
+        <field name="sequence" eval="10"/>
+    </record>
+
+    <record id="bom_line_puffs_case_30_x_60g_sunset_yellow_6" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_puffs_case_30_x_60g"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_sunset_yellow"/>
+        <field name="product_qty" eval="0.0016956521739130434"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_case_30_x_60g_ingredient_mixing"/>
+        <field name="sequence" eval="20"/>
+    </record>
+
+    <record id="bom_line_puffs_case_30_x_60g_salt_7" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_puffs_case_30_x_60g"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_salt"/>
+        <field name="product_qty" eval="0.010826086956521739"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_case_30_x_60g_ingredient_mixing"/>
+        <field name="sequence" eval="30"/>
+    </record>
+
+    <record id="bom_line_puffs_case_30_x_60g_calcium_carbonate_8" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_puffs_case_30_x_60g"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_calcium_carbonate"/>
+        <field name="product_qty" eval="0.0016304347826086958"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_case_30_x_60g_ingredient_mixing"/>
+        <field name="sequence" eval="40"/>
+    </record>
+
+    <record id="bom_line_puffs_case_30_x_60g_baking_powder_9" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_puffs_case_30_x_60g"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_baking_powder"/>
+        <field name="product_qty" eval="0.0032608695652173916"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_case_30_x_60g_ingredient_mixing"/>
+        <field name="sequence" eval="50"/>
+    </record>
+
+    <record id="bom_line_puffs_case_30_x_60g_cooking_oil_10" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_puffs_case_30_x_60g"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_cooking_oil"/>
+        <field name="product_qty" eval="0.11739130434782609"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_case_30_x_60g_ingredient_mixing"/>
+        <field name="sequence" eval="60"/>
+    </record>
+
+    <record id="bom_line_puffs_case_30_x_60g_cheese_spice_11" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_puffs_case_30_x_60g"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_cheese_spice"/>
+        <field name="product_qty" eval="0.03652173913043479"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_case_30_x_60g_seasoning"/>
+        <field name="sequence" eval="70"/>
+    </record>
+
+    </data>
+</odoo>

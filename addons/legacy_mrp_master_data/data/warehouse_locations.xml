@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+    <record id="warehouse_legacy_main" model="stock.warehouse">
+        <field name="name">Legacy Main Warehouse</field>
+        <field name="code">LMWH</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="reception_steps">one_step</field>
+        <field name="delivery_steps">ship_only</field>
+        <field name="manufacture_steps">mrp_one_step</field>
+    </record>
+
+    </data>
+</odoo>

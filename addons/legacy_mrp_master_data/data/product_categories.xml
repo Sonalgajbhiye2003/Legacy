@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+    <record id="cat_raw_materials" model="product.category">
+        <field name="name">Raw Materials</field>
+    </record>
+
+    <record id="cat_packaging_materials" model="product.category">
+        <field name="name">Packaging Materials</field>
+    </record>
+
+    <record id="cat_work_in_progress" model="product.category">
+        <field name="name">Work in Progress</field>
+    </record>
+
+    <record id="cat_by_products" model="product.category">
+        <field name="name">By-products</field>
+    </record>
+
+    <record id="cat_finished_goods" model="product.category">
+        <field name="name">Finished Goods</field>
+    </record>
+
+    </data>
+</odoo>

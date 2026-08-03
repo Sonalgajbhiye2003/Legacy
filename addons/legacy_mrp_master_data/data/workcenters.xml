@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+    <record id="wc_tsp_01" model="mrp.workcenter">
+        <field name="name">WC-TSP-01 TSP Production Line</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="time_efficiency" eval="100.0"/>
+        <field name="default_capacity" eval="1.0"/>
+        <field name="time_start" eval="0.0"/>
+        <field name="time_stop" eval="0.0"/>
+        <field name="costs_hour" eval="0.0"/>
+    </record>
+
+    <record id="wc_tho_01" model="mrp.workcenter">
+        <field name="name">WC-THO-01 Instant Thobwa Production Line</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="time_efficiency" eval="100.0"/>
+        <field name="default_capacity" eval="1.0"/>
+        <field name="time_start" eval="0.0"/>
+        <field name="time_stop" eval="0.0"/>
+        <field name="costs_hour" eval="0.0"/>
+    </record>
+
+    <record id="wc_por_01" model="mrp.workcenter">
+        <field name="name">WC-POR-01 Instant Porridge Production Line</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="time_efficiency" eval="100.0"/>
+        <field name="default_capacity" eval="1.0"/>
+        <field name="time_start" eval="0.0"/>
+        <field name="time_stop" eval="0.0"/>
+        <field name="costs_hour" eval="0.0"/>
+    </record>
+
+    <record id="wc_puf_01" model="mrp.workcenter">
+        <field name="name">WC-PUF-01 Corn Puffs Production Line</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="time_efficiency" eval="100.0"/>
+        <field name="default_capacity" eval="1.0"/>
+        <field name="time_start" eval="0.0"/>
+        <field name="time_stop" eval="0.0"/>
+        <field name="costs_hour" eval="0.0"/>
+    </record>
+
+    </data>
+</odoo>

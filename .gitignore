@@ -1,0 +1,20 @@
+# Python and Odoo runtime artifacts
+__pycache__/
+*.py[cod]
+*.log
+
+# Generated document QA artifacts
+manual_render/
+~$*.docx
+*.tmp.docx
+
+# Generated spreadsheet inspection artifacts
+*.inspect.ndjson
+_previews/
+_import_template_source.json
+
+# Local configuration and secrets
+.env
+*.conf
+credentials.txt
+

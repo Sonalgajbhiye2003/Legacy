@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_mrp_packaging_recipe"
+              name="Packaging Recipes"
+              parent="mrp.menu_mrp_configuration"
+              action="action_mrp_packaging_recipe"
+              sequence="45"
+              groups="mrp_multi_output_packaging.group_multi_output_user"/>
+</odoo>

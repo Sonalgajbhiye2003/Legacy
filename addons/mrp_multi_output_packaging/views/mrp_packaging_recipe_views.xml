@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_mrp_packaging_recipe_list" model="ir.ui.view">
+        <field name="name">mrp.packaging.recipe.list</field>
+        <field name="model">mrp.packaging.recipe</field>
+        <field name="arch" type="xml">
+            <tree decoration-muted="not active">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="product_id"/>
+                <field name="version"/>
+                <field name="base_qty"/>
+                <field name="base_uom_id"/>
+                <field name="valid_from"/>
+                <field name="valid_to"/>
+                <field name="company_id"/>
+                <field name="active" widget="boolean_toggle"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_mrp_packaging_recipe_form" model="ir.ui.view">
+        <field name="name">mrp.packaging.recipe.form</field>
+        <field name="model">mrp.packaging.recipe</field>
+        <field name="arch" type="xml">
+            <form string="Packaging Recipe">
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code" readonly="1"/>
+                            <field name="product_id"/>
+                            <label for="base_qty"/>
+                            <div class="o_row">
+                                <field name="base_qty"/>
+                                <field name="base_uom_id" options="{'no_create': True}"/>
+                            </div>
+                            <field name="version"/>
+                        </group>
+                        <group>
+                            <field name="company_id"/>
+                            <field name="valid_from"/>
+                            <field name="valid_to"/>
+                            <field name="active"/>
+                            <field name="operation_id" groups="mrp.group_mrp_routings"/>
+                            <field name="workcenter_id" groups="mrp.group_mrp_routings"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Packaging Materials">
+                            <field name="line_ids">
+                                <tree editable="bottom">
+                                    <field name="company_id" column_invisible="True"/>
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="packaging_product_id"/>
+                                    <field name="qty_per_base"/>
+                                    <field name="product_uom_id" options="{'no_create': True}"/>
+                                    <field name="wastage_percentage"/>
+                                    <field name="rounding_method"/>
+                                    <field name="operation_id" groups="mrp.group_mrp_routings"/>
+                                    <field name="allow_manual_adjustment"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Notes"><field name="notes"/></page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_mrp_packaging_recipe_search" model="ir.ui.view">
+        <field name="name">mrp.packaging.recipe.search</field>
+        <field name="model">mrp.packaging.recipe</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="product_id"/>
+                <filter name="active" string="Active" domain="[('active', '=', True)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="product" string="Product" context="{'group_by': 'product_id'}"/>
+                    <filter name="company" string="Company" context="{'group_by': 'company_id'}" groups="base.group_multi_company"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="action_mrp_packaging_recipe" model="ir.actions.act_window">
+        <field name="name">Packaging Recipes</field>
+        <field name="res_model">mrp.packaging.recipe</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_mrp_packaging_recipe_search"/>
+    </record>
+</odoo>

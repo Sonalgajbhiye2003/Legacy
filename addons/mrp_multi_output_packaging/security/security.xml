@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="group_multi_output_user" model="res.groups">
+        <field name="name">Multi-Output Manufacturing User</field>
+        <field name="category_id" ref="base.module_category_manufacturing"/>
+        <field name="implied_ids" eval="[(4, ref('mrp.group_mrp_user'))]"/>
+    </record>
+    <record id="group_multi_output_supervisor" model="res.groups">
+        <field name="name">Multi-Output Manufacturing Supervisor</field>
+        <field name="category_id" ref="base.module_category_manufacturing"/>
+        <field name="implied_ids" eval="[(4, ref('group_multi_output_user'))]"/>
+    </record>
+    <record id="group_packaging_recipe_manager" model="res.groups">
+        <field name="name">Packaging Recipe Manager</field>
+        <field name="category_id" ref="base.module_category_manufacturing"/>
+        <field name="implied_ids" eval="[(4, ref('group_multi_output_user'))]"/>
+    </record>
+    <record id="group_multi_output_cost_manager" model="res.groups">
+        <field name="name">Multi-Output Cost Manager</field>
+        <field name="category_id" ref="base.module_category_manufacturing"/>
+        <field name="implied_ids" eval="[(4, ref('group_multi_output_supervisor'))]"/>
+    </record>
+
+    <record id="rule_recipe_company" model="ir.rule">
+        <field name="name">Packaging recipes by allowed company</field>
+        <field name="model_id" ref="model_mrp_packaging_recipe"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        <field name="groups" eval="[(4, ref('group_multi_output_user'))]"/>
+    </record>
+    <record id="rule_recipe_line_company" model="ir.rule">
+        <field name="name">Packaging recipe lines by allowed company</field>
+        <field name="model_id" ref="model_mrp_packaging_recipe_line"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        <field name="groups" eval="[(4, ref('group_multi_output_user'))]"/>
+    </record>
+    <record id="rule_output_company" model="ir.rule">
+        <field name="name">Manufacturing outputs by allowed company</field>
+        <field name="model_id" ref="model_mrp_production_output_line"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        <field name="groups" eval="[(4, ref('group_multi_output_user'))]"/>
+    </record>
+    <record id="rule_packaging_calculation_company" model="ir.rule">
+        <field name="name">Packaging calculations by allowed company</field>
+        <field name="model_id" ref="model_mrp_production_packaging_line"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        <field name="groups" eval="[(4, ref('group_multi_output_user'))]"/>
+    </record>
+    <record id="rule_recipe_snapshot_company" model="ir.rule">
+        <field name="name">Recipe snapshots by allowed company</field>
+        <field name="model_id" ref="model_mrp_production_recipe_snapshot"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        <field name="groups" eval="[(4, ref('group_multi_output_user'))]"/>
+    </record>
+    <record id="rule_recipe_snapshot_line_company" model="ir.rule">
+        <field name="name">Recipe snapshot lines by allowed company</field>
+        <field name="model_id" ref="model_mrp_production_recipe_snapshot_line"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        <field name="groups" eval="[(4, ref('group_multi_output_user'))]"/>
+    </record>
+</odoo>

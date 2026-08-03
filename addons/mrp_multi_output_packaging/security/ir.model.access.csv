@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_recipe_user,packaging.recipe.user,model_mrp_packaging_recipe,group_multi_output_user,1,0,0,0
+access_recipe_manager,packaging.recipe.manager,model_mrp_packaging_recipe,group_packaging_recipe_manager,1,1,1,1
+access_recipe_line_user,packaging.recipe.line.user,model_mrp_packaging_recipe_line,group_multi_output_user,1,0,0,0
+access_recipe_line_manager,packaging.recipe.line.manager,model_mrp_packaging_recipe_line,group_packaging_recipe_manager,1,1,1,1
+access_output_user,production.output.user,model_mrp_production_output_line,group_multi_output_user,1,1,1,1
+access_packaging_line_user,production.packaging.line.user,model_mrp_production_packaging_line,group_multi_output_user,1,1,1,1
+access_snapshot_user,recipe.snapshot.user,model_mrp_production_recipe_snapshot,group_multi_output_user,1,0,1,0
+access_snapshot_manager,recipe.snapshot.manager,model_mrp_production_recipe_snapshot,group_multi_output_supervisor,1,1,1,1
+access_snapshot_line_user,recipe.snapshot.line.user,model_mrp_production_recipe_snapshot_line,group_multi_output_user,1,0,1,0
+access_snapshot_line_manager,recipe.snapshot.line.manager,model_mrp_production_recipe_snapshot_line,group_multi_output_supervisor,1,1,1,1

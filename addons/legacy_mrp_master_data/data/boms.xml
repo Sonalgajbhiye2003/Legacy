@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+    <record id="bom_instant_porridge_box_20_x_500g" model="mrp.bom">
+        <field name="code">LEGACY-INSTANT-PORRIDGE-BOX-20-X-500G</field>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_bulk_instant_porridge"/>
+        <field name="product_tmpl_id" model="product.product" eval="obj(ref('legacy_mrp_master_data.prod_bulk_instant_porridge')).product_tmpl_id.id"/>
+        <field name="product_qty" eval="10.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="type">normal</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="manufacturing_workflow">custom_multi_output</field>
+        <field name="custom_process_type">integrated_production_packaging</field>
+        <field name="default_packaged_product_id" ref="legacy_mrp_master_data.prod_instant_porridge_box_20_x_500g"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="bom_instant_porridge_box_10_x_1kg" model="mrp.bom">
+        <field name="code">LEGACY-INSTANT-PORRIDGE-BOX-10-X-1KG</field>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_bulk_instant_porridge"/>
+        <field name="product_tmpl_id" model="product.product" eval="obj(ref('legacy_mrp_master_data.prod_bulk_instant_porridge')).product_tmpl_id.id"/>
+        <field name="product_qty" eval="10.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="type">normal</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="manufacturing_workflow">custom_multi_output</field>
+        <field name="custom_process_type">integrated_production_packaging</field>
+        <field name="default_packaged_product_id" ref="legacy_mrp_master_data.prod_instant_porridge_box_10_x_1kg"/>
+        <field name="active" eval="False"/>
+    </record>
+
+    <record id="bom_instant_porridge_10kg_bag" model="mrp.bom">
+        <field name="code">LEGACY-INSTANT-PORRIDGE-10KG-BAG</field>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_bulk_instant_porridge"/>
+        <field name="product_tmpl_id" model="product.product" eval="obj(ref('legacy_mrp_master_data.prod_bulk_instant_porridge')).product_tmpl_id.id"/>
+        <field name="product_qty" eval="10.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="type">normal</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="manufacturing_workflow">custom_multi_output</field>
+        <field name="custom_process_type">integrated_production_packaging</field>
+        <field name="default_packaged_product_id" ref="legacy_mrp_master_data.prod_instant_porridge_10kg_bag"/>
+        <field name="active" eval="False"/>
+    </record>
+
+    <record id="bom_instant_porridge_50kg_bag" model="mrp.bom">
+        <field name="code">LEGACY-INSTANT-PORRIDGE-50KG-BAG</field>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_bulk_instant_porridge"/>
+        <field name="product_tmpl_id" model="product.product" eval="obj(ref('legacy_mrp_master_data.prod_bulk_instant_porridge')).product_tmpl_id.id"/>
+        <field name="product_qty" eval="50.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="type">normal</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="manufacturing_workflow">custom_multi_output</field>
+        <field name="custom_process_type">integrated_production_packaging</field>
+        <field name="default_packaged_product_id" ref="legacy_mrp_master_data.prod_instant_porridge_50kg_bag"/>
+        <field name="active" eval="False"/>
+    </record>
+
+    <record id="bom_instant_porridge_box_8_x_500g" model="mrp.bom">
+        <field name="code">LEGACY-INSTANT-PORRIDGE-BOX-8-X-500G</field>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_bulk_instant_porridge"/>
+        <field name="product_tmpl_id" model="product.product" eval="obj(ref('legacy_mrp_master_data.prod_bulk_instant_porridge')).product_tmpl_id.id"/>
+        <field name="product_qty" eval="4.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="type">normal</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="manufacturing_workflow">custom_multi_output</field>
+        <field name="custom_process_type">integrated_production_packaging</field>
+        <field name="default_packaged_product_id" ref="legacy_mrp_master_data.prod_instant_porridge_box_8_x_500g"/>
+        <field name="active" eval="False"/>
+    </record>
+
+    <record id="bom_instant_thobwa_case_50_x_50g" model="mrp.bom">
+        <field name="code">LEGACY-INSTANT-THOBWA-CASE-50-X-50G</field>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_bulk_thobwa"/>
+        <field name="product_tmpl_id" model="product.product" eval="obj(ref('legacy_mrp_master_data.prod_bulk_thobwa')).product_tmpl_id.id"/>
+        <field name="product_qty" eval="2.5"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="type">normal</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="manufacturing_workflow">custom_multi_output</field>
+        <field name="custom_process_type">integrated_production_packaging</field>
+        <field name="default_packaged_product_id" ref="legacy_mrp_master_data.prod_instant_thobwa_case_50_x_50g"/>
+        <field name="active" eval="False"/>
+    </record>
+
+    <record id="bom_instant_thobwa_25kg_bag" model="mrp.bom">
+        <field name="code">LEGACY-INSTANT-THOBWA-25KG-BAG</field>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_bulk_thobwa"/>
+        <field name="product_tmpl_id" model="product.product" eval="obj(ref('legacy_mrp_master_data.prod_bulk_thobwa')).product_tmpl_id.id"/>
+        <field name="product_qty" eval="25.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="type">normal</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="manufacturing_workflow">custom_multi_output</field>
+        <field name="custom_process_type">integrated_production_packaging</field>
+        <field name="default_packaged_product_id" ref="legacy_mrp_master_data.prod_instant_thobwa_25kg_bag"/>
+        <field name="active" eval="False"/>
+    </record>
+
+    <record id="bom_tsp_case_20_x_90g" model="mrp.bom">
+        <field name="code">LEGACY-TSP-CASE-20-X-90G</field>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_bulk_tsp"/>
+        <field name="product_tmpl_id" model="product.product" eval="obj(ref('legacy_mrp_master_data.prod_bulk_tsp')).product_tmpl_id.id"/>
+        <field name="product_qty" eval="1.8"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="type">normal</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="manufacturing_workflow">custom_multi_output</field>
+        <field name="custom_process_type">integrated_production_packaging</field>
+        <field name="default_packaged_product_id" ref="legacy_mrp_master_data.prod_tsp_case_20_x_90g"/>
+        <field name="active" eval="False"/>
+    </record>
+
+    <record id="bom_tsp_case_10_x_700g" model="mrp.bom">
+        <field name="code">LEGACY-TSP-CASE-10-X-700G</field>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_bulk_tsp"/>
+        <field name="product_tmpl_id" model="product.product" eval="obj(ref('legacy_mrp_master_data.prod_bulk_tsp')).product_tmpl_id.id"/>
+        <field name="product_qty" eval="7.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="type">normal</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="manufacturing_workflow">custom_multi_output</field>
+        <field name="custom_process_type">integrated_production_packaging</field>
+        <field name="default_packaged_product_id" ref="legacy_mrp_master_data.prod_tsp_case_10_x_700g"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="bom_tsp_case_5_x_700g" model="mrp.bom">
+        <field name="code">LEGACY-TSP-CASE-5-X-700G</field>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_bulk_tsp"/>
+        <field name="product_tmpl_id" model="product.product" eval="obj(ref('legacy_mrp_master_data.prod_bulk_tsp')).product_tmpl_id.id"/>
+        <field name="product_qty" eval="3.5"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="type">normal</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="manufacturing_workflow">custom_multi_output</field>
+        <field name="custom_process_type">integrated_production_packaging</field>
+        <field name="default_packaged_product_id" ref="legacy_mrp_master_data.prod_tsp_case_5_x_700g"/>
+        <field name="active" eval="False"/>
+    </record>
+
+    <record id="bom_tsp_3kg_bag" model="mrp.bom">
+        <field name="code">LEGACY-TSP-3KG-BAG</field>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_bulk_tsp"/>
+        <field name="product_tmpl_id" model="product.product" eval="obj(ref('legacy_mrp_master_data.prod_bulk_tsp')).product_tmpl_id.id"/>
+        <field name="product_qty" eval="3.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="type">normal</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="manufacturing_workflow">custom_multi_output</field>
+        <field name="custom_process_type">integrated_production_packaging</field>
+        <field name="default_packaged_product_id" ref="legacy_mrp_master_data.prod_tsp_3kg_bag"/>
+        <field name="active" eval="False"/>
+    </record>
+
+    <record id="bom_tsp_3kg_woven_bag" model="mrp.bom">
+        <field name="code">LEGACY-TSP-3KG-WOVEN-BAG</field>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_bulk_tsp"/>
+        <field name="product_tmpl_id" model="product.product" eval="obj(ref('legacy_mrp_master_data.prod_bulk_tsp')).product_tmpl_id.id"/>
+        <field name="product_qty" eval="3.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="type">normal</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="manufacturing_workflow">custom_multi_output</field>
+        <field name="custom_process_type">integrated_production_packaging</field>
+        <field name="default_packaged_product_id" ref="legacy_mrp_master_data.prod_tsp_3kg_woven_bag"/>
+        <field name="active" eval="False"/>
+    </record>
+
+    <record id="bom_tsp_8kg_woven_bag" model="mrp.bom">
+        <field name="code">LEGACY-TSP-8KG-WOVEN-BAG</field>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_bulk_tsp"/>
+        <field name="product_tmpl_id" model="product.product" eval="obj(ref('legacy_mrp_master_data.prod_bulk_tsp')).product_tmpl_id.id"/>
+        <field name="product_qty" eval="8.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="type">normal</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="manufacturing_workflow">custom_multi_output</field>
+        <field name="custom_process_type">integrated_production_packaging</field>
+        <field name="default_packaged_product_id" ref="legacy_mrp_master_data.prod_tsp_8kg_woven_bag"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="bom_puffs_case_50_x_16g" model="mrp.bom">
+        <field name="code">LEGACY-PUFFS-CASE-50-X-16G</field>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_corn_puffs"/>
+        <field name="product_tmpl_id" model="product.product" eval="obj(ref('legacy_mrp_master_data.prod_corn_puffs')).product_tmpl_id.id"/>
+        <field name="product_qty" eval="0.8"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="type">normal</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="manufacturing_workflow">custom_multi_output</field>
+        <field name="custom_process_type">integrated_production_packaging</field>
+        <field name="default_packaged_product_id" ref="legacy_mrp_master_data.prod_puffs_case_50_x_16g"/>
+        <field name="active" eval="False"/>
+    </record>
+
+    <record id="bom_zed_crunch_puffs_case_6_x_22" model="mrp.bom">
+        <field name="code">LEGACY-ZED-CRUNCH-PUFFS-CASE-6-X-22</field>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_corn_puffs"/>
+        <field name="product_tmpl_id" model="product.product" eval="obj(ref('legacy_mrp_master_data.prod_corn_puffs')).product_tmpl_id.id"/>
+        <field name="product_qty" eval="1.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="type">normal</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="manufacturing_workflow">custom_multi_output</field>
+        <field name="custom_process_type">integrated_production_packaging</field>
+        <field name="active" eval="False"/>
+    </record>
+
+    <record id="bom_puffs_case_30_x_60g" model="mrp.bom">
+        <field name="code">LEGACY-PUFFS-CASE-30-X-60G</field>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_corn_puffs"/>
+        <field name="product_tmpl_id" model="product.product" eval="obj(ref('legacy_mrp_master_data.prod_corn_puffs')).product_tmpl_id.id"/>
+        <field name="product_qty" eval="1.8"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="type">normal</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="manufacturing_workflow">custom_multi_output</field>
+        <field name="custom_process_type">integrated_production_packaging</field>
+        <field name="default_packaged_product_id" ref="legacy_mrp_master_data.prod_puffs_case_30_x_60g"/>
+        <field name="active" eval="False"/>
+    </record>
+
+    </data>
+</odoo>

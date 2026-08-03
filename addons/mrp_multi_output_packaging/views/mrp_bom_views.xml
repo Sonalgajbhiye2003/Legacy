@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_mrp_bom_form_multi_output" model="ir.ui.view">
+        <field name="name">mrp.bom.form.multi.output</field>
+        <field name="model">mrp.bom</field>
+        <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='code']" position="after">
+                <field name="manufacturing_workflow" groups="mrp.group_mrp_manager"/>
+                <field name="custom_process_type" groups="mrp.group_mrp_manager"
+                       invisible="manufacturing_workflow != 'custom_multi_output'"
+                       required="manufacturing_workflow == 'custom_multi_output'"/>
+                <field name="default_packaged_product_id" string="Packaged Product"
+                       groups="mrp.group_mrp_manager"
+                       invisible="manufacturing_workflow != 'custom_multi_output'"
+                       required="manufacturing_workflow == 'custom_multi_output'"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

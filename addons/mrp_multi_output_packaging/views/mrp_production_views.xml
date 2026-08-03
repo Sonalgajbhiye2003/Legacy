@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_mrp_production_form_multi_output" model="ir.ui.view">
+        <field name="name">mrp.production.form.multi.output</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <field name="manufacturing_workflow" invisible="1"/>
+                <field name="custom_process_type" invisible="1"/>
+            </xpath>
+            <xpath expr="(//field[@name='bom_id'])[1]" position="after">
+                <field name="manufacturing_workflow" readonly="state != 'draft'" groups="mrp.group_mrp_manager"/>
+                <field name="custom_process_type" readonly="state != 'draft'"
+                       invisible="manufacturing_workflow != 'custom_multi_output'"
+                       required="manufacturing_workflow == 'custom_multi_output'"
+                       groups="mrp.group_mrp_manager"/>
+            </xpath>
+            <xpath expr="//sheet/group" position="after">
+                <group string="Production Summary" invisible="manufacturing_workflow != 'custom_multi_output'">
+                    <group>
+                        <field name="bulk_product_id" required="custom_process_type == 'integrated_production_packaging'" readonly="state != 'draft'"/>
+                        <field name="bulk_uom_id" string="UoM" required="custom_process_type == 'integrated_production_packaging'" readonly="state != 'draft'"/>
+                        <field name="planned_usable_output_qty" string="Planned Bulk Output" readonly="state != 'draft'"/>
+                        <field name="actual_usable_output_qty" string="Actual Bulk Output" readonly="state in ('done', 'cancel')"/>
+                    </group>
+                    <group>
+                        <field name="remaining_bulk_qty" string="Remaining Bulk" readonly="1"/>
+                        <field name="reconciliation_status" widget="badge" readonly="1"
+                               decoration-success="reconciliation_status == 'balanced'"
+                               decoration-warning="reconciliation_status == 'warning'"
+                               decoration-danger="reconciliation_status == 'blocked'"/>
+                    </group>
+                    <group string="Supervisor Controls" groups="mrp_multi_output_packaging.group_multi_output_supervisor">
+                        <field name="planned_process_loss_qty" readonly="state != 'draft'"/>
+                        <field name="process_loss_qty" readonly="state in ('done', 'cancel')"/>
+                        <field name="total_planned_packaged_equivalent" readonly="1"/>
+                        <field name="total_actual_packaged_equivalent" readonly="1"/>
+                    </group>
+                    <group string="Variance Review" groups="mrp_multi_output_packaging.group_multi_output_supervisor">
+                        <field name="expected_remaining_bulk_qty" readonly="1"/>
+                        <field name="reconciliation_difference" readonly="1"/>
+                        <field name="variance_reason" readonly="state in ('done', 'cancel')"/>
+                        <field name="variance_approved" readonly="state in ('done', 'cancel')"/>
+                    </group>
+                </group>
+            </xpath>
+            <xpath expr="//page[@name='components']//tree/field[@name='product_id']" position="after">
+                <field name="component_source" optional="show"
+                       column_invisible="parent.manufacturing_workflow != 'custom_multi_output'"/>
+            </xpath>
+            <xpath expr="//page[@name='components']//tree/field[@name='product_uom_qty'][1]" position="after">
+                <field name="expected_packaging_qty" optional="hide"
+                       column_invisible="parent.manufacturing_workflow != 'custom_multi_output'"/>
+                <field name="actual_packaging_qty" optional="hide"
+                       column_invisible="parent.manufacturing_workflow != 'custom_multi_output'"/>
+                <field name="packaging_variance_qty" optional="hide"
+                       column_invisible="parent.manufacturing_workflow != 'custom_multi_output'"/>
+            </xpath>
+            <xpath expr="//page[@name='components']" position="after">
+                <page string="Packaged Products" name="finished_output_plan"
+                      invisible="manufacturing_workflow != 'custom_multi_output'"
+                      groups="mrp_multi_output_packaging.group_multi_output_user">
+                    <field name="output_line_ids" context="{'default_location_dest_id': location_dest_id}"
+                           domain="[('output_classification', '=', 'primary_packaged')]"
+                           readonly="state in ('done', 'cancel')">
+                        <tree editable="bottom">
+                            <field name="product_id" string="Packaged Product"/>
+                            <field name="planned_qty" string="Quantity to Produce" readonly="parent.state != 'draft'"/>
+                            <field name="actual_qty" string="Produced Quantity" readonly="parent.state in ('done', 'cancel')"/>
+                            <field name="product_uom_id" string="UoM"/>
+                            <field name="lot_id" string="Lot / Serial" optional="show"/>
+                            <field name="sequence" column_invisible="True"/>
+                            <field name="output_classification" column_invisible="True"/>
+                            <field name="net_content_qty" column_invisible="True"/>
+                            <field name="net_content_uom_id" column_invisible="True"/>
+                            <field name="equivalent_bulk_qty" column_invisible="True"/>
+                            <field name="packaging_recipe_id" column_invisible="True"/>
+                            <field name="packaging_recipe_version" column_invisible="True"/>
+                            <field name="bulk_equivalent_product_id" column_invisible="True"/>
+                            <field name="company_id" column_invisible="True"/>
+                        </tree>
+                    </field>
+                </page>
+                <page string="Packaging Review" name="packaging_consumption"
+                      invisible="manufacturing_workflow != 'custom_multi_output'"
+                      groups="mrp_multi_output_packaging.group_multi_output_supervisor">
+                    <field name="packaging_line_ids" readonly="state in ('done', 'cancel')">
+                        <tree create="0" delete="0">
+                            <field name="packaging_product_id"/>
+                            <field name="planned_packaging_qty" string="Required Quantity"/>
+                            <field name="actual_consumed_qty"/>
+                            <field name="product_uom_id"/>
+                            <field name="variance_qty" readonly="1"/>
+                            <field name="variance_reason"/>
+                            <field name="finished_product_id" optional="hide"/>
+                            <field name="qty_per_unit" optional="hide"/>
+                            <field name="planned_output_qty" optional="hide"/>
+                            <field name="actual_output_qty" optional="hide"/>
+                            <field name="expected_actual_packaging_qty" optional="hide"/>
+                            <field name="variance_percentage" readonly="1" optional="hide"/>
+                            <field name="stock_move_id" optional="hide"/>
+                            <field name="operation_id" groups="mrp.group_mrp_routings" optional="hide"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+            <xpath expr="//page[@name='finished_products']//tree/field[@name='cost_share']" position="after">
+                <field name="expected_byproduct_qty" optional="hide"
+                       column_invisible="parent.manufacturing_workflow != 'custom_multi_output'"/>
+                <field name="actual_byproduct_qty" optional="hide"
+                       column_invisible="parent.manufacturing_workflow != 'custom_multi_output'"/>
+                <field name="byproduct_variance_qty" optional="hide"
+                       column_invisible="parent.manufacturing_workflow != 'custom_multi_output'"/>
+                <field name="byproduct_variance_percentage" optional="hide"
+                       column_invisible="parent.manufacturing_workflow != 'custom_multi_output'"/>
+                <field name="byproduct_variance_reason" optional="hide"
+                       column_invisible="parent.manufacturing_workflow != 'custom_multi_output'"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

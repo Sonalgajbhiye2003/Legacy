@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+    <record id="pack_recipe_instant_porridge_box_20_x_500g" model="mrp.packaging.recipe">
+        <field name="name">Packaging Recipe - Instant Porridge - Box (20 x 500g)</field>
+        <field name="code">PR-INSTANT-PORRIDGE-BOX-20-X-500G</field>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_instant_porridge_box_20_x_500g"/>
+        <field name="base_qty" eval="1.0"/>
+        <field name="base_uom_id" ref="uom.product_uom_unit"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="valid_from">2026-08-02</field>
+        <field name="version">1.0</field>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_box_20_x_500g_packaging"/>
+        <field name="workcenter_id" ref="legacy_mrp_master_data.wc_por_01"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="pack_recipe_line_instant_porridge_box_20_x_500g_porridge_sachet_500g_10" model="mrp.packaging.recipe.line">
+        <field name="recipe_id" ref="legacy_mrp_master_data.pack_recipe_instant_porridge_box_20_x_500g"/>
+        <field name="packaging_product_id" ref="legacy_mrp_master_data.prod_porridge_sachet_500g"/>
+        <field name="qty_per_base" eval="20.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_unit"/>
+        <field name="rounding_method">product_uom_rounding</field>
+        <field name="sequence" eval="10"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_box_20_x_500g_packaging"/>
+    </record>
+
+    <record id="pack_recipe_line_instant_porridge_box_20_x_500g_porridge_outer_box_1_x_20_11" model="mrp.packaging.recipe.line">
+        <field name="recipe_id" ref="legacy_mrp_master_data.pack_recipe_instant_porridge_box_20_x_500g"/>
+        <field name="packaging_product_id" ref="legacy_mrp_master_data.prod_porridge_outer_box_1_x_20"/>
+        <field name="qty_per_base" eval="1.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_unit"/>
+        <field name="rounding_method">product_uom_rounding</field>
+        <field name="sequence" eval="20"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_box_20_x_500g_packaging"/>
+    </record>
+
+    <record id="pack_recipe_instant_porridge_box_10_x_1kg" model="mrp.packaging.recipe">
+        <field name="name">Packaging Recipe - Instant Porridge - Box (10 x 1kg)</field>
+        <field name="code">PR-INSTANT-PORRIDGE-BOX-10-X-1KG</field>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_instant_porridge_box_10_x_1kg"/>
+        <field name="base_qty" eval="1.0"/>
+        <field name="base_uom_id" ref="uom.product_uom_unit"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="valid_from">2026-08-02</field>
+        <field name="version">1.0</field>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_box_10_x_1kg_packaging"/>
+        <field name="workcenter_id" ref="legacy_mrp_master_data.wc_por_01"/>
+        <field name="active" eval="False"/>
+    </record>
+
+    <record id="pack_recipe_line_instant_porridge_box_10_x_1kg_porridge_sachet_1kg_10" model="mrp.packaging.recipe.line">
+        <field name="recipe_id" ref="legacy_mrp_master_data.pack_recipe_instant_porridge_box_10_x_1kg"/>
+        <field name="packaging_product_id" ref="legacy_mrp_master_data.prod_porridge_sachet_1kg"/>
+        <field name="qty_per_base" eval="10.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_unit"/>
+        <field name="rounding_method">product_uom_rounding</field>
+        <field name="sequence" eval="10"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_box_10_x_1kg_packaging"/>
+    </record>
+
+    <record id="pack_recipe_line_instant_porridge_box_10_x_1kg_porridge_outer_box_1_x_10_11" model="mrp.packaging.recipe.line">
+        <field name="recipe_id" ref="legacy_mrp_master_data.pack_recipe_instant_porridge_box_10_x_1kg"/>
+        <field name="packaging_product_id" ref="legacy_mrp_master_data.prod_porridge_outer_box_1_x_10"/>
+        <field name="qty_per_base" eval="1.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_unit"/>
+        <field name="rounding_method">product_uom_rounding</field>
+        <field name="sequence" eval="20"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_box_10_x_1kg_packaging"/>
+    </record>
+
+    <record id="pack_recipe_instant_porridge_10kg_bag" model="mrp.packaging.recipe">
+        <field name="name">Packaging Recipe - Instant Porridge - 10kg Bag</field>
+        <field name="code">PR-INSTANT-PORRIDGE-10KG-BAG</field>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_instant_porridge_10kg_bag"/>
+        <field name="base_qty" eval="1.0"/>
+        <field name="base_uom_id" ref="uom.product_uom_unit"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="valid_from">2026-08-02</field>
+        <field name="version">1.0</field>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_10kg_bag_packaging"/>
+        <field name="workcenter_id" ref="legacy_mrp_master_data.wc_por_01"/>
+        <field name="active" eval="False"/>
+    </record>
+
+    <record id="pack_recipe_line_instant_porridge_10kg_bag_inner_liner_10kg_10" model="mrp.packaging.recipe.line">
+        <field name="recipe_id" ref="legacy_mrp_master_data.pack_recipe_instant_porridge_10kg_bag"/>
+        <field name="packaging_product_id" ref="legacy_mrp_master_data.prod_inner_liner_10kg"/>
+        <field name="qty_per_base" eval="1.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_unit"/>
+        <field name="rounding_method">product_uom_rounding</field>
+        <field name="sequence" eval="10"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_10kg_bag_packaging"/>
+    </record>
+
+    <record id="pack_recipe_line_instant_porridge_10kg_bag_woven_bag_10kg_11" model="mrp.packaging.recipe.line">
+        <field name="recipe_id" ref="legacy_mrp_master_data.pack_recipe_instant_porridge_10kg_bag"/>
+        <field name="packaging_product_id" ref="legacy_mrp_master_data.prod_woven_bag_10kg"/>
+        <field name="qty_per_base" eval="1.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_unit"/>
+        <field name="rounding_method">product_uom_rounding</field>
+        <field name="sequence" eval="20"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_10kg_bag_packaging"/>
+    </record>
+
+    <record id="pack_recipe_instant_porridge_50kg_bag" model="mrp.packaging.recipe">
+        <field name="name">Packaging Recipe - Instant Porridge - 50kg Bag</field>
+        <field name="code">PR-INSTANT-PORRIDGE-50KG-BAG</field>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_instant_porridge_50kg_bag"/>
+        <field name="base_qty" eval="1.0"/>
+        <field name="base_uom_id" ref="uom.product_uom_unit"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="valid_from">2026-08-02</field>
+        <field name="version">1.0</field>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_50kg_bag_packaging"/>
+        <field name="workcenter_id" ref="legacy_mrp_master_data.wc_por_01"/>
+        <field name="active" eval="False"/>
+    </record>
+
+    <record id="pack_recipe_line_instant_porridge_50kg_bag_outer_bags_90g_10" model="mrp.packaging.recipe.line">
+        <field name="recipe_id" ref="legacy_mrp_master_data.pack_recipe_instant_porridge_50kg_bag"/>
+        <field name="packaging_product_id" ref="legacy_mrp_master_data.prod_outer_bags_90g"/>
+        <field name="qty_per_base" eval="1.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_unit"/>
+        <field name="rounding_method">product_uom_rounding</field>
+        <field name="sequence" eval="10"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_50kg_bag_packaging"/>
+    </record>
+
+    <record id="pack_recipe_line_instant_porridge_50kg_bag_woven_bag_50kg_11" model="mrp.packaging.recipe.line">
+        <field name="recipe_id" ref="legacy_mrp_master_data.pack_recipe_instant_porridge_50kg_bag"/>
+        <field name="packaging_product_id" ref="legacy_mrp_master_data.prod_woven_bag_50kg"/>
+        <field name="qty_per_base" eval="1.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_unit"/>
+        <field name="rounding_method">product_uom_rounding</field>
+        <field name="sequence" eval="20"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_50kg_bag_packaging"/>
+    </record>
+
+    <record id="pack_recipe_instant_porridge_box_8_x_500g" model="mrp.packaging.recipe">
+        <field name="name">Packaging Recipe - Instant Porridge - Box (8 x 500g)</field>
+        <field name="code">PR-INSTANT-PORRIDGE-BOX-8-X-500G</field>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_instant_porridge_box_8_x_500g"/>
+        <field name="base_qty" eval="1.0"/>
+        <field name="base_uom_id" ref="uom.product_uom_unit"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="valid_from">2026-08-02</field>
+        <field name="version">1.0</field>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_box_8_x_500g_packaging"/>
+        <field name="workcenter_id" ref="legacy_mrp_master_data.wc_por_01"/>
+        <field name="active" eval="False"/>
+    </record>
+
+    <record id="pack_recipe_line_instant_porridge_box_8_x_500g_plain_sachet_500g_10" model="mrp.packaging.recipe.line">
+        <field name="recipe_id" ref="legacy_mrp_master_data.pack_recipe_instant_porridge_box_8_x_500g"/>
+        <field name="packaging_product_id" ref="legacy_mrp_master_data.prod_plain_sachet_500g"/>
+        <field name="qty_per_base" eval="8.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_unit"/>
+        <field name="rounding_method">product_uom_rounding</field>
+        <field name="sequence" eval="10"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_box_8_x_500g_packaging"/>
+    </record>
+
+    <record id="pack_recipe_line_instant_porridge_box_8_x_500g_porridge_carton_500g_11" model="mrp.packaging.recipe.line">
+        <field name="recipe_id" ref="legacy_mrp_master_data.pack_recipe_instant_porridge_box_8_x_500g"/>
+        <field name="packaging_product_id" ref="legacy_mrp_master_data.prod_porridge_carton_500g"/>
+        <field name="qty_per_base" eval="8.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_unit"/>
+        <field name="rounding_method">product_uom_rounding</field>
+        <field name="sequence" eval="20"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_box_8_x_500g_packaging"/>
+    </record>
+
+    <record id="pack_recipe_line_instant_porridge_box_8_x_500g_porridge_outer_box_1_x_8_12" model="mrp.packaging.recipe.line">
+        <field name="recipe_id" ref="legacy_mrp_master_data.pack_recipe_instant_porridge_box_8_x_500g"/>
+        <field name="packaging_product_id" ref="legacy_mrp_master_data.prod_porridge_outer_box_1_x_8"/>
+        <field name="qty_per_base" eval="1.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_unit"/>
+        <field name="rounding_method">product_uom_rounding</field>
+        <field name="sequence" eval="30"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_porridge_box_8_x_500g_packaging"/>
+    </record>
+
+    <record id="pack_recipe_instant_thobwa_case_50_x_50g" model="mrp.packaging.recipe">
+        <field name="name">Packaging Recipe - Instant Thobwa - Case (50 x 50g)</field>
+        <field name="code">PR-INSTANT-THOBWA-CASE-50-X-50G</field>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_instant_thobwa_case_50_x_50g"/>
+        <field name="base_qty" eval="1.0"/>
+        <field name="base_uom_id" ref="uom.product_uom_unit"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="valid_from">2026-08-02</field>
+        <field name="version">1.0</field>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_thobwa_case_50_x_50g_packaging"/>
+        <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tho_01"/>
+        <field name="active" eval="False"/>
+    </record>
+
+    <record id="pack_recipe_line_instant_thobwa_case_50_x_50g_thobwa_rolls_50g_10" model="mrp.packaging.recipe.line">
+        <field name="recipe_id" ref="legacy_mrp_master_data.pack_recipe_instant_thobwa_case_50_x_50g"/>
+        <field name="packaging_product_id" ref="legacy_mrp_master_data.prod_thobwa_rolls_50g"/>
+        <field name="qty_per_base" eval="0.08"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="rounding_method">product_uom_rounding</field>
+        <field name="sequence" eval="10"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_thobwa_case_50_x_50g_packaging"/>
+    </record>
+
+    <record id="pack_recipe_line_instant_thobwa_case_50_x_50g_thobwa_woven_bag_11" model="mrp.packaging.recipe.line">
+        <field name="recipe_id" ref="legacy_mrp_master_data.pack_recipe_instant_thobwa_case_50_x_50g"/>
+        <field name="packaging_product_id" ref="legacy_mrp_master_data.prod_thobwa_woven_bag"/>
+        <field name="qty_per_base" eval="1.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_unit"/>
+        <field name="rounding_method">product_uom_rounding</field>
+        <field name="sequence" eval="20"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_thobwa_case_50_x_50g_packaging"/>
+    </record>
+
+    <record id="pack_recipe_instant_thobwa_25kg_bag" model="mrp.packaging.recipe">
+        <field name="name">Packaging Recipe - Instant Thobwa - 25kg Bag</field>
+        <field name="code">PR-INSTANT-THOBWA-25KG-BAG</field>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_instant_thobwa_25kg_bag"/>
+        <field name="base_qty" eval="1.0"/>
+        <field name="base_uom_id" ref="uom.product_uom_unit"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="valid_from">2026-08-02</field>
+        <field name="version">1.0</field>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_thobwa_25kg_bag_packaging"/>
+        <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tho_01"/>
+        <field name="active" eval="False"/>
+    </record>
+
+    <record id="pack_recipe_line_instant_thobwa_25kg_bag_outer_packaging_700g_10" model="mrp.packaging.recipe.line">
+        <field name="recipe_id" ref="legacy_mrp_master_data.pack_recipe_instant_thobwa_25kg_bag"/>
+        <field name="packaging_product_id" ref="legacy_mrp_master_data.prod_pkg_outer_packaging_700g"/>
+        <field name="qty_per_base" eval="1.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="rounding_method">product_uom_rounding</field>
+        <field name="sequence" eval="10"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_thobwa_25kg_bag_packaging"/>
+    </record>
+
+    <record id="pack_recipe_line_instant_thobwa_25kg_bag_woven_bag_50kg_11" model="mrp.packaging.recipe.line">
+        <field name="recipe_id" ref="legacy_mrp_master_data.pack_recipe_instant_thobwa_25kg_bag"/>
+        <field name="packaging_product_id" ref="legacy_mrp_master_data.prod_woven_bag_50kg"/>
+        <field name="qty_per_base" eval="1.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_unit"/>
+        <field name="rounding_method">product_uom_rounding</field>
+        <field name="sequence" eval="20"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_thobwa_25kg_bag_packaging"/>
+    </record>
+
+    <record id="pack_recipe_line_instant_thobwa_25kg_bag_sticker_12" model="mrp.packaging.recipe.line">
+        <field name="recipe_id" ref="legacy_mrp_master_data.pack_recipe_instant_thobwa_25kg_bag"/>
+        <field name="packaging_product_id" ref="legacy_mrp_master_data.prod_sticker"/>
+        <field name="qty_per_base" eval="1.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_unit"/>
+        <field name="rounding_method">product_uom_rounding</field>
+        <field name="sequence" eval="30"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_thobwa_25kg_bag_packaging"/>
+    </record>
+
+    <record id="pack_recipe_tsp_case_20_x_90g" model="mrp.packaging.recipe">
+        <field name="name">Packaging Recipe - TSP - Case (20 x 90g)</field>
+        <field name="code">PR-TSP-CASE-20-X-90G</field>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_tsp_case_20_x_90g"/>
+        <field name="base_qty" eval="1.0"/>
+        <field name="base_uom_id" ref="uom.product_uom_unit"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="valid_from">2026-08-02</field>
+        <field name="version">1.0</field>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_case_20_x_90g_packaging"/>
+        <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tsp_01"/>
+        <field name="active" eval="False"/>
+    </record>
+
+    <record id="pack_recipe_line_tsp_case_20_x_90g_soya_beef_spice_rolls_7" model="mrp.packaging.recipe.line">
+        <field name="recipe_id" ref="legacy_mrp_master_data.pack_recipe_tsp_case_20_x_90g"/>
+        <field name="packaging_product_id" ref="legacy_mrp_master_data.prod_soya_beef_spice_rolls"/>
+        <field name="qty_per_base" eval="0.00054"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="rounding_method">product_uom_rounding</field>
+        <field name="sequence" eval="10"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_case_20_x_90g_packaging"/>
+    </record>
+
+    <record id="pack_recipe_line_tsp_case_20_x_90g_tsp_rolls_90g_8" model="mrp.packaging.recipe.line">
+        <field name="recipe_id" ref="legacy_mrp_master_data.pack_recipe_tsp_case_20_x_90g"/>
+        <field name="packaging_product_id" ref="legacy_mrp_master_data.prod_tsp_rolls_90g"/>
+        <field name="qty_per_base" eval="0.04"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="rounding_method">product_uom_rounding</field>
+        <field name="sequence" eval="20"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_case_20_x_90g_packaging"/>
+    </record>
+
+    <record id="pack_recipe_line_tsp_case_20_x_90g_woven_bag_90g_9" model="mrp.packaging.recipe.line">
+        <field name="recipe_id" ref="legacy_mrp_master_data.pack_recipe_tsp_case_20_x_90g"/>
+        <field name="packaging_product_id" ref="legacy_mrp_master_data.prod_woven_bag_90g"/>
+        <field name="qty_per_base" eval="1.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_unit"/>
+        <field name="rounding_method">product_uom_rounding</field>
+        <field name="sequence" eval="30"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_case_20_x_90g_packaging"/>
+    </record>
+
+    <record id="pack_recipe_tsp_case_10_x_700g" model="mrp.packaging.recipe">
+        <field name="name">Packaging Recipe - TSP - Case (10 x 700g)</field>
+        <field name="code">PR-TSP-CASE-10-X-700G</field>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_tsp_case_10_x_700g"/>
+        <field name="base_qty" eval="1.0"/>
+        <field name="base_uom_id" ref="uom.product_uom_unit"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="valid_from">2026-08-02</field>
+        <field name="version">1.0</field>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_case_10_x_700g_packaging"/>
+        <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tsp_01"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="pack_recipe_line_tsp_case_10_x_700g_inner_packaging_700g_6" model="mrp.packaging.recipe.line">
+        <field name="recipe_id" ref="legacy_mrp_master_data.pack_recipe_tsp_case_10_x_700g"/>
+        <field name="packaging_product_id" ref="legacy_mrp_master_data.prod_inner_packaging_700g"/>
+        <field name="qty_per_base" eval="10.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_unit"/>
+        <field name="rounding_method">product_uom_rounding</field>
+        <field name="sequence" eval="10"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_case_10_x_700g_packaging"/>
+    </record>
+
+    <record id="pack_recipe_line_tsp_case_10_x_700g_outer_packaging_700g_7" model="mrp.packaging.recipe.line">
+        <field name="recipe_id" ref="legacy_mrp_master_data.pack_recipe_tsp_case_10_x_700g"/>
+        <field name="packaging_product_id" ref="legacy_mrp_master_data.prod_outer_packaging_700g"/>
+        <field name="qty_per_base" eval="1.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_unit"/>
+        <field name="rounding_method">product_uom_rounding</field>
+        <field name="sequence" eval="20"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_case_10_x_700g_packaging"/>
+    </record>
+
+    <record id="pack_recipe_tsp_case_5_x_700g" model="mrp.packaging.recipe">
+        <field name="name">Packaging Recipe - TSP - Case (5 x 700g)</field>
+        <field name="code">PR-TSP-CASE-5-X-700G</field>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_tsp_case_5_x_700g"/>
+        <field name="base_qty" eval="1.0"/>
+        <field name="base_uom_id" ref="uom.product_uom_unit"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="valid_from">2026-08-02</field>
+        <field name="version">1.0</field>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_case_5_x_700g_packaging"/>
+        <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tsp_01"/>
+        <field name="active" eval="False"/>
+    </record>
+
+    <record id="pack_recipe_line_tsp_case_5_x_700g_inner_packaging_700g_6" model="mrp.packaging.recipe.line">
+        <field name="recipe_id" ref="legacy_mrp_master_data.pack_recipe_tsp_case_5_x_700g"/>
+        <field name="packaging_product_id" ref="legacy_mrp_master_data.prod_inner_packaging_700g"/>
+        <field name="qty_per_base" eval="5.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_unit"/>
+        <field name="rounding_method">product_uom_rounding</field>
+        <field name="sequence" eval="10"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_case_5_x_700g_packaging"/>
+    </record>
+
+    <record id="pack_recipe_line_tsp_case_5_x_700g_outer_packaging_700g_7" model="mrp.packaging.recipe.line">
+        <field name="recipe_id" ref="legacy_mrp_master_data.pack_recipe_tsp_case_5_x_700g"/>
+        <field name="packaging_product_id" ref="legacy_mrp_master_data.prod_outer_packaging_700g"/>
+        <field name="qty_per_base" eval="1.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_unit"/>
+        <field name="rounding_method">product_uom_rounding</field>
+        <field name="sequence" eval="20"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_case_5_x_700g_packaging"/>
+    </record>
+
+    <record id="pack_recipe_tsp_3kg_bag" model="mrp.packaging.recipe">
+        <field name="name">Packaging Recipe - TSP - 3kg Bag</field>
+        <field name="code">PR-TSP-3KG-BAG</field>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_tsp_3kg_bag"/>
+        <field name="base_qty" eval="1.0"/>
+        <field name="base_uom_id" ref="uom.product_uom_unit"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="valid_from">2026-08-02</field>
+        <field name="version">1.0</field>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_3kg_bag_packaging"/>
+        <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tsp_01"/>
+        <field name="active" eval="False"/>
+    </record>
+
+    <record id="pack_recipe_line_tsp_3kg_bag_plastic_packaging_3kg_6" model="mrp.packaging.recipe.line">
+        <field name="recipe_id" ref="legacy_mrp_master_data.pack_recipe_tsp_3kg_bag"/>
+        <field name="packaging_product_id" ref="legacy_mrp_master_data.prod_plastic_packaging_3kg"/>
+        <field name="qty_per_base" eval="1.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_unit"/>
+        <field name="rounding_method">product_uom_rounding</field>
+        <field name="sequence" eval="10"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_3kg_bag_packaging"/>
+    </record>
+
+    <record id="pack_recipe_tsp_3kg_woven_bag" model="mrp.packaging.recipe">
+        <field name="name">Packaging Recipe - TSP - 3kg Woven Bag</field>
+        <field name="code">PR-TSP-3KG-WOVEN-BAG</field>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_tsp_3kg_woven_bag"/>
+        <field name="base_qty" eval="1.0"/>
+        <field name="base_uom_id" ref="uom.product_uom_unit"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="valid_from">2026-08-02</field>
+        <field name="version">1.0</field>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_3kg_woven_bag_packaging"/>
+        <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tsp_01"/>
+        <field name="active" eval="False"/>
+    </record>
+
+    <record id="pack_recipe_line_tsp_3kg_woven_bag_woven_bag_3kg_6" model="mrp.packaging.recipe.line">
+        <field name="recipe_id" ref="legacy_mrp_master_data.pack_recipe_tsp_3kg_woven_bag"/>
+        <field name="packaging_product_id" ref="legacy_mrp_master_data.prod_woven_bag_3kg"/>
+        <field name="qty_per_base" eval="1.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_unit"/>
+        <field name="rounding_method">product_uom_rounding</field>
+        <field name="sequence" eval="10"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_3kg_woven_bag_packaging"/>
+    </record>
+
+    <record id="pack_recipe_tsp_8kg_woven_bag" model="mrp.packaging.recipe">
+        <field name="name">Packaging Recipe - TSP - 8kg Woven Bag</field>
+        <field name="code">PR-TSP-8KG-WOVEN-BAG</field>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_tsp_8kg_woven_bag"/>
+        <field name="base_qty" eval="1.0"/>
+        <field name="base_uom_id" ref="uom.product_uom_unit"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="valid_from">2026-08-02</field>
+        <field name="version">1.0</field>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_8kg_woven_bag_packaging"/>
+        <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tsp_01"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="pack_recipe_line_tsp_8kg_woven_bag_woven_bag_8kg_6" model="mrp.packaging.recipe.line">
+        <field name="recipe_id" ref="legacy_mrp_master_data.pack_recipe_tsp_8kg_woven_bag"/>
+        <field name="packaging_product_id" ref="legacy_mrp_master_data.prod_woven_bag_8kg"/>
+        <field name="qty_per_base" eval="1.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_unit"/>
+        <field name="rounding_method">product_uom_rounding</field>
+        <field name="sequence" eval="10"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_8kg_woven_bag_packaging"/>
+    </record>
+
+    <record id="pack_recipe_puffs_case_50_x_16g" model="mrp.packaging.recipe">
+        <field name="name">Packaging Recipe - Puffs - Case (50 x 16g)</field>
+        <field name="code">PR-PUFFS-CASE-50-X-16G</field>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_puffs_case_50_x_16g"/>
+        <field name="base_qty" eval="1.0"/>
+        <field name="base_uom_id" ref="uom.product_uom_unit"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="valid_from">2026-08-02</field>
+        <field name="version">1.0</field>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_case_50_x_16g_packaging"/>
+        <field name="workcenter_id" ref="legacy_mrp_master_data.wc_puf_01"/>
+        <field name="active" eval="False"/>
+    </record>
+
+    <record id="pack_recipe_line_puffs_case_50_x_16g_puffs_rolls_16g_12" model="mrp.packaging.recipe.line">
+        <field name="recipe_id" ref="legacy_mrp_master_data.pack_recipe_puffs_case_50_x_16g"/>
+        <field name="packaging_product_id" ref="legacy_mrp_master_data.prod_puffs_rolls_16g"/>
+        <field name="qty_per_base" eval="0.05565217391304347"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="rounding_method">product_uom_rounding</field>
+        <field name="sequence" eval="10"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_case_50_x_16g_packaging"/>
+    </record>
+
+    <record id="pack_recipe_line_puffs_case_50_x_16g_outer_packaging_16g_13" model="mrp.packaging.recipe.line">
+        <field name="recipe_id" ref="legacy_mrp_master_data.pack_recipe_puffs_case_50_x_16g"/>
+        <field name="packaging_product_id" ref="legacy_mrp_master_data.prod_outer_packaging_16g"/>
+        <field name="qty_per_base" eval="1.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_unit"/>
+        <field name="rounding_method">product_uom_rounding</field>
+        <field name="sequence" eval="20"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_case_50_x_16g_packaging"/>
+    </record>
+
+    <record id="pack_recipe_zed_crunch_puffs_case_6_x_22" model="mrp.packaging.recipe">
+        <field name="name">Packaging Recipe - Zed Crunch Puffs Case (6 x 22)</field>
+        <field name="code">PR-ZED-CRUNCH-PUFFS-CASE-6-X-22</field>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_zed_crunch_puffs_case_6_x_22"/>
+        <field name="base_qty" eval="1.0"/>
+        <field name="base_uom_id" ref="uom.product_uom_unit"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="valid_from">2026-08-02</field>
+        <field name="version">1.0</field>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_zed_crunch_puffs_case_6_x_22_packaging"/>
+        <field name="workcenter_id" ref="legacy_mrp_master_data.wc_puf_01"/>
+        <field name="active" eval="False"/>
+    </record>
+
+    <record id="pack_recipe_line_zed_crunch_puffs_case_6_x_22_inner_packaging_zed_crunch_12" model="mrp.packaging.recipe.line">
+        <field name="recipe_id" ref="legacy_mrp_master_data.pack_recipe_zed_crunch_puffs_case_6_x_22"/>
+        <field name="packaging_product_id" ref="legacy_mrp_master_data.prod_inner_packaging_zed_crunch"/>
+        <field name="qty_per_base" eval="6.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="rounding_method">product_uom_rounding</field>
+        <field name="sequence" eval="10"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_zed_crunch_puffs_case_6_x_22_packaging"/>
+    </record>
+
+    <record id="pack_recipe_line_zed_crunch_puffs_case_6_x_22_zambia_sugar_baler_13" model="mrp.packaging.recipe.line">
+        <field name="recipe_id" ref="legacy_mrp_master_data.pack_recipe_zed_crunch_puffs_case_6_x_22"/>
+        <field name="packaging_product_id" ref="legacy_mrp_master_data.prod_zambia_sugar_baler"/>
+        <field name="qty_per_base" eval="1.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_unit"/>
+        <field name="rounding_method">product_uom_rounding</field>
+        <field name="sequence" eval="20"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_zed_crunch_puffs_case_6_x_22_packaging"/>
+    </record>
+
+    <record id="pack_recipe_puffs_case_30_x_60g" model="mrp.packaging.recipe">
+        <field name="name">Packaging Recipe - Puffs - Case (30 x 60g)</field>
+        <field name="code">PR-PUFFS-CASE-30-X-60G</field>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_puffs_case_30_x_60g"/>
+        <field name="base_qty" eval="1.0"/>
+        <field name="base_uom_id" ref="uom.product_uom_unit"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="valid_from">2026-08-02</field>
+        <field name="version">1.0</field>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_case_30_x_60g_packaging"/>
+        <field name="workcenter_id" ref="legacy_mrp_master_data.wc_puf_01"/>
+        <field name="active" eval="False"/>
+    </record>
+
+    <record id="pack_recipe_line_puffs_case_30_x_60g_puffs_rolls_60g_12" model="mrp.packaging.recipe.line">
+        <field name="recipe_id" ref="legacy_mrp_master_data.pack_recipe_puffs_case_30_x_60g"/>
+        <field name="packaging_product_id" ref="legacy_mrp_master_data.prod_puffs_rolls_60g"/>
+        <field name="qty_per_base" eval="0.04565217391304348"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="rounding_method">product_uom_rounding</field>
+        <field name="sequence" eval="10"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_case_30_x_60g_packaging"/>
+    </record>
+
+    <record id="pack_recipe_line_puffs_case_30_x_60g_outer_packaging_60g_13" model="mrp.packaging.recipe.line">
+        <field name="recipe_id" ref="legacy_mrp_master_data.pack_recipe_puffs_case_30_x_60g"/>
+        <field name="packaging_product_id" ref="legacy_mrp_master_data.prod_outer_packaging_60g"/>
+        <field name="qty_per_base" eval="1.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_unit"/>
+        <field name="rounding_method">product_uom_rounding</field>
+        <field name="sequence" eval="20"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_case_30_x_60g_packaging"/>
+    </record>
+
+    <record id="prod_instant_porridge_box_20_x_500g" model="product.product">
+        <field name="packaging_recipe_id" ref="legacy_mrp_master_data.pack_recipe_instant_porridge_box_20_x_500g"/>
+        <field name="default_packaging_operation_id" ref="legacy_mrp_master_data.op_instant_porridge_box_20_x_500g_packaging"/>
+        <field name="default_packaging_workcenter_id" ref="legacy_mrp_master_data.wc_por_01"/>
+    </record>
+
+    <record id="prod_tsp_case_10_x_700g" model="product.product">
+        <field name="packaging_recipe_id" ref="legacy_mrp_master_data.pack_recipe_tsp_case_10_x_700g"/>
+        <field name="default_packaging_operation_id" ref="legacy_mrp_master_data.op_tsp_case_10_x_700g_packaging"/>
+        <field name="default_packaging_workcenter_id" ref="legacy_mrp_master_data.wc_tsp_01"/>
+    </record>
+
+    <record id="prod_tsp_8kg_woven_bag" model="product.product">
+        <field name="packaging_recipe_id" ref="legacy_mrp_master_data.pack_recipe_tsp_8kg_woven_bag"/>
+        <field name="default_packaging_operation_id" ref="legacy_mrp_master_data.op_tsp_8kg_woven_bag_packaging"/>
+        <field name="default_packaging_workcenter_id" ref="legacy_mrp_master_data.wc_tsp_01"/>
+    </record>
+
+    </data>
+</odoo>

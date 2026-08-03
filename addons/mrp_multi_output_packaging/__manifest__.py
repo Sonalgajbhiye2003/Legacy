@@ -1,0 +1,23 @@
+{
+    "name": "MRP Multi-Output Packaging",
+    "summary": "Quantity, packaging, and bulk reconciliation foundation for custom manufacturing",
+    "version": "17.0.1.0.0",
+    "category": "Manufacturing/Manufacturing",
+    "license": "LGPL-3",
+    "author": "Legacy Manufacturers",
+    "depends": ["mrp", "stock", "product", "uom", "mail"],
+    "data": [
+        "security/security.xml",
+        "security/ir.model.access.csv",
+        "data/sequences.xml",
+        "views/mrp_packaging_recipe_views.xml",
+        "views/product_views.xml",
+        "views/mrp_bom_views.xml",
+        "views/mrp_production_views.xml",
+        "views/res_company_views.xml",
+        "views/menus.xml",
+    ],
+    "installable": True,
+    "application": False,
+    "post_init_hook": "post_init_hook",
+}
