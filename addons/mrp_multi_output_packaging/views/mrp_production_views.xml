@@ -16,6 +16,11 @@
                        required="manufacturing_workflow == 'custom_multi_output'"
                        groups="mrp.group_mrp_manager"/>
             </xpath>
+            <xpath expr="//label[@for='product_qty']/following-sibling::div[1]/div[field[@name='qty_producing']]"
+                   position="attributes">
+                <attribute name="class" add="flex-shrink-0" separator=" "/>
+                <attribute name="style">min-width: 160px;</attribute>
+            </xpath>
             <xpath expr="//sheet/group" position="after">
                 <group string="Production Summary" invisible="manufacturing_workflow != 'custom_multi_output'">
                     <group>
