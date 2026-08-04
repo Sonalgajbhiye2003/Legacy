@@ -11,6 +11,15 @@ APPROVAL_STATES = [
     ("rejected", "Rejected"),
 ]
 
+APPROVAL_STATUSES = [
+    ("not_requested", "Not Requested"),
+    ("requested", "Approval Requested"),
+    ("approved", "Approved"),
+    ("rejected", "Rejected"),
+]
+
+APPROVAL_ACTIVITY_SUMMARY = "Purchase Order Approval Required"
+
 
 PROTECTED_APPROVAL_FIELDS = {
     "approval_required",
@@ -55,6 +64,13 @@ class PurchaseOrder(models.Model):
         tracking=True,
         index=True,
     )
+    approval_status = fields.Selection(
+        APPROVAL_STATUSES,
+        string="Purchase Approval Status",
+        compute="_compute_approval_status",
+        store=True,
+        index=True,
+    )
     current_approval_level = fields.Integer(copy=False, readonly=True, tracking=True)
     level_1_approver_id = fields.Many2one(
         "res.users", copy=False, readonly=True, tracking=True
@@ -90,6 +106,20 @@ class PurchaseOrder(models.Model):
         "res.users", compute="_compute_current_approver", string="Current Approver"
     )
     can_current_user_approve = fields.Boolean(compute="_compute_current_approver")
+
+    @api.depends("approval_state")
+    def _compute_approval_status(self):
+        for order in self:
+            if order.approval_state in (
+                "waiting_level_1",
+                "waiting_level_2",
+                "waiting_level_3",
+            ):
+                order.approval_status = "requested"
+            elif order.approval_state in ("approved", "rejected"):
+                order.approval_status = order.approval_state
+            else:
+                order.approval_status = "not_requested"
 
     @api.depends(
         "approval_state",
@@ -199,6 +229,9 @@ class PurchaseOrder(models.Model):
         self._check_current_approver()
         level = self.current_approval_level
         now = fields.Datetime.now()
+        self._complete_current_approval_activity(
+            _("Level %(level)s approved by %(approver)s.", level=level, approver=self.env.user.display_name)
+        )
         self._approval_write(
             {
                 f"level_{level}_approved_by": self.env.user.id,
@@ -255,6 +288,13 @@ class PurchaseOrder(models.Model):
             raise UserError(_("A rejection reason is required."))
         level = self.current_approval_level
         rejecting_user = self.env.user
+        self._complete_current_approval_activity(
+            _(
+                "Level %(level)s rejected by %(approver)s.",
+                level=level,
+                approver=rejecting_user.display_name,
+            )
+        )
         self._approval_write(
             {
                 "approval_state": "rejected",
@@ -317,6 +357,16 @@ class PurchaseOrder(models.Model):
             "legacy_purchase_approval.mail_template_purchase_approval_request",
             approver,
         )
+        self._send_in_app_notification(
+            approver,
+            _("Purchase Order Approval Required: %s", self.name),
+            _(
+                "Purchase Order %(order)s requires your Level %(level)s approval.",
+                order=self.name,
+                level=self.current_approval_level,
+            ),
+        )
+        self._schedule_approval_activity(approver)
         self.message_post(
             body=_(
                 "Approval request email queued for %(approver)s (Level %(level)s).",
@@ -330,10 +380,60 @@ class PurchaseOrder(models.Model):
         self.ensure_one()
         requester = self.approval_requested_by
         self._send_approval_email(template_xmlid, requester)
+        if self.approval_state == "approved":
+            subject = _("Purchase Order Approved: %s", self.name)
+            body = _("Purchase Order %s has completed the approval workflow.", self.name)
+        else:
+            subject = _("Purchase Order Rejected: %s", self.name)
+            body = _(
+                "Purchase Order %(order)s was rejected. Reason: %(reason)s",
+                order=self.name,
+                reason=self.rejection_reason,
+            )
+        self._send_in_app_notification(requester, subject, body)
         self.message_post(
             body=_("Approval result email queued for %s.", requester.display_name),
             subtype_xmlid="mail.mt_note",
         )
+
+    def _send_in_app_notification(self, recipient, subject, body):
+        self.ensure_one()
+        if not recipient or not recipient.partner_id:
+            return self.env["mail.message"]
+        return self.message_notify(
+            subject=subject,
+            body=body,
+            partner_ids=[recipient.partner_id.id],
+            subtype_xmlid="mail.mt_note",
+        )
+
+    def _schedule_approval_activity(self, approver):
+        self.ensure_one()
+        existing = self.activity_ids.filtered(
+            lambda activity: activity.user_id == approver
+            and activity.summary == APPROVAL_ACTIVITY_SUMMARY
+        )
+        if existing:
+            return existing
+        return self.activity_schedule(
+            "mail.mail_activity_data_todo",
+            user_id=approver.id,
+            summary=APPROVAL_ACTIVITY_SUMMARY,
+            note=_(
+                "Review Purchase Order %(order)s and approve or reject Level %(level)s.",
+                order=self.name,
+                level=self.current_approval_level,
+            ),
+        )
+
+    def _complete_current_approval_activity(self, feedback):
+        self.ensure_one()
+        activities = self.activity_ids.filtered(
+            lambda activity: activity.user_id == self.env.user
+            and activity.summary == APPROVAL_ACTIVITY_SUMMARY
+        )
+        if activities:
+            activities.action_feedback(feedback=feedback)
 
     def _send_approval_email(self, template_xmlid, recipient):
         self.ensure_one()

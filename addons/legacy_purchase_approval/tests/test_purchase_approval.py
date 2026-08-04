@@ -53,6 +53,7 @@ class TestLegacyPurchaseApproval(TransactionCase):
                 "name": name,
                 "login": login,
                 "email": f"{login}@example.com",
+                "notification_type": "inbox",
                 "company_id": company.id,
                 "company_ids": [Command.set(companies.ids)],
                 "groups_id": [Command.set(groups.ids)],
@@ -144,6 +145,24 @@ class TestLegacyPurchaseApproval(TransactionCase):
             [("subject", "=", subject)], order="id desc", limit=1
         )
 
+    def _in_app_notification(self, subject, recipient):
+        message = self.env["mail.message"].search(
+            [
+                ("subject", "=", subject),
+                ("message_type", "=", "user_notification"),
+            ],
+            order="id desc",
+            limit=1,
+        )
+        notification = self.env["mail.notification"].search(
+            [
+                ("mail_message_id", "=", message.id),
+                ("res_partner_id", "=", recipient.partner_id.id),
+            ],
+            limit=1,
+        )
+        return message, notification
+
     def _chatter_text(self, order):
         return "\n".join(str(body) for body in order.message_ids.mapped("body"))
 
@@ -195,18 +214,36 @@ class TestLegacyPurchaseApproval(TransactionCase):
         self.assertTrue(order.approval_required)
         self.assertEqual(order.approval_config_id, config)
         self.assertEqual(order.approval_state, "waiting_level_1")
+        self.assertEqual(order.approval_status, "requested")
         self.assertEqual(order.current_approval_level, 1)
         self.assertEqual(order.level_1_approver_id, self.approver_1)
         self.assertEqual(order.approval_requested_by, self.requester)
         self.assertTrue(order.approval_requested_date)
+        request_message, request_notification = self._in_app_notification(
+            f"Purchase Order Approval Required: {order.name}", self.approver_1
+        )
+        self.assertTrue(request_message)
+        self.assertTrue(request_notification)
+        approval_activity = order.activity_ids.filtered(
+            lambda activity: activity.user_id == self.approver_1
+            and activity.summary == "Purchase Order Approval Required"
+        )
+        self.assertTrue(approval_activity)
 
         self._approve_as(order, self.approver_1)
 
         self.assertEqual(order.approval_state, "approved")
+        self.assertEqual(order.approval_status, "approved")
         self.assertEqual(order.level_1_approved_by, self.approver_1)
         self.assertTrue(order.level_1_approved_date)
         self.assertIn("Purchase approval completed", self._chatter_text(order))
         self.assertIn("Approval result email queued", self._chatter_text(order))
+        self.assertFalse(approval_activity.exists())
+        result_message, result_notification = self._in_app_notification(
+            f"Purchase Order Approved: {order.name}", self.requester
+        )
+        self.assertTrue(result_message)
+        self.assertTrue(result_notification)
         order.with_user(self.requester).button_confirm()
         self.assertEqual(order.state, "purchase")
 
@@ -218,16 +255,24 @@ class TestLegacyPurchaseApproval(TransactionCase):
         self._approve_as(order, self.approver_1)
 
         self.assertEqual(order.approval_state, "waiting_level_2")
+        self.assertEqual(order.approval_status, "requested")
         self.assertEqual(order.current_approval_level, 2)
         self.assertEqual(order.current_approver_id, self.approver_2)
         self.assertIn(
             f"Approval request email queued for {self.approver_2.display_name}",
             self._chatter_text(order),
         )
+        self.assertTrue(
+            order.activity_ids.filtered(
+                lambda activity: activity.user_id == self.approver_2
+                and activity.summary == "Purchase Order Approval Required"
+            )
+        )
 
         self._approve_as(order, self.approver_2)
 
         self.assertEqual(order.approval_state, "approved")
+        self.assertEqual(order.approval_status, "approved")
         self.assertEqual(order.level_2_approved_by, self.approver_2)
         self.assertTrue(order.level_2_approved_date)
         self.assertIn("Approval result email queued", self._chatter_text(order))
@@ -246,6 +291,7 @@ class TestLegacyPurchaseApproval(TransactionCase):
         self._approve_as(order, self.approver_3)
 
         self.assertEqual(order.approval_state, "approved")
+        self.assertEqual(order.approval_status, "approved")
         self.assertEqual(order.level_1_approved_by, self.approver_1)
         self.assertEqual(order.level_2_approved_by, self.approver_2)
         self.assertEqual(order.level_3_approved_by, self.approver_3)
@@ -262,6 +308,7 @@ class TestLegacyPurchaseApproval(TransactionCase):
         self._reject_as(order, self.approver_1, "Level 1 budget rejection")
 
         self.assertEqual(order.approval_state, "rejected")
+        self.assertEqual(order.approval_status, "rejected")
         self.assertEqual(order.rejection_reason, "Level 1 budget rejection")
         self.assertEqual(order.rejected_by_id, self.approver_1)
         self.assertIn("Level 1 budget rejection", self._chatter_text(order))
@@ -277,6 +324,7 @@ class TestLegacyPurchaseApproval(TransactionCase):
         self._reject_as(order, self.approver_2, "Level 2 commercial rejection")
 
         self.assertEqual(order.approval_state, "rejected")
+        self.assertEqual(order.approval_status, "rejected")
         self.assertEqual(order.rejection_reason, "Level 2 commercial rejection")
         self.assertEqual(order.rejected_by_id, self.approver_2)
         self._assert_confirmation_blocked(order, "has been rejected")
@@ -291,6 +339,7 @@ class TestLegacyPurchaseApproval(TransactionCase):
         self._reject_as(order, self.approver_3, "Level 3 executive rejection")
 
         self.assertEqual(order.approval_state, "rejected")
+        self.assertEqual(order.approval_status, "rejected")
         self.assertEqual(order.rejection_reason, "Level 3 executive rejection")
         self.assertEqual(order.rejected_by_id, self.approver_3)
         self._assert_confirmation_blocked(order, "has been rejected")
@@ -406,6 +455,7 @@ class TestLegacyPurchaseApproval(TransactionCase):
         order.with_user(self.purchase_manager).action_reset_purchase_approval()
 
         self.assertEqual(order.approval_state, "draft")
+        self.assertEqual(order.approval_status, "not_requested")
         self.assertEqual(order.current_approval_level, 0)
         self.assertFalse(order.approval_required)
         self.assertFalse(order.rejection_reason)
@@ -435,7 +485,7 @@ class TestLegacyPurchaseApproval(TransactionCase):
         self.assertIn("Purchase Order rejected at Level 1", rejected_chatter)
         self.assertIn("Chatter rejection reason", rejected_chatter)
 
-    def test_email_records_for_request_approval_and_rejection(self):
+    def test_email_and_in_app_records_for_request_approval_and_rejection(self):
         self._create_config()
         approved_order = self._create_purchase_order()
         self._request_approval(approved_order)
@@ -445,11 +495,22 @@ class TestLegacyPurchaseApproval(TransactionCase):
         )
         self.assertTrue(request_mail)
         self.assertIn(self.approver_1.partner_id, request_mail.recipient_ids)
+        request_message, request_notification = self._in_app_notification(
+            f"Purchase Order Approval Required: {approved_order.name}",
+            self.approver_1,
+        )
+        self.assertTrue(request_message)
+        self.assertTrue(request_notification)
 
         self._approve_as(approved_order, self.approver_1)
         approval_mail = self._mail(f"Purchase Order Approved: {approved_order.name}")
         self.assertTrue(approval_mail)
         self.assertIn(self.requester.partner_id, approval_mail.recipient_ids)
+        approval_message, approval_notification = self._in_app_notification(
+            f"Purchase Order Approved: {approved_order.name}", self.requester
+        )
+        self.assertTrue(approval_message)
+        self.assertTrue(approval_notification)
 
         rejected_order = self._create_purchase_order(price=200.0)
         self._request_approval(rejected_order)
@@ -457,3 +518,8 @@ class TestLegacyPurchaseApproval(TransactionCase):
         rejection_mail = self._mail(f"Purchase Order Rejected: {rejected_order.name}")
         self.assertTrue(rejection_mail)
         self.assertIn(self.requester.partner_id, rejection_mail.recipient_ids)
+        rejection_message, rejection_notification = self._in_app_notification(
+            f"Purchase Order Rejected: {rejected_order.name}", self.requester
+        )
+        self.assertTrue(rejection_message)
+        self.assertTrue(rejection_notification)

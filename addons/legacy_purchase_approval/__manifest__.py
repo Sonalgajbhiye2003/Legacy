@@ -1,7 +1,7 @@
 {
     "name": "Legacy Purchase Approval",
     "summary": "Configurable one-to-three-level purchase order approvals",
-    "version": "17.0.1.0.0",
+    "version": "17.0.1.1.0",
     "category": "Purchases",
     "license": "LGPL-3",
     "author": "Legacy Group",
