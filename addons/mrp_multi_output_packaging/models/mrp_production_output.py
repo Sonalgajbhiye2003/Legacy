@@ -23,7 +23,14 @@ class MrpProductionOutputLine(models.Model):
     product_id = fields.Many2one("product.product", required=True, check_company=True)
     output_classification = fields.Selection(OUTPUT_CLASSIFICATION, required=True, default="primary_packaged")
     planned_qty = fields.Float(digits="Product Unit of Measure")
-    actual_qty = fields.Float(digits="Product Unit of Measure", copy=False)
+    actual_qty = fields.Float(
+        digits="Product Unit of Measure",
+        copy=False,
+        help=(
+            "Enter the quantity actually produced after the manufacturing run, "
+            "before completing the Manufacturing Order."
+        ),
+    )
     product_uom_id = fields.Many2one("uom.uom", required=True)
     net_content_qty = fields.Float(digits="Product Unit of Measure")
     net_content_uom_id = fields.Many2one("uom.uom")
@@ -37,9 +44,23 @@ class MrpProductionOutputLine(models.Model):
         store=True,
         digits="Product Unit of Measure",
         help=(
-            "Maximum packaged units if the MO's entire main quantity is packed "
-            "into this variant. This is a planning guide and does not change the "
-            "Quantity to Produce."
+            "Maximum units of this variant after reserving the MO quantity used "
+            "by every other packaged product."
+        ),
+    )
+    current_on_hand_qty = fields.Float(
+        string="Current On Hand",
+        compute="_compute_inventory_projection",
+        digits="Product Unit of Measure",
+        help="Current stock for this output product at the MO destination location.",
+    )
+    forecasted_on_hand_qty = fields.Float(
+        string="Forecast After MO",
+        compute="_compute_inventory_projection",
+        digits="Product Unit of Measure",
+        help=(
+            "Expected stock at the MO destination after adding the planned output. "
+            "For a completed or cancelled MO this equals the current on-hand quantity."
         ),
     )
     packaging_recipe_id = fields.Many2one("mrp.packaging.recipe", check_company=True)
@@ -52,22 +73,40 @@ class MrpProductionOutputLine(models.Model):
 
     @api.depends(
         "planned_qty", "actual_qty", "net_content_qty", "net_content_uom_id",
-        "bulk_equivalent_product_id", "output_classification"
+        "product_uom_id", "bulk_equivalent_product_id", "output_classification"
     )
     def _compute_equivalent_bulk_qty(self):
+        kg_uom = self.env.ref("uom.product_uom_kgm")
         for line in self:
             line.equivalent_bulk_qty = 0.0
-            if line.output_classification != "primary_packaged" or not line.net_content_uom_id or not line.bulk_equivalent_product_id:
+            if (
+                line.output_classification == "primary_bulk"
+                and line.product_uom_id
+                and line.product_uom_id.category_id == kg_uom.category_id
+            ):
+                line.equivalent_bulk_qty = line.product_uom_id._compute_quantity(
+                    line.planned_qty,
+                    kg_uom,
+                    round=False,
+                )
                 continue
-            quantity = line.actual_qty if line.actual_qty else line.planned_qty
-            content = quantity * line.net_content_qty
-            bulk_uom = line.bulk_equivalent_product_id.uom_id
-            if line.net_content_uom_id.category_id == bulk_uom.category_id:
-                line.equivalent_bulk_qty = line.net_content_uom_id._compute_quantity(content, bulk_uom)
+            if line.output_classification != "primary_packaged" or not line.net_content_uom_id:
+                continue
+            content = line.planned_qty * line.net_content_qty
+            if line.net_content_uom_id.category_id == kg_uom.category_id:
+                line.equivalent_bulk_qty = line.net_content_uom_id._compute_quantity(
+                    content,
+                    kg_uom,
+                    round=False,
+                )
 
     @api.depends(
         "production_id.product_qty",
         "production_id.product_uom_id",
+        "production_id.output_line_ids.planned_qty",
+        "production_id.output_line_ids.net_content_qty",
+        "production_id.output_line_ids.net_content_uom_id",
+        "production_id.output_line_ids.output_classification",
         "net_content_qty",
         "net_content_uom_id",
         "product_uom_id",
@@ -85,12 +124,25 @@ class MrpProductionOutputLine(models.Model):
                 or production.product_uom_id.category_id != line.net_content_uom_id.category_id
             ):
                 continue
-            main_qty_in_content_uom = production.product_uom_id._compute_quantity(
-                production.product_qty,
-                line.net_content_uom_id,
+            content_per_unit_in_mo_uom = line.net_content_uom_id._compute_quantity(
+                line.net_content_qty,
+                production.product_uom_id,
                 round=False,
             )
-            possible_qty = main_qty_in_content_uom / line.net_content_qty
+            other_packaged_qty = sum(
+                other.net_content_uom_id._compute_quantity(
+                    other.planned_qty * other.net_content_qty,
+                    production.product_uom_id,
+                    round=False,
+                )
+                for other in production.output_line_ids
+                if other != line
+                and other.output_classification == "primary_packaged"
+                and other.net_content_uom_id
+                and other.net_content_uom_id.category_id == production.product_uom_id.category_id
+            )
+            available_for_line = max(production.product_qty - other_packaged_qty, 0.0)
+            possible_qty = available_for_line / content_per_unit_in_mo_uom
             line.possible_qty_from_mo = float_round(
                 possible_qty,
                 # Finished packs are discrete units; never suggest a fraction
@@ -98,6 +150,39 @@ class MrpProductionOutputLine(models.Model):
                 precision_rounding=max(line.product_uom_id.rounding, 1.0),
                 rounding_method="DOWN",
             )
+
+    @api.depends(
+        "product_id",
+        "location_dest_id",
+        "planned_qty",
+        "state",
+        "company_id",
+    )
+    def _compute_inventory_projection(self):
+        for line in self:
+            current_qty = 0.0
+            if line.product_id:
+                product = line.product_id.with_company(line.company_id)
+                if line.location_dest_id:
+                    product = product.with_context(location=line.location_dest_id.id)
+                current_qty = product.qty_available
+            line.current_on_hand_qty = current_qty
+            line.forecasted_on_hand_qty = (
+                current_qty + line.planned_qty
+                if line.state not in ("done", "cancel")
+                else current_qty
+            )
+
+    def action_open_product(self):
+        self.ensure_one()
+        return {
+            "type": "ir.actions.act_window",
+            "name": self.product_id.display_name,
+            "res_model": "product.product",
+            "res_id": self.product_id.id,
+            "view_mode": "form",
+            "target": "current",
+        }
 
     @api.onchange("product_id")
     def _onchange_product_id(self):
@@ -154,6 +239,7 @@ class MrpProductionOutputLine(models.Model):
                     raise ValidationError("Packaging Recipe and Manufacturing Order companies must match.")
             if line.output_classification == "primary_bulk" and line.product_id != line.production_id.bulk_product_id:
                 raise ValidationError("Primary Bulk Output must use the Manufacturing Order bulk product.")
+        self.production_id._validate_packaged_quantity_limit()
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -226,7 +312,9 @@ class MrpProductionPackagingLine(models.Model):
     wastage_percentage = fields.Float()
     variance_qty = fields.Float(compute="_compute_variance", store=True, digits="Product Unit of Measure")
     variance_percentage = fields.Float(compute="_compute_variance", store=True)
-    variance_reason = fields.Char()
+    # Hidden compatibility field for Odoo workers that loaded an older model
+    # registry. It is intentionally absent from the views and validations.
+    variance_reason = fields.Char(copy=False)
     stock_move_id = fields.Many2one("stock.move", readonly=True, copy=False, check_company=True)
     operation_id = fields.Many2one("mrp.routing.workcenter", check_company=True)
     company_id = fields.Many2one(related="production_id.company_id", store=True, index=True)

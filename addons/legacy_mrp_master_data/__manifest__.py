@@ -21,8 +21,7 @@
         "data/operations.xml",
         "data/bom_lines.xml",
         "data/byproducts.xml",
-        "data/packaging_recipes.xml",
-        "data/quality_points.xml"
+        "data/packaging_recipes.xml"
     ],
     "post_init_hook": "post_init_hook",
     "installable": True,

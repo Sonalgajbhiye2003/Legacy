@@ -1,0 +1,20 @@
+{
+    "name": "Legacy Purchase Approval",
+    "summary": "Configurable one-to-three-level purchase order approvals",
+    "version": "17.0.1.0.0",
+    "category": "Purchases",
+    "license": "LGPL-3",
+    "author": "Legacy Group",
+    "depends": ["purchase", "mail"],
+    "data": [
+        "security/security.xml",
+        "security/ir.model.access.csv",
+        "data/mail_template_data.xml",
+        "views/purchase_approval_config_views.xml",
+        "wizard/purchase_rejection_wizard_views.xml",
+        "views/purchase_order_views.xml",
+        "views/menus.xml",
+    ],
+    "installable": True,
+    "application": False,
+}
