@@ -1,7 +1,7 @@
 {
     "name": "Legacy MRP Master Data",
     "summary": "Legacy Manufacturing product, warehouse, work-center, BoM, operation, and packaging master data",
-    "version": "17.0.1.1.0",
+    "version": "17.0.1.2.0",
     "category": "Manufacturing/Manufacturing",
     "license": "LGPL-3",
     "author": "Legacy Manufacturers",

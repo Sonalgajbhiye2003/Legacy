@@ -124,7 +124,7 @@
         <field name="manufacturing_workflow">custom_multi_output</field>
         <field name="custom_process_type">integrated_production_packaging</field>
         <field name="default_packaged_product_id" ref="legacy_mrp_master_data.prod_tsp_case_10_x_700g"/>
-        <field name="active" eval="False"/>
+        <field name="active" eval="True"/>
     </record>
 
     <record id="bom_tsp_case_5_x_700g" model="mrp.bom">
@@ -180,7 +180,7 @@
         <field name="manufacturing_workflow">custom_multi_output</field>
         <field name="custom_process_type">integrated_production_packaging</field>
         <field name="default_packaged_product_id" ref="legacy_mrp_master_data.prod_tsp_8kg_woven_bag"/>
-        <field name="active" eval="False"/>
+        <field name="active" eval="True"/>
     </record>
 
     <record id="bom_puffs_case_50_x_16g" model="mrp.bom">

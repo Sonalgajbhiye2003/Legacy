@@ -5,9 +5,10 @@
 - `C:\Users\SONAL\Downloads\Legacy_Products_BOMs_Odoo17_Import.xlsx`
 - `C:\Users\SONAL\Downloads\Product (product.template).xlsx`
 - `C:\Users\SONAL\Downloads\Product Variant (product.product).xlsx`
+- `C:\Users\SONAL\OneDrive\Desktop\Legacy Group Docs\Legacy products  BOM-July 26.xlsx`
 - Existing `legacy_mrp_master_data` and `mrp_multi_output_packaging` addon data
 
-The exact original filenames `June 26 stock sheet.xlsx`, `Legacy products BOM-July 26.xlsx`, and `OPS010-Process Flow Diagrams.xlsx` were not present in the searched customer folders. The inspected Odoo-ready OPS010, BOM, and product-export workbooks preserve the relevant source rows and explicit data-gap statuses used for this reconciliation.
+The exact original `Legacy products  BOM-July 26.xlsx` was inspected for the visibility update. The exact original `June 26 stock sheet.xlsx` and `OPS010-Process Flow Diagrams.xlsx` were not present in the searched customer folders; the inspected Odoo-ready OPS010 and product-export workbooks preserve the relevant source rows and explicit data-gap statuses used for the processing reconciliation.
 
 ## Summary
 - Total source product lines: 71
@@ -15,8 +16,8 @@ The exact original filenames `June 26 stock sheet.xlsx`, `Legacy products BOM-Ju
 - Duplicates merged: 1
 - Products requiring review: 9
 - Total BOM sheets: 16
-- Valid active BOMs after Soya reconciliation: 1
-- Inactive/incomplete BOMs after Soya reconciliation: 16
+- Valid active BOMs after BOM-master visibility update: 3
+- Inactive/incomplete BOMs after BOM-master visibility update: 14
 - Formula-derived quantity cells reviewed: 57
 - Work centers created: 4
 - Operations created: 147
@@ -37,25 +38,25 @@ The addon uses the existing `mrp_multi_output_packaging` module as the single so
 - Kept the existing oil UoM as kg. OPS010 proposes litres but explicitly leaves density, UoM, yield, and saleability unresolved.
 - Reused `RM-SOYA-BEANS` as the raw input and retained `BYP-LOW-FAT-CAKE` as an independently stockable intermediate/product master.
 - Added inactive standard BoM shell `LEGACY-SOYA-CHUNKS-SINGLE-PROCESS` with processing operations only. It intentionally has no component or by-product lines because approved batch input, main-output yield, oil yield, loss, and cost share are absent.
-- Archived all six pack-specific TSP processing BoMs. TSP packaging remains in `mrp.packaging.recipe` on the saleable variants.
+- Restored the two source-consistent TSP BoMs (`10 x 700g` and `8kg woven bag`) as visible active records. The four contradictory/incomplete TSP BoMs remain archived. Packaging remains in `mrp.packaging.recipe` on the saleable variants.
 - Did not add Low-Fat Cake as another by-product because no independently measured quantity is approved.
 - Did not create active quality points because the test type, sampling frequency, responsibility, and blocking rules are incomplete.
 - The shell must remain inactive until the unresolved decisions below are approved and entered as positive numeric values.
 
 ### Soya implementation verification
-- Addon upgrade: successful, installed version `17.0.1.1.0`.
+- Addon upgrade: successful, installed version `17.0.1.2.0`.
 - Automated tests: **19 passed, 0 failed, 0 errors**. Coverage includes deterministic master uniqueness, safe inactive data, ordered processing-only operations, packaging separation, native same-MO by-product creation, proportional planned output, and cancellation cleanup.
 - Live database: exactly one inactive `LEGACY-SOYA-CHUNKS-SINGLE-PROCESS` shell with nine operations, zero components, and zero by-products.
-- Pack-specific TSP processing BoMs: six retained for history and all archived; no records deleted.
+- Pack-specific TSP BoMs: six retained; the source-consistent `10 x 700g` and `8kg woven bag` records are active and visible, while four review records remain archived. No records were deleted.
 - Installation/upgrade transaction comparison: Manufacturing Orders `19 → 19`, Stock Moves `197 → 197`, Accounting Moves `8 → 8`.
 - Module-owned transaction XML IDs: zero.
 - Workbook validation: eight required sheets, row-1 import headers, six validation formulas, and zero formula-error cells.
-- UI verification: Archived banner, Standard Odoo workflow, empty Components/By-products, and the ordered nine-operation route were confirmed in the local Odoo form.
+- UI verification: the default BoM list shows exactly three valid active records, including both source-consistent TSP BoMs. The separate Soya Oil processing shell still shows its Archived banner, Standard Odoo workflow, empty Components/By-products, and ordered nine-operation route.
 
-## Active BOMs (before Soya reconciliation)
+## Active BOMs
 - Instant Porridge - Box (20 x 500g): source sheet `Instant porridge 500g`, bulk product `Bulk Instant Porridge`, output equivalent 10.0 kg.
-- TSP - Case (10 x 700g): archived because it was a pack-specific processing BoM.
-- TSP - 8kg Woven Bag: archived because it was a pack-specific processing BoM.
+- TSP - Case (10 x 700g): source sheet `TSP 700g x 10`; 7.0 kg Soya Beans for a 7.0 kg pack output, with a complete active packaging recipe.
+- TSP - 8kg Woven Bag: source sheet `TSP 8Kg`; 8.0 kg Soya Beans for an 8.0 kg pack output, with a complete active packaging recipe.
 
 ## Inactive / Incomplete BOMs
 - Instant Porridge - Box (10 x 1kg): source sheet `Instant porridge 1Kg` - Known source workbook problem requiring validation.

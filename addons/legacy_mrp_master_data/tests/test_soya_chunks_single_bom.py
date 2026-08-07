@@ -72,12 +72,16 @@ class TestSoyaChunksSingleBom(TransactionCase):
             lambda op: "pack" in op.name.lower()
         ))
 
-    def test_pack_specific_tsp_boms_are_archived(self):
+    def test_source_consistent_tsp_boms_are_visible_and_review_boms_archived(self):
         pack_boms = self.env["mrp.bom"].with_context(active_test=False).search([
             ("code", "like", "LEGACY-TSP-%"),
         ])
         self.assertEqual(len(pack_boms), 6)
-        self.assertFalse(pack_boms.filtered("active"))
+        self.assertEqual(
+            set(pack_boms.filtered("active").mapped("code")),
+            {"LEGACY-TSP-CASE-10-X-700G", "LEGACY-TSP-8KG-WOVEN-BAG"},
+        )
+        self.assertEqual(len(pack_boms.filtered(lambda bom: not bom.active)), 4)
 
     def test_tsp_packaging_remains_in_recipe_layer(self):
         variants = self.env["product.product"].search([
