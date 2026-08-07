@@ -190,7 +190,7 @@
         <field name="company_id" ref="base.main_company"/>
         <field name="valid_from">2026-08-02</field>
         <field name="version">1.0</field>
-        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_thobwa_case_50_x_50g_packaging"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_thobwa_single_packaging"/>
         <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tho_01"/>
         <field name="active" eval="True"/>
     </record>
@@ -202,7 +202,7 @@
         <field name="product_uom_id" ref="uom.product_uom_kgm"/>
         <field name="rounding_method">product_uom_rounding</field>
         <field name="sequence" eval="10"/>
-        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_thobwa_case_50_x_50g_packaging"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_thobwa_single_packaging"/>
     </record>
 
     <record id="pack_recipe_line_instant_thobwa_case_50_x_50g_thobwa_woven_bag_11" model="mrp.packaging.recipe.line">
@@ -212,7 +212,7 @@
         <field name="product_uom_id" ref="uom.product_uom_unit"/>
         <field name="rounding_method">product_uom_rounding</field>
         <field name="sequence" eval="20"/>
-        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_thobwa_case_50_x_50g_packaging"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_thobwa_single_packaging"/>
     </record>
 
     <record id="pack_recipe_instant_thobwa_25kg_bag" model="mrp.packaging.recipe">
@@ -224,7 +224,7 @@
         <field name="company_id" ref="base.main_company"/>
         <field name="valid_from">2026-08-02</field>
         <field name="version">1.0</field>
-        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_thobwa_25kg_bag_packaging"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_thobwa_single_packaging"/>
         <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tho_01"/>
         <field name="active" eval="True"/>
     </record>
@@ -236,7 +236,7 @@
         <field name="product_uom_id" ref="uom.product_uom_kgm"/>
         <field name="rounding_method">product_uom_rounding</field>
         <field name="sequence" eval="10"/>
-        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_thobwa_25kg_bag_packaging"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_thobwa_single_packaging"/>
     </record>
 
     <record id="pack_recipe_line_instant_thobwa_25kg_bag_woven_bag_50kg_11" model="mrp.packaging.recipe.line">
@@ -246,7 +246,7 @@
         <field name="product_uom_id" ref="uom.product_uom_unit"/>
         <field name="rounding_method">product_uom_rounding</field>
         <field name="sequence" eval="20"/>
-        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_thobwa_25kg_bag_packaging"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_thobwa_single_packaging"/>
     </record>
 
     <record id="pack_recipe_line_instant_thobwa_25kg_bag_sticker_12" model="mrp.packaging.recipe.line">
@@ -256,7 +256,7 @@
         <field name="product_uom_id" ref="uom.product_uom_unit"/>
         <field name="rounding_method">product_uom_rounding</field>
         <field name="sequence" eval="30"/>
-        <field name="operation_id" ref="legacy_mrp_master_data.op_instant_thobwa_25kg_bag_packaging"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_thobwa_single_packaging"/>
     </record>
 
     <record id="pack_recipe_tsp_case_20_x_90g" model="mrp.packaging.recipe">
@@ -268,9 +268,21 @@
         <field name="company_id" ref="base.main_company"/>
         <field name="valid_from">2026-08-02</field>
         <field name="version">1.0</field>
-        <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_case_20_x_90g_packaging"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_soya_chunks_100_packaging"/>
         <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tsp_01"/>
         <field name="active" eval="True"/>
+    </record>
+
+    <!-- The 90 g source variant is seasoned; keep this variant-specific
+         material out of the common bulk TSP process BOM. -->
+    <record id="pack_recipe_line_tsp_case_20_x_90g_beef_soya_spice" model="mrp.packaging.recipe.line">
+        <field name="recipe_id" ref="legacy_mrp_master_data.pack_recipe_tsp_case_20_x_90g"/>
+        <field name="packaging_product_id" ref="legacy_mrp_master_data.prod_beef_soya_spice"/>
+        <field name="qty_per_base" eval="0.16"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="rounding_method">product_uom_rounding</field>
+        <field name="sequence" eval="5"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_soya_chunks_100_packaging"/>
     </record>
 
     <record id="pack_recipe_line_tsp_case_20_x_90g_soya_beef_spice_rolls_7" model="mrp.packaging.recipe.line">
@@ -280,7 +292,7 @@
         <field name="product_uom_id" ref="uom.product_uom_kgm"/>
         <field name="rounding_method">product_uom_rounding</field>
         <field name="sequence" eval="10"/>
-        <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_case_20_x_90g_packaging"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_soya_chunks_100_packaging"/>
     </record>
 
     <record id="pack_recipe_line_tsp_case_20_x_90g_tsp_rolls_90g_8" model="mrp.packaging.recipe.line">
@@ -290,7 +302,7 @@
         <field name="product_uom_id" ref="uom.product_uom_kgm"/>
         <field name="rounding_method">product_uom_rounding</field>
         <field name="sequence" eval="20"/>
-        <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_case_20_x_90g_packaging"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_soya_chunks_100_packaging"/>
     </record>
 
     <record id="pack_recipe_line_tsp_case_20_x_90g_woven_bag_90g_9" model="mrp.packaging.recipe.line">
@@ -300,7 +312,7 @@
         <field name="product_uom_id" ref="uom.product_uom_unit"/>
         <field name="rounding_method">product_uom_rounding</field>
         <field name="sequence" eval="30"/>
-        <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_case_20_x_90g_packaging"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_soya_chunks_100_packaging"/>
     </record>
 
     <record id="pack_recipe_tsp_case_10_x_700g" model="mrp.packaging.recipe">
@@ -312,7 +324,7 @@
         <field name="company_id" ref="base.main_company"/>
         <field name="valid_from">2026-08-02</field>
         <field name="version">1.0</field>
-        <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_case_10_x_700g_packaging"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_soya_chunks_100_packaging"/>
         <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tsp_01"/>
         <field name="active" eval="True"/>
     </record>
@@ -324,7 +336,7 @@
         <field name="product_uom_id" ref="uom.product_uom_unit"/>
         <field name="rounding_method">product_uom_rounding</field>
         <field name="sequence" eval="10"/>
-        <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_case_10_x_700g_packaging"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_soya_chunks_100_packaging"/>
     </record>
 
     <record id="pack_recipe_line_tsp_case_10_x_700g_outer_packaging_700g_7" model="mrp.packaging.recipe.line">
@@ -334,7 +346,7 @@
         <field name="product_uom_id" ref="uom.product_uom_unit"/>
         <field name="rounding_method">product_uom_rounding</field>
         <field name="sequence" eval="20"/>
-        <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_case_10_x_700g_packaging"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_soya_chunks_100_packaging"/>
     </record>
 
     <record id="pack_recipe_tsp_case_5_x_700g" model="mrp.packaging.recipe">
@@ -346,7 +358,7 @@
         <field name="company_id" ref="base.main_company"/>
         <field name="valid_from">2026-08-02</field>
         <field name="version">1.0</field>
-        <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_case_5_x_700g_packaging"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_soya_chunks_100_packaging"/>
         <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tsp_01"/>
         <field name="active" eval="True"/>
     </record>
@@ -358,7 +370,7 @@
         <field name="product_uom_id" ref="uom.product_uom_unit"/>
         <field name="rounding_method">product_uom_rounding</field>
         <field name="sequence" eval="10"/>
-        <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_case_5_x_700g_packaging"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_soya_chunks_100_packaging"/>
     </record>
 
     <record id="pack_recipe_line_tsp_case_5_x_700g_outer_packaging_700g_7" model="mrp.packaging.recipe.line">
@@ -368,7 +380,7 @@
         <field name="product_uom_id" ref="uom.product_uom_unit"/>
         <field name="rounding_method">product_uom_rounding</field>
         <field name="sequence" eval="20"/>
-        <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_case_5_x_700g_packaging"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_soya_chunks_100_packaging"/>
     </record>
 
     <record id="pack_recipe_tsp_3kg_bag" model="mrp.packaging.recipe">
@@ -380,7 +392,7 @@
         <field name="company_id" ref="base.main_company"/>
         <field name="valid_from">2026-08-02</field>
         <field name="version">1.0</field>
-        <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_3kg_bag_packaging"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_soya_chunks_100_packaging"/>
         <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tsp_01"/>
         <field name="active" eval="True"/>
     </record>
@@ -392,7 +404,7 @@
         <field name="product_uom_id" ref="uom.product_uom_unit"/>
         <field name="rounding_method">product_uom_rounding</field>
         <field name="sequence" eval="10"/>
-        <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_3kg_bag_packaging"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_soya_chunks_100_packaging"/>
     </record>
 
     <record id="pack_recipe_tsp_3kg_woven_bag" model="mrp.packaging.recipe">
@@ -404,7 +416,7 @@
         <field name="company_id" ref="base.main_company"/>
         <field name="valid_from">2026-08-02</field>
         <field name="version">1.0</field>
-        <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_3kg_woven_bag_packaging"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_soya_chunks_100_packaging"/>
         <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tsp_01"/>
         <field name="active" eval="True"/>
     </record>
@@ -416,7 +428,7 @@
         <field name="product_uom_id" ref="uom.product_uom_unit"/>
         <field name="rounding_method">product_uom_rounding</field>
         <field name="sequence" eval="10"/>
-        <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_3kg_woven_bag_packaging"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_soya_chunks_100_packaging"/>
     </record>
 
     <record id="pack_recipe_tsp_8kg_woven_bag" model="mrp.packaging.recipe">
@@ -428,7 +440,7 @@
         <field name="company_id" ref="base.main_company"/>
         <field name="valid_from">2026-08-02</field>
         <field name="version">1.0</field>
-        <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_8kg_woven_bag_packaging"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_soya_chunks_100_packaging"/>
         <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tsp_01"/>
         <field name="active" eval="True"/>
     </record>
@@ -440,7 +452,7 @@
         <field name="product_uom_id" ref="uom.product_uom_unit"/>
         <field name="rounding_method">product_uom_rounding</field>
         <field name="sequence" eval="10"/>
-        <field name="operation_id" ref="legacy_mrp_master_data.op_tsp_8kg_woven_bag_packaging"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_soya_chunks_100_packaging"/>
     </record>
 
     <record id="pack_recipe_puffs_case_50_x_16g" model="mrp.packaging.recipe">
@@ -452,7 +464,7 @@
         <field name="company_id" ref="base.main_company"/>
         <field name="valid_from">2026-08-02</field>
         <field name="version">1.0</field>
-        <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_case_50_x_16g_packaging"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_single_packaging"/>
         <field name="workcenter_id" ref="legacy_mrp_master_data.wc_puf_01"/>
         <field name="active" eval="True"/>
     </record>
@@ -464,7 +476,7 @@
         <field name="product_uom_id" ref="uom.product_uom_kgm"/>
         <field name="rounding_method">product_uom_rounding</field>
         <field name="sequence" eval="10"/>
-        <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_case_50_x_16g_packaging"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_single_packaging"/>
     </record>
 
     <record id="pack_recipe_line_puffs_case_50_x_16g_outer_packaging_16g_13" model="mrp.packaging.recipe.line">
@@ -474,7 +486,7 @@
         <field name="product_uom_id" ref="uom.product_uom_unit"/>
         <field name="rounding_method">product_uom_rounding</field>
         <field name="sequence" eval="20"/>
-        <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_case_50_x_16g_packaging"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_single_packaging"/>
     </record>
 
     <record id="pack_recipe_zed_crunch_puffs_case_6_x_22" model="mrp.packaging.recipe">
@@ -520,7 +532,7 @@
         <field name="company_id" ref="base.main_company"/>
         <field name="valid_from">2026-08-02</field>
         <field name="version">1.0</field>
-        <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_case_30_x_60g_packaging"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_single_packaging"/>
         <field name="workcenter_id" ref="legacy_mrp_master_data.wc_puf_01"/>
         <field name="active" eval="True"/>
     </record>
@@ -532,7 +544,7 @@
         <field name="product_uom_id" ref="uom.product_uom_kgm"/>
         <field name="rounding_method">product_uom_rounding</field>
         <field name="sequence" eval="10"/>
-        <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_case_30_x_60g_packaging"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_single_packaging"/>
     </record>
 
     <record id="pack_recipe_line_puffs_case_30_x_60g_outer_packaging_60g_13" model="mrp.packaging.recipe.line">
@@ -542,7 +554,7 @@
         <field name="product_uom_id" ref="uom.product_uom_unit"/>
         <field name="rounding_method">product_uom_rounding</field>
         <field name="sequence" eval="20"/>
-        <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_case_30_x_60g_packaging"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_single_packaging"/>
     </record>
 
     <record id="prod_instant_porridge_box_20_x_500g" model="product.product">
@@ -553,13 +565,13 @@
 
     <record id="prod_tsp_case_10_x_700g" model="product.product">
         <field name="packaging_recipe_id" ref="legacy_mrp_master_data.pack_recipe_tsp_case_10_x_700g"/>
-        <field name="default_packaging_operation_id" ref="legacy_mrp_master_data.op_tsp_case_10_x_700g_packaging"/>
+        <field name="default_packaging_operation_id" ref="legacy_mrp_master_data.op_soya_chunks_100_packaging"/>
         <field name="default_packaging_workcenter_id" ref="legacy_mrp_master_data.wc_tsp_01"/>
     </record>
 
     <record id="prod_tsp_8kg_woven_bag" model="product.product">
         <field name="packaging_recipe_id" ref="legacy_mrp_master_data.pack_recipe_tsp_8kg_woven_bag"/>
-        <field name="default_packaging_operation_id" ref="legacy_mrp_master_data.op_tsp_8kg_woven_bag_packaging"/>
+        <field name="default_packaging_operation_id" ref="legacy_mrp_master_data.op_soya_chunks_100_packaging"/>
         <field name="default_packaging_workcenter_id" ref="legacy_mrp_master_data.wc_tsp_01"/>
     </record>
 
@@ -589,49 +601,49 @@
 
     <record id="prod_instant_thobwa_case_50_x_50g" model="product.product">
         <field name="packaging_recipe_id" ref="legacy_mrp_master_data.pack_recipe_instant_thobwa_case_50_x_50g"/>
-        <field name="default_packaging_operation_id" ref="legacy_mrp_master_data.op_instant_thobwa_case_50_x_50g_packaging"/>
+        <field name="default_packaging_operation_id" ref="legacy_mrp_master_data.op_thobwa_single_packaging"/>
         <field name="default_packaging_workcenter_id" ref="legacy_mrp_master_data.wc_tho_01"/>
     </record>
 
     <record id="prod_instant_thobwa_25kg_bag" model="product.product">
         <field name="packaging_recipe_id" ref="legacy_mrp_master_data.pack_recipe_instant_thobwa_25kg_bag"/>
-        <field name="default_packaging_operation_id" ref="legacy_mrp_master_data.op_instant_thobwa_25kg_bag_packaging"/>
+        <field name="default_packaging_operation_id" ref="legacy_mrp_master_data.op_thobwa_single_packaging"/>
         <field name="default_packaging_workcenter_id" ref="legacy_mrp_master_data.wc_tho_01"/>
     </record>
 
     <record id="prod_tsp_case_20_x_90g" model="product.product">
         <field name="packaging_recipe_id" ref="legacy_mrp_master_data.pack_recipe_tsp_case_20_x_90g"/>
-        <field name="default_packaging_operation_id" ref="legacy_mrp_master_data.op_tsp_case_20_x_90g_packaging"/>
+        <field name="default_packaging_operation_id" ref="legacy_mrp_master_data.op_soya_chunks_100_packaging"/>
         <field name="default_packaging_workcenter_id" ref="legacy_mrp_master_data.wc_tsp_01"/>
     </record>
 
     <record id="prod_tsp_case_5_x_700g" model="product.product">
         <field name="packaging_recipe_id" ref="legacy_mrp_master_data.pack_recipe_tsp_case_5_x_700g"/>
-        <field name="default_packaging_operation_id" ref="legacy_mrp_master_data.op_tsp_case_5_x_700g_packaging"/>
+        <field name="default_packaging_operation_id" ref="legacy_mrp_master_data.op_soya_chunks_100_packaging"/>
         <field name="default_packaging_workcenter_id" ref="legacy_mrp_master_data.wc_tsp_01"/>
     </record>
 
     <record id="prod_tsp_3kg_bag" model="product.product">
         <field name="packaging_recipe_id" ref="legacy_mrp_master_data.pack_recipe_tsp_3kg_bag"/>
-        <field name="default_packaging_operation_id" ref="legacy_mrp_master_data.op_tsp_3kg_bag_packaging"/>
+        <field name="default_packaging_operation_id" ref="legacy_mrp_master_data.op_soya_chunks_100_packaging"/>
         <field name="default_packaging_workcenter_id" ref="legacy_mrp_master_data.wc_tsp_01"/>
     </record>
 
     <record id="prod_tsp_3kg_woven_bag" model="product.product">
         <field name="packaging_recipe_id" ref="legacy_mrp_master_data.pack_recipe_tsp_3kg_woven_bag"/>
-        <field name="default_packaging_operation_id" ref="legacy_mrp_master_data.op_tsp_3kg_woven_bag_packaging"/>
+        <field name="default_packaging_operation_id" ref="legacy_mrp_master_data.op_soya_chunks_100_packaging"/>
         <field name="default_packaging_workcenter_id" ref="legacy_mrp_master_data.wc_tsp_01"/>
     </record>
 
     <record id="prod_puffs_case_50_x_16g" model="product.product">
         <field name="packaging_recipe_id" ref="legacy_mrp_master_data.pack_recipe_puffs_case_50_x_16g"/>
-        <field name="default_packaging_operation_id" ref="legacy_mrp_master_data.op_puffs_case_50_x_16g_packaging"/>
+        <field name="default_packaging_operation_id" ref="legacy_mrp_master_data.op_puffs_single_packaging"/>
         <field name="default_packaging_workcenter_id" ref="legacy_mrp_master_data.wc_puf_01"/>
     </record>
 
     <record id="prod_puffs_case_30_x_60g" model="product.product">
         <field name="packaging_recipe_id" ref="legacy_mrp_master_data.pack_recipe_puffs_case_30_x_60g"/>
-        <field name="default_packaging_operation_id" ref="legacy_mrp_master_data.op_puffs_case_30_x_60g_packaging"/>
+        <field name="default_packaging_operation_id" ref="legacy_mrp_master_data.op_puffs_single_packaging"/>
         <field name="default_packaging_workcenter_id" ref="legacy_mrp_master_data.wc_puf_01"/>
     </record>
 

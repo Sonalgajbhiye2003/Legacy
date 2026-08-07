@@ -16,7 +16,7 @@ class TestSoyaChunksSingleBom(TransactionCase):
         cls.low_fat_cake = cls.env.ref("legacy_mrp_master_data.prod_low_fat_cake")
         cls.uom_kg = cls.env.ref("uom.product_uom_kgm")
 
-    def test_master_mapping_and_safe_inactive_state(self):
+    def test_master_mapping_and_single_active_process_bom(self):
         self.assertEqual(self.bulk.default_code, "WIP-BULK-TSP")
         self.assertEqual(self.soya_beans.default_code, "RM-SOYA-BEANS")
         self.assertEqual(self.soya_oil.default_code, "BYP-CRUDE-OIL")
@@ -24,8 +24,9 @@ class TestSoyaChunksSingleBom(TransactionCase):
         self.assertEqual(self.bulk.uom_id, self.uom_kg)
         self.assertEqual(self.soya_beans.uom_id, self.uom_kg)
         self.assertEqual(self.soya_oil.uom_id, self.uom_kg)
-        self.assertFalse(self.bom.active)
-        self.assertEqual(self.bom.manufacturing_workflow, "standard")
+        self.assertTrue(self.bom.active)
+        self.assertEqual(self.bom.manufacturing_workflow, "custom_multi_output")
+        self.assertEqual(self.bom.custom_process_type, "integrated_production_packaging")
         self.assertEqual(self.bom.company_id, self.env.company)
         self.assertEqual(self.bom.operation_ids.company_id, self.env.company)
 
@@ -49,8 +50,10 @@ class TestSoyaChunksSingleBom(TransactionCase):
             1,
         )
 
-    def test_unapproved_quantities_are_not_installed_as_zero_lines(self):
-        self.assertFalse(self.bom.bom_line_ids)
+    def test_source_supported_one_to_one_bulk_basis_and_no_unapproved_byproduct(self):
+        self.assertEqual(len(self.bom.bom_line_ids), 1)
+        self.assertEqual(self.bom.bom_line_ids.product_id, self.soya_beans)
+        self.assertEqual(self.bom.bom_line_ids.product_qty, 1.0)
         self.assertFalse(self.bom.byproduct_ids)
 
     def test_processing_operations_are_ordered_and_exclude_packaging(self):
@@ -64,24 +67,22 @@ class TestSoyaChunksSingleBom(TransactionCase):
             (70, "Second Extrusion"),
             (80, "Grading"),
             (90, "Final Quality Release"),
+            (100, "Packaging"),
         ]
         self.assertEqual(
             [(op.sequence, op.name) for op in self.bom.operation_ids], expected
         )
-        self.assertFalse(self.bom.operation_ids.filtered(
+        self.assertEqual(len(self.bom.operation_ids.filtered(
             lambda op: "pack" in op.name.lower()
-        ))
+        )), 1)
 
-    def test_source_consistent_tsp_boms_are_visible_and_review_boms_archived(self):
+    def test_all_pack_specific_tsp_boms_are_archived(self):
         pack_boms = self.env["mrp.bom"].with_context(active_test=False).search([
             ("code", "like", "LEGACY-TSP-%"),
         ])
         self.assertEqual(len(pack_boms), 6)
-        self.assertEqual(
-            set(pack_boms.filtered("active").mapped("code")),
-            {"LEGACY-TSP-CASE-10-X-700G", "LEGACY-TSP-8KG-WOVEN-BAG"},
-        )
-        self.assertEqual(len(pack_boms.filtered(lambda bom: not bom.active)), 4)
+        self.assertFalse(pack_boms.filtered("active"))
+        self.assertEqual(len(pack_boms.filtered(lambda bom: not bom.active)), 6)
 
     def test_tsp_packaging_remains_in_recipe_layer(self):
         variants = self.env["product.product"].search([

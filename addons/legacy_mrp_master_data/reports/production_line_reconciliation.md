@@ -35,15 +35,17 @@ The addon creates four active line-level Odoo work centers:
 
 These are visible from `Manufacturing > Configuration > Work Centers`.
 
-## Why Some Screens Show Two Lines
+## Active Production Lines
 
-Odoo's `Manufacturing > Configuration > Operations` action filters operations to active BOMs. Only two production families currently have active validated BOMs:
+Odoo's active BOM list now shows one process BOM per bulk product family:
 
-- TSP
-- Instant Porridge
+- `LEGACY-SOYA-CHUNKS-SINGLE-PROCESS`
+- `LEGACY-INSTANT-THOBWA-SINGLE-PROCESS`
+- `LEGACY-CORN-PUFFS-SINGLE-PROCESS`
+- the existing validated Instant Porridge BOM
 
-Instant Thobwa and Corn Puffs operations are present, but their BOMs remain inactive because the source BOM workbook contains known unresolved quantity/formula issues for those sheets. This is intentional: activating them would make unvalidated BOMs usable in production.
+TSP, Instant Thobwa, and Corn Puffs pack sizes are product variants with packaging recipes. The old pack-specific manufacturing BOMs are archived, so a pack size no longer duplicates the underlying process formulation.
 
 ## Current Decision
 
-Keep all four work centers active. Keep unresolved Instant Thobwa and Corn Puffs BOMs inactive until Legacy confirms the missing or ambiguous quantities.
+Keep all four work centers active. Use the consolidated 1 kg process BOMs for manufacturing and the variant recipe layer for packaging. Zed Crunch/Corn Sticks remains excluded because its product identity, net content, tomato formulation, and packaging mappings still require confirmation.

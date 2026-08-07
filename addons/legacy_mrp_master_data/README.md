@@ -4,7 +4,7 @@ This addon installs manufacturing master data for Legacy Manufacturing on Odoo 1
 
 ## Functional Design
 
-The database uses one company, one physical plant, and one logical main warehouse. Four production-line work centers are created for TSP, Instant Thobwa, Instant Porridge, and Corn Puffs.
+The database uses one company, one physical plant, and one logical main warehouse. Four production-line work centers are created for TSP, Instant Thobwa, Instant Porridge, and Corn Puffs. TSP, Instant Thobwa, and Corn Puffs each use one normalized bulk/process BOM; their saleable pack sizes are product variants with separate packaging recipes.
 
 ## Selected Manufacturing Architecture
 
@@ -57,7 +57,7 @@ Roll back from a database backup before uninstalling if the master data has been
 
 ## Known Source-Data Limitations
 
-See `reports/data_quality_report.md` and `reports/unresolved_records.csv`. Known problematic BOMs are installed inactive. By-product quantities, yield/loss percentages, and several mismatched packaging names require customer confirmation.
+See `reports/data_quality_report.md` and `reports/unresolved_records.csv`. The former pack-specific manufacturing BOMs are retained inactive after consolidation. By-product quantities, yield/loss percentages, the Puffs Sunset Yellow difference, and several mismatched packaging names still require customer confirmation.
 
 ## Questions to Send to Legacy
 

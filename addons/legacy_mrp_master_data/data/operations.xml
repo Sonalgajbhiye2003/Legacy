@@ -1397,5 +1397,128 @@
         <field name="company_id" ref="base.main_company"/>
     </record>
 
+    <record id="op_soya_chunks_100_packaging" model="mrp.routing.workcenter">
+        <field name="name">Packaging</field>
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_soya_chunks_single_process"/>
+        <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tsp_01"/>
+        <field name="sequence" eval="100"/>
+        <field name="time_cycle_manual" eval="0.0"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+
+    <record id="op_thobwa_single_maize_cleaning" model="mrp.routing.workcenter">
+        <field name="name">Maize Cleaning</field>
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_thobwa_single_process"/>
+        <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tho_01"/>
+        <field name="sequence" eval="10"/>
+        <field name="time_cycle_manual" eval="0.0"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+    <record id="op_thobwa_single_soya_cleaning" model="mrp.routing.workcenter">
+        <field name="name">Soya Bean Cleaning</field>
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_thobwa_single_process"/>
+        <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tho_01"/>
+        <field name="sequence" eval="20"/>
+        <field name="time_cycle_manual" eval="0.0"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+    <record id="op_thobwa_single_maize_milling" model="mrp.routing.workcenter">
+        <field name="name">Maize Milling</field>
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_thobwa_single_process"/>
+        <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tho_01"/>
+        <field name="sequence" eval="30"/>
+        <field name="time_cycle_manual" eval="0.0"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+    <record id="op_thobwa_single_soya_milling" model="mrp.routing.workcenter">
+        <field name="name">Soya Bean Milling</field>
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_thobwa_single_process"/>
+        <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tho_01"/>
+        <field name="sequence" eval="40"/>
+        <field name="time_cycle_manual" eval="0.0"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+    <record id="op_thobwa_single_maize_extrusion" model="mrp.routing.workcenter">
+        <field name="name">Maize Extrusion</field>
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_thobwa_single_process"/>
+        <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tho_01"/>
+        <field name="sequence" eval="50"/>
+        <field name="time_cycle_manual" eval="0.0"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+    <record id="op_thobwa_single_soya_extrusion_oil_extraction" model="mrp.routing.workcenter">
+        <field name="name">Soya Extrusion and Oil Extraction</field>
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_thobwa_single_process"/>
+        <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tho_01"/>
+        <field name="sequence" eval="60"/>
+        <field name="time_cycle_manual" eval="0.0"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+    <record id="op_thobwa_single_low_fat_cake_milling" model="mrp.routing.workcenter">
+        <field name="name">Low-Fat Cake Milling</field>
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_thobwa_single_process"/>
+        <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tho_01"/>
+        <field name="sequence" eval="70"/>
+        <field name="time_cycle_manual" eval="0.0"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+    <record id="op_thobwa_single_ingredient_mixing" model="mrp.routing.workcenter">
+        <field name="name">Ingredient Mixing</field>
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_thobwa_single_process"/>
+        <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tho_01"/>
+        <field name="sequence" eval="80"/>
+        <field name="time_cycle_manual" eval="0.0"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+    <record id="op_thobwa_single_sieving" model="mrp.routing.workcenter">
+        <field name="name">Sieving</field>
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_thobwa_single_process"/>
+        <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tho_01"/>
+        <field name="sequence" eval="90"/>
+        <field name="time_cycle_manual" eval="0.0"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+    <record id="op_thobwa_single_packaging" model="mrp.routing.workcenter">
+        <field name="name">Packaging</field>
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_thobwa_single_process"/>
+        <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tho_01"/>
+        <field name="sequence" eval="100"/>
+        <field name="time_cycle_manual" eval="0.0"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+
+    <record id="op_puffs_single_ingredient_mixing" model="mrp.routing.workcenter">
+        <field name="name">Ingredient Mixing</field>
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_corn_puffs_single_process"/>
+        <field name="workcenter_id" ref="legacy_mrp_master_data.wc_puf_01"/>
+        <field name="sequence" eval="10"/>
+        <field name="time_cycle_manual" eval="0.0"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+    <record id="op_puffs_single_extrusion_cooking" model="mrp.routing.workcenter">
+        <field name="name">Extrusion/Cooking</field>
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_corn_puffs_single_process"/>
+        <field name="workcenter_id" ref="legacy_mrp_master_data.wc_puf_01"/>
+        <field name="sequence" eval="20"/>
+        <field name="time_cycle_manual" eval="0.0"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+    <record id="op_puffs_single_seasoning" model="mrp.routing.workcenter">
+        <field name="name">Seasoning</field>
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_corn_puffs_single_process"/>
+        <field name="workcenter_id" ref="legacy_mrp_master_data.wc_puf_01"/>
+        <field name="sequence" eval="30"/>
+        <field name="time_cycle_manual" eval="0.0"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+    <record id="op_puffs_single_packaging" model="mrp.routing.workcenter">
+        <field name="name">Packaging</field>
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_corn_puffs_single_process"/>
+        <field name="workcenter_id" ref="legacy_mrp_master_data.wc_puf_01"/>
+        <field name="sequence" eval="40"/>
+        <field name="time_cycle_manual" eval="0.0"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+
     </data>
 </odoo>

@@ -124,7 +124,7 @@
         <field name="manufacturing_workflow">custom_multi_output</field>
         <field name="custom_process_type">integrated_production_packaging</field>
         <field name="default_packaged_product_id" ref="legacy_mrp_master_data.prod_tsp_case_10_x_700g"/>
-        <field name="active" eval="True"/>
+        <field name="active" eval="False"/>
     </record>
 
     <record id="bom_tsp_case_5_x_700g" model="mrp.bom">
@@ -180,7 +180,7 @@
         <field name="manufacturing_workflow">custom_multi_output</field>
         <field name="custom_process_type">integrated_production_packaging</field>
         <field name="default_packaged_product_id" ref="legacy_mrp_master_data.prod_tsp_8kg_woven_bag"/>
-        <field name="active" eval="True"/>
+        <field name="active" eval="False"/>
     </record>
 
     <record id="bom_puffs_case_50_x_16g" model="mrp.bom">
@@ -224,7 +224,8 @@
         <field name="active" eval="False"/>
     </record>
 
-    <!-- Safe shell only: approved process quantities, loss and cost share are missing. -->
+    <!-- One process BOM produces bulk TSP. Pack sizes are product variants with
+         their own packaging recipes, not separate manufacturing BOMs. -->
     <record id="bom_soya_chunks_single_process" model="mrp.bom">
         <field name="code">LEGACY-SOYA-CHUNKS-SINGLE-PROCESS</field>
         <field name="product_id" ref="legacy_mrp_master_data.prod_bulk_tsp"/>
@@ -233,8 +234,39 @@
         <field name="product_uom_id" ref="uom.product_uom_kgm"/>
         <field name="type">normal</field>
         <field name="company_id" ref="base.main_company"/>
-        <field name="manufacturing_workflow">standard</field>
-        <field name="active" eval="False"/>
+        <field name="manufacturing_workflow">custom_multi_output</field>
+        <field name="custom_process_type">integrated_production_packaging</field>
+        <field name="active" eval="True"/>
+    </record>
+
+    <!-- The two Thobwa pack sheets scale to the same formulation. This BOM is
+         normalized to 1 kg; packaging stays on the two finished variants. -->
+    <record id="bom_instant_thobwa_single_process" model="mrp.bom">
+        <field name="code">LEGACY-INSTANT-THOBWA-SINGLE-PROCESS</field>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_bulk_thobwa"/>
+        <field name="product_tmpl_id" model="product.product" eval="obj(ref('legacy_mrp_master_data.prod_bulk_thobwa')).product_tmpl_id.id"/>
+        <field name="product_qty" eval="1.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="type">normal</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="manufacturing_workflow">custom_multi_output</field>
+        <field name="custom_process_type">integrated_production_packaging</field>
+        <field name="active" eval="True"/>
+    </record>
+
+    <!-- Corn Puffs uses the normalized 16 g source formulation as the process
+         baseline. The 60 g Sunset Yellow difference remains documented. -->
+    <record id="bom_corn_puffs_single_process" model="mrp.bom">
+        <field name="code">LEGACY-CORN-PUFFS-SINGLE-PROCESS</field>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_corn_puffs"/>
+        <field name="product_tmpl_id" model="product.product" eval="obj(ref('legacy_mrp_master_data.prod_corn_puffs')).product_tmpl_id.id"/>
+        <field name="product_qty" eval="1.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="type">normal</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="manufacturing_workflow">custom_multi_output</field>
+        <field name="custom_process_type">integrated_production_packaging</field>
+        <field name="active" eval="True"/>
     </record>
 
     </data>
