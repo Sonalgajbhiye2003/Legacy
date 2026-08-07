@@ -9,7 +9,6 @@
                 <group string="Multi-Output Manufacturing Tolerances" groups="mrp_multi_output_packaging.group_multi_output_supervisor">
                     <field name="quantity_warning_tolerance"/>
                     <field name="quantity_blocking_tolerance"/>
-                    <field name="packaging_variance_reason_threshold"/>
                     <field name="byproduct_variance_reason_threshold"/>
                 </group>
             </xpath>

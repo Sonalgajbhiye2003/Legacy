@@ -27,8 +27,7 @@ class TestSoyaChunkReconciliation(MultiOutputCommon):
         with self.assertRaisesRegex(UserError, "Remaining Bulk"):
             mo._validate_custom_output_plan(completion=True)
 
-    def test_packaging_variance_requires_reason(self):
-        self.company.packaging_variance_reason_threshold = 1.0
+    def test_packaging_variance_does_not_require_reason(self):
         mo = self.create_custom_mo(planned=1000, actual=1000)
         self.add_output(mo, self.pack_500, self.recipe_500, 1000, 1000)
         mo.action_confirm()
@@ -36,7 +35,5 @@ class TestSoyaChunkReconciliation(MultiOutputCommon):
             packaging_line.actual_consumed_qty = packaging_line.expected_actual_packaging_qty
         line = mo.packaging_line_ids.filtered(lambda item: item.packaging_product_id == self.pouch)
         line.actual_consumed_qty = line.expected_actual_packaging_qty - 10
-        with self.assertRaisesRegex(UserError, "packaging variance reason"):
-            mo._validate_custom_output_plan(completion=True)
-        line.variance_reason = "Machine setup loss"
+
         mo._validate_custom_output_plan(completion=True)

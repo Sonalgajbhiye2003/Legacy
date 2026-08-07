@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_purchase_approval_config_list" model="ir.ui.view">
+        <field name="name">legacy.purchase.approval.config.list</field>
+        <field name="model">legacy.purchase.approval.config</field>
+        <field name="arch" type="xml">
+            <tree string="Purchase Approval Configuration" default_order="sequence,id">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="apply_to_all_purchase_orders"/>
+                <field name="min_amount" optional="show"/>
+                <field name="max_amount" optional="show"/>
+                <field name="currency_id" optional="show"/>
+                <field name="level_1_approver_id" widget="many2one_avatar_user"/>
+                <field name="level_2_approver_id" widget="many2one_avatar_user" optional="show"/>
+                <field name="level_3_approver_id" widget="many2one_avatar_user" optional="show"/>
+                <field name="active" widget="boolean_toggle" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_purchase_approval_config_form" model="ir.ui.view">
+        <field name="name">legacy.purchase.approval.config.form</field>
+        <field name="model">legacy.purchase.approval.config</field>
+        <field name="arch" type="xml">
+            <form string="Purchase Approval Configuration">
+                <sheet>
+                    <widget name="web_ribbon" text="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g. Purchases up to ZK 100,000"/></h1>
+                    </div>
+                    <group>
+                        <group string="Applicability">
+                            <field name="active" invisible="1"/>
+                            <field name="company_id" options="{'no_create': True}"/>
+                            <field name="sequence"/>
+                            <field name="apply_to_all_purchase_orders"/>
+                            <field name="currency_id" options="{'no_create': True}"
+                                   invisible="apply_to_all_purchase_orders"/>
+                            <field name="min_amount" invisible="apply_to_all_purchase_orders"/>
+                            <field name="max_amount" invisible="apply_to_all_purchase_orders"/>
+                        </group>
+                        <group string="Approvers">
+                            <field name="level_1_approver_id" widget="many2one_avatar_user"
+                                   options="{'no_create': True}"/>
+                            <field name="level_2_approver_id" widget="many2one_avatar_user"
+                                   options="{'no_create': True}"/>
+                            <field name="level_3_approver_id" widget="many2one_avatar_user"
+                                   options="{'no_create': True}"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_purchase_approval_config_search" model="ir.ui.view">
+        <field name="name">legacy.purchase.approval.config.search</field>
+        <field name="model">legacy.purchase.approval.config</field>
+        <field name="arch" type="xml">
+            <search string="Purchase Approval Configuration">
+                <field name="name"/>
+                <field name="company_id"/>
+                <field name="level_1_approver_id"/>
+                <filter name="active" string="Active" domain="[('active', '=', True)]"/>
+                <filter name="archived" string="Archived" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_company" string="Company" context="{'group_by': 'company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_purchase_approval_config" model="ir.actions.act_window">
+        <field name="name">Purchase Approval Configuration</field>
+        <field name="res_model">legacy.purchase.approval.config</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_purchase_approval_config_search"/>
+        <field name="context">{'search_default_active': 1}</field>
+    </record>
+</odoo>

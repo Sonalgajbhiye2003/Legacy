@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_purchase_approval_config"
+              name="Purchase Approval Configuration"
+              parent="purchase.menu_purchase_config"
+              action="action_purchase_approval_config"
+              sequence="45"
+              groups="purchase.group_purchase_manager"/>
+</odoo>

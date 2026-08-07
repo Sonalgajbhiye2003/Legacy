@@ -72,7 +72,7 @@
     </record>
 
     <record id="prod_bulk_tsp" model="product.product">
-        <field name="name">Bulk TSP</field>
+        <field name="name">Bulk Soya Chunks (TSP)</field>
         <field name="default_code">WIP-BULK-TSP</field>
         <field name="detailed_type">product</field>
         <field name="categ_id" ref="legacy_mrp_master_data.cat_work_in_progress"/>
@@ -156,7 +156,7 @@
     </record>
 
     <record id="prod_crude_oil" model="product.product">
-        <field name="name">Crude Oil</field>
+        <field name="name">Soya Oil (Crude)</field>
         <field name="default_code">BYP-CRUDE-OIL</field>
         <field name="detailed_type">product</field>
         <field name="categ_id" ref="legacy_mrp_master_data.cat_by_products"/>

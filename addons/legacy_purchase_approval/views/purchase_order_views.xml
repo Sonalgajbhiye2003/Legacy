@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="purchase_order_form_legacy_approval" model="ir.ui.view">
+        <field name="name">purchase.order.form.legacy.approval</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_request_approval" type="object"
+                        string="Request Approval" class="oe_highlight"
+                        groups="purchase.group_purchase_user"
+                        invisible="state not in ('draft', 'sent') or approval_state != 'draft'"/>
+                <button name="action_approve_purchase" type="object"
+                        string="Approve" class="oe_highlight"
+                        groups="base.group_user"
+                        invisible="not can_current_user_approve"/>
+                <button name="action_open_rejection_wizard" type="object"
+                        string="Reject" class="btn-secondary"
+                        groups="base.group_user"
+                        invisible="not can_current_user_approve"/>
+                <button name="action_reset_purchase_approval" type="object"
+                        string="Reset to Draft Approval"
+                        groups="purchase.group_purchase_manager"
+                        invisible="approval_state != 'rejected'"/>
+                <field name="can_current_user_approve" invisible="1"/>
+            </xpath>
+
+            <xpath expr="(//header/field[@name='state'])[1]" position="before">
+                <field name="approval_status" widget="badge" class="me-2"
+                       decoration-info="approval_status == 'requested'"
+                       decoration-success="approval_status == 'approved'"
+                       decoration-danger="approval_status == 'rejected'"/>
+            </xpath>
+
+            <xpath expr="//notebook/page[@name='products']" position="after">
+                <page string="Purchase Approval" name="legacy_purchase_approval">
+                    <group>
+                        <group string="Approval Status">
+                            <field name="approval_status" widget="badge"
+                                   decoration-info="approval_status == 'requested'"
+                                   decoration-success="approval_status == 'approved'"
+                                   decoration-danger="approval_status == 'rejected'"/>
+                            <field name="approval_state" widget="statusbar"
+                                   statusbar_visible="draft,waiting_level_1,waiting_level_2,waiting_level_3,approved,rejected"/>
+                            <field name="approval_required"/>
+                            <field name="current_approval_level"
+                                   invisible="approval_state in ('draft', 'approved', 'rejected')"/>
+                            <field name="current_approver_id"
+                                   widget="many2one_avatar_user"
+                                   invisible="approval_state not in ('waiting_level_1', 'waiting_level_2', 'waiting_level_3')"/>
+                            <field name="approval_config_id"/>
+                            <field name="approval_requested_by" widget="many2one_avatar_user"/>
+                            <field name="approval_requested_date"/>
+                        </group>
+                        <group string="Decision">
+                            <field name="rejected_by_id" widget="many2one_avatar_user"
+                                   invisible="approval_state != 'rejected'"/>
+                            <field name="rejected_date" invisible="approval_state != 'rejected'"/>
+                            <field name="rejection_reason" invisible="approval_state != 'rejected'"/>
+                        </group>
+                    </group>
+                    <group string="Approval Levels" col="6">
+                        <field name="level_1_approver_id" widget="many2one_avatar_user"/>
+                        <field name="level_1_approved_by" widget="many2one_avatar_user"/>
+                        <field name="level_1_approved_date"/>
+                        <field name="level_2_approver_id" widget="many2one_avatar_user"/>
+                        <field name="level_2_approved_by" widget="many2one_avatar_user"/>
+                        <field name="level_2_approved_date"/>
+                        <field name="level_3_approver_id" widget="many2one_avatar_user"/>
+                        <field name="level_3_approved_by" widget="many2one_avatar_user"/>
+                        <field name="level_3_approved_date"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="purchase_order_tree_legacy_approval" model="ir.ui.view">
+        <field name="name">purchase.order.tree.legacy.approval</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='state']" position="before">
+                <field name="approval_status" string="Approval Status" widget="badge"
+                       optional="show"
+                       decoration-info="approval_status == 'requested'"
+                       decoration-success="approval_status == 'approved'"
+                       decoration-danger="approval_status == 'rejected'"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="purchase_order_kpis_tree_legacy_approval" model="ir.ui.view">
+        <field name="name">purchase.order.kpis.tree.legacy.approval</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_kpis_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='state']" position="before">
+                <field name="approval_status" string="Approval Status" widget="badge"
+                       optional="show"
+                       decoration-info="approval_status == 'requested'"
+                       decoration-success="approval_status == 'approved'"
+                       decoration-danger="approval_status == 'rejected'"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="purchase_order_view_tree_legacy_approval" model="ir.ui.view">
+        <field name="name">purchase.order.view.tree.legacy.approval</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_status']" position="before">
+                <field name="approval_status" string="Approval Status" widget="badge"
+                       optional="show"
+                       decoration-info="approval_status == 'requested'"
+                       decoration-success="approval_status == 'approved'"
+                       decoration-danger="approval_status == 'rejected'"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

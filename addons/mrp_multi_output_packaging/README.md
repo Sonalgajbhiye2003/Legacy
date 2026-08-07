@@ -12,7 +12,7 @@ Odoo 17 Enterprise foundation for planning multiple packaged outputs from a manu
 - Finished Output Plan and packaging-consumption breakdown on the standard MO.
 - Packaging stock moves consolidated by product, UoM, operation, source location, and company.
 - Soya Chunk planned/actual bulk reconciliation and company tolerances.
-- Completion blocking for invalid custom quantities, missing recipes/net content/lots, and unexplained variances.
+- Completion blocking for invalid custom quantities, missing recipes/net content/lots, and reconciliation warnings.
 - Company-safe security groups and record rules.
 
 ## Simplified operator workflow
@@ -28,7 +28,7 @@ Operators do not need to reload recipes or recalculate outputs manually.
 The BoM supplies the default packaged product and calculates its planned quantity
 from the Manufacturing Order's bulk quantity and the product's net content.
 
-Technical packaging calculations and variance controls are shown only to
+Technical packaging calculations and automatically calculated variances are shown only to
 Multi-Output Manufacturing Supervisors under **Packaging Review**.
 
 ## Explicitly outside milestone 1

@@ -99,7 +99,7 @@ Coverage includes:
 - Multi-company record rules and group access.
 - Soya Chunk 100 g, 500 g, and 1 kg outputs: 800 kg packaged equivalent and 200 kg automatic primary bulk output.
 - Six output-level packaging contributions consolidated to two component moves; common carton demand consolidated to 80 units with three linked contributions.
-- Negative remaining bulk blocking and packaging variance-reason enforcement.
+- Negative remaining bulk blocking and automatic packaging variance calculation.
 
 ## Manual browser verification
 

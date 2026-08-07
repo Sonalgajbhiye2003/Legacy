@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="mail_template_purchase_approval_request" model="mail.template">
+            <field name="name">Purchase Approval: Approval Required</field>
+            <field name="model_id" ref="purchase.model_purchase_order"/>
+            <field name="subject">Purchase Order Approval Required: {{ object.name }}</field>
+            <field name="email_from">{{ user.email_formatted or object.company_id.email or '' }}</field>
+            <field name="description">Sent to the approver currently responsible for a purchase order</field>
+            <field name="body_html" type="html">
+<div style="margin: 0; padding: 0;">
+    <p style="font-size: 13px;">
+        Hello <t t-out="object.current_approver_id.name or ''"/>,<br/><br/>
+        Purchase Order <strong t-out="object.name or ''"/> requires your approval.<br/><br/>
+        <strong>Vendor:</strong> <t t-out="object.partner_id.display_name or ''"/><br/>
+        <strong>Order Amount:</strong> <t t-out="format_amount(object.amount_total, object.currency_id)"/><br/>
+        <strong>Requested By:</strong> <t t-out="object.approval_requested_by.name or ''"/><br/>
+        <strong>Approval Level:</strong> <t t-out="object.current_approval_level"/><br/><br/>
+        <a t-att-href="'%s/web#id=%s&amp;model=purchase.order&amp;view_type=form' % (object.get_base_url(), object.id)">
+            Open Purchase Order
+        </a><br/><br/>
+        Please review the Purchase Order and approve or reject it in Odoo.
+    </p>
+</div></field>
+            <field name="lang">{{ object.current_approver_id.lang or 'en_US' }}</field>
+            <field name="auto_delete" eval="False"/>
+        </record>
+
+        <record id="mail_template_purchase_approved" model="mail.template">
+            <field name="name">Purchase Approval: Approved</field>
+            <field name="model_id" ref="purchase.model_purchase_order"/>
+            <field name="subject">Purchase Order Approved: {{ object.name }}</field>
+            <field name="email_from">{{ user.email_formatted or object.company_id.email or '' }}</field>
+            <field name="description">Sent to the requester after final purchase approval</field>
+            <field name="body_html" type="html">
+<div style="margin: 0; padding: 0;">
+    <p style="font-size: 13px;">
+        Hello <t t-out="object.approval_requested_by.name or ''"/>,<br/><br/>
+        Purchase Order <strong t-out="object.name or ''"/> has completed the approval workflow.<br/><br/>
+        <strong>Vendor:</strong> <t t-out="object.partner_id.display_name or ''"/><br/>
+        <strong>Order Amount:</strong> <t t-out="format_amount(object.amount_total, object.currency_id)"/><br/>
+        <strong>Approved By:</strong>
+        <t t-set="final_approver" t-value="object.level_3_approved_by or object.level_2_approved_by or object.level_1_approved_by"/>
+        <t t-out="final_approver.name or ''"/><br/>
+        <strong>Final Status:</strong> Approved<br/><br/>
+        <a t-att-href="'%s/web#id=%s&amp;model=purchase.order&amp;view_type=form' % (object.get_base_url(), object.id)">
+            Open Purchase Order
+        </a>
+    </p>
+</div></field>
+            <field name="lang">{{ object.approval_requested_by.lang or 'en_US' }}</field>
+            <field name="auto_delete" eval="False"/>
+        </record>
+
+        <record id="mail_template_purchase_rejected" model="mail.template">
+            <field name="name">Purchase Approval: Rejected</field>
+            <field name="model_id" ref="purchase.model_purchase_order"/>
+            <field name="subject">Purchase Order Rejected: {{ object.name }}</field>
+            <field name="email_from">{{ user.email_formatted or object.company_id.email or '' }}</field>
+            <field name="description">Sent to the requester when a purchase order is rejected</field>
+            <field name="body_html" type="html">
+<div style="margin: 0; padding: 0;">
+    <p style="font-size: 13px;">
+        Hello <t t-out="object.approval_requested_by.name or ''"/>,<br/><br/>
+        Purchase Order <strong t-out="object.name or ''"/> has been rejected.<br/><br/>
+        <strong>Vendor:</strong> <t t-out="object.partner_id.display_name or ''"/><br/>
+        <strong>Order Amount:</strong> <t t-out="format_amount(object.amount_total, object.currency_id)"/><br/>
+        <strong>Rejected By:</strong> <t t-out="object.rejected_by_id.name or ''"/><br/>
+        <strong>Rejection Reason:</strong> <t t-out="object.rejection_reason or ''"/><br/><br/>
+        <a t-att-href="'%s/web#id=%s&amp;model=purchase.order&amp;view_type=form' % (object.get_base_url(), object.id)">
+            Open Purchase Order
+        </a>
+    </p>
+</div></field>
+            <field name="lang">{{ object.approval_requested_by.lang or 'en_US' }}</field>
+            <field name="auto_delete" eval="False"/>
+        </record>
+    </data>
+</odoo>

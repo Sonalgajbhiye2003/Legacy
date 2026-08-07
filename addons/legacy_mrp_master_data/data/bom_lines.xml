@@ -568,5 +568,114 @@
         <field name="sequence" eval="70"/>
     </record>
 
+    <!-- Consolidated 1 kg process BOM lines. Packaging materials are kept out
+         of these lines and are supplied by variant packaging recipes. -->
+    <record id="bom_line_soya_chunks_single_process_soya_beans" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_soya_chunks_single_process"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_soya_beans"/>
+        <field name="product_qty" eval="1.0"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_soya_chunks_10_receipt_preparation"/>
+        <field name="sequence" eval="10"/>
+    </record>
+
+    <record id="bom_line_thobwa_single_process_maize" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_thobwa_single_process"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_maize"/>
+        <field name="product_qty" eval="0.7854545454545455"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_thobwa_single_maize_cleaning"/>
+        <field name="sequence" eval="10"/>
+    </record>
+    <record id="bom_line_thobwa_single_process_soya_beans" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_thobwa_single_process"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_soya_beans"/>
+        <field name="product_qty" eval="0.07636363636363637"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_thobwa_single_soya_cleaning"/>
+        <field name="sequence" eval="20"/>
+    </record>
+    <record id="bom_line_thobwa_single_process_sugar" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_thobwa_single_process"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_sugar"/>
+        <field name="product_qty" eval="0.13636363636363635"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_thobwa_single_ingredient_mixing"/>
+        <field name="sequence" eval="30"/>
+    </record>
+    <record id="bom_line_thobwa_single_process_salt" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_thobwa_single_process"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_salt"/>
+        <field name="product_qty" eval="0.01"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_thobwa_single_ingredient_mixing"/>
+        <field name="sequence" eval="40"/>
+    </record>
+    <record id="bom_line_thobwa_single_process_sweetener" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_instant_thobwa_single_process"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_sweetener"/>
+        <field name="product_qty" eval="0.0007727272727272728"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_thobwa_single_ingredient_mixing"/>
+        <field name="sequence" eval="50"/>
+    </record>
+
+    <record id="bom_line_puffs_single_process_breakfast_meal" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_corn_puffs_single_process"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_breakfast_meal"/>
+        <field name="product_qty" eval="0.9057971014492754"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_single_ingredient_mixing"/>
+        <field name="sequence" eval="10"/>
+    </record>
+    <record id="bom_line_puffs_single_process_sunset_yellow" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_corn_puffs_single_process"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_sunset_yellow"/>
+        <field name="product_qty" eval="0.001811594202898551"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_single_ingredient_mixing"/>
+        <field name="sequence" eval="20"/>
+    </record>
+    <record id="bom_line_puffs_single_process_salt" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_corn_puffs_single_process"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_salt"/>
+        <field name="product_qty" eval="0.006014492753623188"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_single_ingredient_mixing"/>
+        <field name="sequence" eval="30"/>
+    </record>
+    <record id="bom_line_puffs_single_process_calcium_carbonate" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_corn_puffs_single_process"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_calcium_carbonate"/>
+        <field name="product_qty" eval="0.0009057971014492754"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_single_ingredient_mixing"/>
+        <field name="sequence" eval="40"/>
+    </record>
+    <record id="bom_line_puffs_single_process_baking_powder" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_corn_puffs_single_process"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_baking_powder"/>
+        <field name="product_qty" eval="0.001811594202898551"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_single_ingredient_mixing"/>
+        <field name="sequence" eval="50"/>
+    </record>
+    <record id="bom_line_puffs_single_process_cooking_oil" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_corn_puffs_single_process"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_cooking_oil"/>
+        <field name="product_qty" eval="0.06521739130434783"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_single_ingredient_mixing"/>
+        <field name="sequence" eval="60"/>
+    </record>
+    <record id="bom_line_puffs_single_process_cheese_spice" model="mrp.bom.line">
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_corn_puffs_single_process"/>
+        <field name="product_id" ref="legacy_mrp_master_data.prod_cheese_spice"/>
+        <field name="product_qty" eval="0.02028985507246377"/>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+        <field name="operation_id" ref="legacy_mrp_master_data.op_puffs_single_seasoning"/>
+        <field name="sequence" eval="70"/>
+    </record>
+
     </data>
 </odoo>

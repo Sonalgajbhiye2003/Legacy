@@ -6,5 +6,10 @@ class ResCompany(models.Model):
 
     quantity_warning_tolerance = fields.Float(default=0.01, digits="Product Unit of Measure")
     quantity_blocking_tolerance = fields.Float(default=0.10, digits="Product Unit of Measure")
-    packaging_variance_reason_threshold = fields.Float(default=0.0, digits="Product Unit of Measure")
+    # Hidden compatibility field for Odoo workers that loaded an older model
+    # registry. Packaging variance reasons are no longer requested or checked.
+    packaging_variance_reason_threshold = fields.Float(
+        default=0.0,
+        digits="Product Unit of Measure",
+    )
     byproduct_variance_reason_threshold = fields.Float(default=0.0, digits="Product Unit of Measure")

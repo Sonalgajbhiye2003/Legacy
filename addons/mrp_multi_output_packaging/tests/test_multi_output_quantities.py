@@ -21,22 +21,48 @@ class TestMultiOutputQuantities(MultiOutputCommon):
         self.assertAlmostEqual(packaged.planned_qty, 2000.0)
         self.assertEqual(packaged.packaging_recipe_id, self.recipe_500)
 
-    def test_possible_packaged_quantity_uses_main_mo_quantity(self):
+    def test_possible_packaged_quantity_reserves_other_variants(self):
         mo = self.create_custom_mo(planned=1000.0)
         output_100 = self.add_output(mo, self.pack_100, self.recipe_100, 137.0)
         output_500 = self.add_output(mo, self.pack_500, self.recipe_500, 83.0)
         output_1000 = self.add_output(mo, self.pack_1000, self.recipe_1000, 29.0)
 
-        self.assertAlmostEqual(output_100.possible_qty_from_mo, 10000.0)
-        self.assertAlmostEqual(output_500.possible_qty_from_mo, 2000.0)
-        self.assertAlmostEqual(output_1000.possible_qty_from_mo, 1000.0)
+        self.assertAlmostEqual(output_100.possible_qty_from_mo, 9295.0)
+        self.assertAlmostEqual(output_500.possible_qty_from_mo, 1914.0)
+        self.assertAlmostEqual(output_1000.possible_qty_from_mo, 944.0)
+        self.assertAlmostEqual(output_100.equivalent_bulk_qty, 13.7)
+        self.assertAlmostEqual(output_500.equivalent_bulk_qty, 41.5)
+        self.assertAlmostEqual(output_1000.equivalent_bulk_qty, 29.0)
         self.assertAlmostEqual(output_100.planned_qty, 137.0)
         self.assertAlmostEqual(output_500.planned_qty, 83.0)
 
         mo.product_qty = 750.5
-        self.assertAlmostEqual(output_100.possible_qty_from_mo, 7505.0)
-        self.assertAlmostEqual(output_500.possible_qty_from_mo, 1501.0)
-        self.assertAlmostEqual(output_1000.possible_qty_from_mo, 750.0)
+        self.assertAlmostEqual(output_100.possible_qty_from_mo, 6800.0)
+        self.assertAlmostEqual(output_500.possible_qty_from_mo, 1415.0)
+        self.assertAlmostEqual(output_1000.possible_qty_from_mo, 695.0)
+
+    def test_packaged_net_quantity_cannot_exceed_mo_quantity(self):
+        mo = self.create_custom_mo(planned=1000.0)
+        self.add_output(mo, self.pack_1000, self.recipe_1000, 600.0)
+
+        with self.assertRaisesRegex(ValidationError, "exceeds the MO quantity"):
+            self.add_output(mo, self.pack_500, self.recipe_500, 900.0)
+
+    def test_output_inventory_projection_and_product_link(self):
+        mo = self.create_custom_mo(planned=1000.0)
+        output = self.add_output(mo, self.pack_500, self.recipe_500, 10.0)
+        self.env["stock.quant"]._update_available_quantity(
+            self.pack_500,
+            output.location_dest_id,
+            15.0,
+        )
+
+        self.assertAlmostEqual(output.current_on_hand_qty, 15.0)
+        self.assertAlmostEqual(output.forecasted_on_hand_qty, 25.0)
+        action = output.action_open_product()
+        self.assertEqual(action["res_model"], "product.product")
+        self.assertEqual(action["res_id"], self.pack_500.id)
+        self.assertEqual(action["target"], "current")
 
     def test_confirm_repairs_existing_mo_after_bom_default_is_configured(self):
         mo = self.create_custom_mo(planned=1000.0)
@@ -113,6 +139,7 @@ class TestMultiOutputQuantities(MultiOutputCommon):
         self.assertAlmostEqual(output_100.stock_move_id.product_uom_qty, 137.0)
         self.assertAlmostEqual(output_500.stock_move_id.product_uom_qty, 83.0)
         self.assertAlmostEqual(bulk_output.stock_move_id.product_uom_qty, 944.8)
+        self.assertAlmostEqual(bulk_output.equivalent_bulk_qty, 944.8)
         self.assertEqual(
             set(mo.move_finished_ids.product_id.ids),
             {self.bulk.id, self.pack_100.id, self.pack_500.id},
@@ -151,6 +178,21 @@ class TestMultiOutputQuantities(MultiOutputCommon):
         self.assertAlmostEqual(self.bulk.qty_available - bulk_before, 944.8)
         self.assertAlmostEqual(self.pack_100.qty_available - pack_100_before, 137.0)
         self.assertAlmostEqual(self.pack_500.qty_available - pack_500_before, 83.0)
+
+    def test_completion_requires_actual_quantity_for_every_planned_output(self):
+        mo = self.create_custom_mo(planned=1000.0, actual=1000.0)
+        missing_output = self.add_output(mo, self.pack_100, self.recipe_100, 137.0)
+        completed_output = self.add_output(mo, self.pack_500, self.recipe_500, 83.0, 83.0)
+
+        mo.action_confirm()
+
+        with self.assertRaisesRegex(UserError, "Enter the Produced Quantity"):
+            mo.pre_button_mark_done()
+
+        missing_output.actual_qty = 137.0
+        mo._sync_primary_bulk_output_line()
+        mo.pre_button_mark_done()
+        self.assertEqual(completed_output.actual_qty, 83.0)
 
     def test_duplicate_output_is_rejected(self):
         mo = self.create_custom_mo()
@@ -239,14 +281,12 @@ class TestMultiOutputQuantities(MultiOutputCommon):
         mo = self.create_custom_mo(planned=1000, actual=900)
         output = self.add_output(mo, self.pack_500, self.recipe_500, 100, 90)
         mo.action_confirm()
-        mo.process_loss_qty = 5
         mo.variance_reason = "Previous run"
         packaging_line = mo.packaging_line_ids.filtered(
             lambda line: line.packaging_product_id == self.pouch
         )
         packaging_line.write({
             "actual_consumed_qty": 88,
-            "variance_reason": "Previous packaging loss",
         })
 
         duplicate = mo.copy()
@@ -284,6 +324,14 @@ class TestMultiOutputQuantities(MultiOutputCommon):
             ).planned_qty,
             output.planned_qty,
         )
+
+    def test_process_loss_is_calculated_from_actual_bulk_output(self):
+        mo = self.create_custom_mo(planned=1000.0, actual=925.0)
+        self.add_output(mo, self.pack_500, self.recipe_500, 100.0, 80.0)
+
+        self.assertAlmostEqual(mo.process_loss_qty, 75.0)
+        self.assertAlmostEqual(mo.expected_remaining_bulk_qty, 950.0)
+        self.assertAlmostEqual(mo.remaining_bulk_qty, 885.0)
 
     def test_actual_quantity_refreshes_packaging_expectation(self):
         mo = self.create_custom_mo(actual=900)

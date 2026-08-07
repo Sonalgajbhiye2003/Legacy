@@ -28,8 +28,16 @@ class MrpProduction(models.Model):
     total_actual_packaged_equivalent = fields.Float(
         compute="_compute_reconciliation", store=True, digits="Product Unit of Measure"
     )
-    planned_process_loss_qty = fields.Float(digits="Product Unit of Measure")
-    process_loss_qty = fields.Float(digits="Product Unit of Measure", copy=False)
+    # Kept only for compatibility with Odoo workers that loaded the previous
+    # model definition before this field was removed from the user workflow.
+    # It is intentionally absent from the views and calculation dependencies.
+    planned_process_loss_qty = fields.Float(default=0.0, copy=False)
+    process_loss_qty = fields.Float(
+        compute="_compute_reconciliation",
+        store=True,
+        digits="Product Unit of Measure",
+        help="Automatically calculated as Planned Bulk Output minus Actual Bulk Output.",
+    )
     remaining_bulk_qty = fields.Float(
         compute="_compute_reconciliation", store=True, digits="Product Unit of Measure"
     )
@@ -49,8 +57,8 @@ class MrpProduction(models.Model):
     @api.depends(
         "output_line_ids.planned_qty", "output_line_ids.actual_qty",
         "output_line_ids.equivalent_bulk_qty", "output_line_ids.output_classification",
-        "planned_usable_output_qty", "actual_usable_output_qty", "planned_process_loss_qty",
-        "process_loss_qty", "company_id.quantity_warning_tolerance",
+        "planned_usable_output_qty", "actual_usable_output_qty",
+        "company_id.quantity_warning_tolerance",
         "company_id.quantity_blocking_tolerance"
     )
     def _compute_reconciliation(self):
@@ -74,15 +82,17 @@ class MrpProduction(models.Model):
                 if line.net_content_uom_id and line.bulk_equivalent_product_id
                 and line.net_content_uom_id.category_id == line.bulk_equivalent_product_id.uom_id.category_id
             )
+            production.process_loss_qty = max(
+                production.planned_usable_output_qty - production.actual_usable_output_qty,
+                0.0,
+            ) if production.actual_usable_output_qty else 0.0
             production.expected_remaining_bulk_qty = (
                 production.planned_usable_output_qty
                 - production.total_planned_packaged_equivalent
-                - production.planned_process_loss_qty
             )
             production.remaining_bulk_qty = (
                 production.actual_usable_output_qty
                 - production.total_actual_packaged_equivalent
-                - production.process_loss_qty
             )
             bulk_line = production.output_line_ids.filtered(
                 lambda line: line.output_classification == "primary_bulk"
@@ -115,8 +125,8 @@ class MrpProduction(models.Model):
         self.bulk_uom_id = self.bulk_product_id.uom_id
 
     @api.onchange(
-        "planned_usable_output_qty", "actual_usable_output_qty", "planned_process_loss_qty",
-        "process_loss_qty", "bulk_product_id", "output_line_ids"
+        "planned_usable_output_qty", "actual_usable_output_qty",
+        "bulk_product_id", "output_line_ids"
     )
     def _onchange_sync_bulk_line(self):
         self._sync_primary_bulk_output_line()
@@ -141,8 +151,7 @@ class MrpProduction(models.Model):
                 raise UserError("Manufacturing Workflow and Custom Process Type are locked after confirmation.")
         result = super().write(vals)
         if not self.env.context.get("skip_multi_output_sync") and {
-            "planned_usable_output_qty", "actual_usable_output_qty", "planned_process_loss_qty",
-            "process_loss_qty", "bulk_product_id"
+            "planned_usable_output_qty", "actual_usable_output_qty", "bulk_product_id"
         } & set(vals):
             self._sync_primary_bulk_output_line()
         return result
@@ -154,7 +163,6 @@ class MrpProduction(models.Model):
         if self.manufacturing_workflow == "custom_multi_output":
             default.update({
                 "actual_usable_output_qty": 0.0,
-                "process_loss_qty": 0.0,
                 "variance_reason": False,
                 "variance_approved": False,
                 "recipe_snapshot_ids": [Command.clear()],
@@ -197,6 +205,10 @@ class MrpProduction(models.Model):
                     raise ValidationError("Bulk Product and Bulk UoM are required for integrated production and packaging.")
                 if production.bulk_uom_id.category_id != production.bulk_product_id.uom_id.category_id:
                     raise ValidationError("Bulk Product and Bulk UoM are incompatible.")
+
+    @api.constrains("product_qty", "product_uom_id", "manufacturing_workflow")
+    def _check_packaged_quantity_limit(self):
+        self._validate_packaged_quantity_limit()
 
     def _get_move_raw_values(self, product_id, product_uom_qty, product_uom, operation_id=False, bom_line=False):
         values = super()._get_move_raw_values(
@@ -308,8 +320,8 @@ class MrpProduction(models.Model):
                 ) for line in packaged
                 if line.net_content_uom_id and line.net_content_uom_id.category_id == production.bulk_uom_id.category_id
             )
-            planned_remaining = production.planned_usable_output_qty - planned_equivalent - production.planned_process_loss_qty
-            actual_remaining = production.actual_usable_output_qty - actual_equivalent - production.process_loss_qty
+            planned_remaining = production.planned_usable_output_qty - planned_equivalent
+            actual_remaining = production.actual_usable_output_qty - actual_equivalent
             bulk_lines = production.output_line_ids.filtered(
                 lambda line: line.output_classification == "primary_bulk"
             )
@@ -334,6 +346,7 @@ class MrpProduction(models.Model):
 
     def _validate_custom_output_plan(self, completion=False):
         for production in self.filtered(lambda mo: mo.manufacturing_workflow == "custom_multi_output"):
+            production._validate_packaged_quantity_limit()
             packaged = production.output_line_ids.filtered(
                 lambda line: line.output_classification == "primary_packaged"
                 and float_compare(
@@ -361,17 +374,67 @@ class MrpProduction(models.Model):
                     raise UserError("Actual output exceeds the planned tolerance and requires Supervisor approval.")
             if completion:
                 if production.actual_usable_output_qty <= 0:
-                    raise UserError("Actual Usable Output is required before completion.")
+                    raise UserError("Enter the Actual Bulk Output before clicking Produce All.")
                 if production.remaining_bulk_qty < -production.bulk_uom_id.rounding:
                     raise UserError("Remaining Bulk cannot be negative.")
+                missing_actual_outputs = production.output_line_ids.filtered(
+                    lambda line: float_compare(
+                        line.planned_qty,
+                        0.0,
+                        precision_rounding=line.product_uom_id.rounding,
+                    ) > 0
+                    and float_compare(
+                        line.actual_qty,
+                        0.0,
+                        precision_rounding=line.product_uom_id.rounding,
+                    ) <= 0
+                )
+                if missing_actual_outputs:
+                    raise UserError(
+                        _(
+                            "Enter the Produced Quantity for every planned output before "
+                            "clicking Produce All. Missing: %s"
+                        )
+                        % ", ".join(missing_actual_outputs.mapped("product_id.display_name"))
+                    )
                 if production.reconciliation_status == "blocked":
                     raise UserError("Reconciliation difference exceeds the company blocking tolerance.")
                 if production.reconciliation_status == "warning" and not production.variance_reason:
                     raise UserError("A Variance Reason is required for a reconciliation warning.")
-                threshold = production.company_id.packaging_variance_reason_threshold
-                for packaging in production.packaging_line_ids:
-                    if abs(packaging.variance_qty) > threshold and not packaging.variance_reason:
-                        raise UserError(_("A packaging variance reason is required for %s.", packaging.packaging_product_id.display_name))
+
+    def _validate_packaged_quantity_limit(self):
+        """Ensure all packaged allocations fit inside the MO's main quantity."""
+        for production in self.filtered(
+            lambda mo: mo.manufacturing_workflow == "custom_multi_output"
+            and mo.product_uom_id
+        ):
+            total_packaged = sum(
+                line.net_content_uom_id._compute_quantity(
+                    line.planned_qty * line.net_content_qty,
+                    production.product_uom_id,
+                    round=False,
+                )
+                for line in production.output_line_ids
+                if line.output_classification == "primary_packaged"
+                and line.net_content_uom_id
+                and line.net_content_uom_id.category_id == production.product_uom_id.category_id
+            )
+            if float_compare(
+                total_packaged,
+                production.product_qty,
+                precision_rounding=production.product_uom_id.rounding,
+            ) > 0:
+                raise ValidationError(
+                    _(
+                        "The packaged products require %(packaged_qty).5f %(uom)s, "
+                        "which exceeds the MO quantity of %(mo_qty).5f %(uom)s."
+                    )
+                    % {
+                        "packaged_qty": total_packaged,
+                        "mo_qty": production.product_qty,
+                        "uom": production.product_uom_id.name,
+                    }
+                )
 
     def _snapshot_packaging_recipes(self):
         Snapshot = self.env["mrp.production.recipe.snapshot"]
