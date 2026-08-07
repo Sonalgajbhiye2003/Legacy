@@ -1,9 +1,13 @@
 # Legacy MRP Master Data - Data Quality Report
 
 ## Source Files
-- `C:\Users\SONAL\OneDrive\Desktop\Legacy Group Docs\June 26 stock sheet.xlsx`
-- `C:\Users\SONAL\OneDrive\Desktop\Legacy Group Docs\Legacy products  BOM-July 26.xlsx`
-- `C:\Users\SONAL\OneDrive\Desktop\Legacy Group Docs\OPS010-Process Flow Diagrams.xlsx`
+- `C:\Users\SONAL\Downloads\Odoo_Manufacturing_Datasets_OPS010.xlsx`
+- `C:\Users\SONAL\Downloads\Legacy_Products_BOMs_Odoo17_Import.xlsx`
+- `C:\Users\SONAL\Downloads\Product (product.template).xlsx`
+- `C:\Users\SONAL\Downloads\Product Variant (product.product).xlsx`
+- Existing `legacy_mrp_master_data` and `mrp_multi_output_packaging` addon data
+
+The exact original filenames `June 26 stock sheet.xlsx`, `Legacy products BOM-July 26.xlsx`, and `OPS010-Process Flow Diagrams.xlsx` were not present in the searched customer folders. The inspected Odoo-ready OPS010, BOM, and product-export workbooks preserve the relevant source rows and explicit data-gap statuses used for this reconciliation.
 
 ## Summary
 - Total source product lines: 71
@@ -11,8 +15,8 @@
 - Duplicates merged: 1
 - Products requiring review: 9
 - Total BOM sheets: 16
-- Valid active BOMs: 3
-- Inactive/incomplete BOMs: 13
+- Valid active BOMs after Soya reconciliation: 1
+- Inactive/incomplete BOMs after Soya reconciliation: 16
 - Formula-derived quantity cells reviewed: 57
 - Work centers created: 4
 - Operations created: 147
@@ -28,10 +32,30 @@
 ## Manufacturing Architecture
 The addon uses the existing `mrp_multi_output_packaging` module as the single source of packaging consumption. BoM component lines contain process/raw components only. Packaging materials are configured in `mrp.packaging.recipe`, where the custom module snapshots recipes on MO confirmation and creates consolidated raw stock moves with `component_source = packaging_recipe`. This avoids consuming packaging both through standard BoM lines and the custom packaging logic.
 
-## Active BOMs
+### Soya Chunks single-processing-BOM reconciliation (2026-08-07)
+- Reused `WIP-BULK-TSP` as **Bulk Soya Chunks (TSP)** and `BYP-CRUDE-OIL` as **Soya Oil (Crude)**; no duplicate product masters were created.
+- Kept the existing oil UoM as kg. OPS010 proposes litres but explicitly leaves density, UoM, yield, and saleability unresolved.
+- Reused `RM-SOYA-BEANS` as the raw input and retained `BYP-LOW-FAT-CAKE` as an independently stockable intermediate/product master.
+- Added inactive standard BoM shell `LEGACY-SOYA-CHUNKS-SINGLE-PROCESS` with processing operations only. It intentionally has no component or by-product lines because approved batch input, main-output yield, oil yield, loss, and cost share are absent.
+- Archived all six pack-specific TSP processing BoMs. TSP packaging remains in `mrp.packaging.recipe` on the saleable variants.
+- Did not add Low-Fat Cake as another by-product because no independently measured quantity is approved.
+- Did not create active quality points because the test type, sampling frequency, responsibility, and blocking rules are incomplete.
+- The shell must remain inactive until the unresolved decisions below are approved and entered as positive numeric values.
+
+### Soya implementation verification
+- Addon upgrade: successful, installed version `17.0.1.1.0`.
+- Automated tests: **19 passed, 0 failed, 0 errors**. Coverage includes deterministic master uniqueness, safe inactive data, ordered processing-only operations, packaging separation, native same-MO by-product creation, proportional planned output, and cancellation cleanup.
+- Live database: exactly one inactive `LEGACY-SOYA-CHUNKS-SINGLE-PROCESS` shell with nine operations, zero components, and zero by-products.
+- Pack-specific TSP processing BoMs: six retained for history and all archived; no records deleted.
+- Installation/upgrade transaction comparison: Manufacturing Orders `19 → 19`, Stock Moves `197 → 197`, Accounting Moves `8 → 8`.
+- Module-owned transaction XML IDs: zero.
+- Workbook validation: eight required sheets, row-1 import headers, six validation formulas, and zero formula-error cells.
+- UI verification: Archived banner, Standard Odoo workflow, empty Components/By-products, and the ordered nine-operation route were confirmed in the local Odoo form.
+
+## Active BOMs (before Soya reconciliation)
 - Instant Porridge - Box (20 x 500g): source sheet `Instant porridge 500g`, bulk product `Bulk Instant Porridge`, output equivalent 10.0 kg.
-- TSP - Case (10 x 700g): source sheet `TSP 700g x 10`, bulk product `Bulk TSP`, output equivalent 7.0 kg.
-- TSP - 8kg Woven Bag: source sheet `TSP 8Kg`, bulk product `Bulk TSP`, output equivalent 8.0 kg.
+- TSP - Case (10 x 700g): archived because it was a pack-specific processing BoM.
+- TSP - 8kg Woven Bag: archived because it was a pack-specific processing BoM.
 
 ## Inactive / Incomplete BOMs
 - Instant Porridge - Box (10 x 1kg): source sheet `Instant porridge 1Kg` - Known source workbook problem requiring validation.
@@ -107,6 +131,12 @@ Legacy has not provided capacity, setup time, cleanup time, hourly cost, efficie
 - Partial production/backorder behavior is handled by the existing module and native Odoo chains; this addon does not override it.
 
 ## Remaining Customer Decisions
+- Soya process batch basis: approve Soya Beans input and Bulk Soya Chunks output quantities in kg.
+- Soya Oil: approve yield/quantity, operational UoM, density/conversion policy if litres are required, and by-product cost share.
+- Process loss: approve loss quantity/percentage and mass-balance tolerance.
+- Low-Fat Cake: confirm internal intermediate versus separately measured stock output and provide quantity if independent.
+- Operations: approve cycle times, capacities, work-centre mapping, and whether final quality release is blocking.
+- Quality controls: approve test method, frequency, limits, responsible team, and blocking behavior.
 - Outer Bags - 90g: BOM-only or mismatched packaging name; do not merge with Woven Bag - 90g without confirmation.
 - Outer Packaging: Generic packaging name appears without pack size; do not merge with pack-specific outer packaging.
 - Sticker: BOM-only packaging component not found in stock sheet.

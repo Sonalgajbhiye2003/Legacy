@@ -1324,5 +1324,78 @@
         <field name="company_id" ref="base.main_company"/>
     </record>
 
+    <record id="op_soya_chunks_10_receipt_preparation" model="mrp.routing.workcenter">
+        <field name="name">Soya Bean Receipt / Preparation</field>
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_soya_chunks_single_process"/>
+        <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tsp_01"/>
+        <field name="sequence" eval="10"/>
+        <field name="time_cycle_manual" eval="0.0"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+    <record id="op_soya_chunks_20_cleaning" model="mrp.routing.workcenter">
+        <field name="name">Soya Bean Cleaning</field>
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_soya_chunks_single_process"/>
+        <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tsp_01"/>
+        <field name="sequence" eval="20"/>
+        <field name="time_cycle_manual" eval="0.0"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+    <record id="op_soya_chunks_30_milling" model="mrp.routing.workcenter">
+        <field name="name">Soya Bean Milling</field>
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_soya_chunks_single_process"/>
+        <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tsp_01"/>
+        <field name="sequence" eval="30"/>
+        <field name="time_cycle_manual" eval="0.0"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+    <record id="op_soya_chunks_40_first_extrusion" model="mrp.routing.workcenter">
+        <field name="name">First Extrusion</field>
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_soya_chunks_single_process"/>
+        <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tsp_01"/>
+        <field name="sequence" eval="40"/>
+        <field name="time_cycle_manual" eval="0.0"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+    <record id="op_soya_chunks_50_oil_extraction" model="mrp.routing.workcenter">
+        <field name="name">Oil Extraction</field>
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_soya_chunks_single_process"/>
+        <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tsp_01"/>
+        <field name="sequence" eval="50"/>
+        <field name="time_cycle_manual" eval="0.0"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+    <record id="op_soya_chunks_60_low_fat_cake_milling" model="mrp.routing.workcenter">
+        <field name="name">Low-Fat Cake Milling</field>
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_soya_chunks_single_process"/>
+        <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tsp_01"/>
+        <field name="sequence" eval="60"/>
+        <field name="time_cycle_manual" eval="0.0"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+    <record id="op_soya_chunks_70_second_extrusion" model="mrp.routing.workcenter">
+        <field name="name">Second Extrusion</field>
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_soya_chunks_single_process"/>
+        <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tsp_01"/>
+        <field name="sequence" eval="70"/>
+        <field name="time_cycle_manual" eval="0.0"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+    <record id="op_soya_chunks_80_grading" model="mrp.routing.workcenter">
+        <field name="name">Grading</field>
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_soya_chunks_single_process"/>
+        <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tsp_01"/>
+        <field name="sequence" eval="80"/>
+        <field name="time_cycle_manual" eval="0.0"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+    <record id="op_soya_chunks_90_final_quality_release" model="mrp.routing.workcenter">
+        <field name="name">Final Quality Release</field>
+        <field name="bom_id" ref="legacy_mrp_master_data.bom_soya_chunks_single_process"/>
+        <field name="workcenter_id" ref="legacy_mrp_master_data.wc_tsp_01"/>
+        <field name="sequence" eval="90"/>
+        <field name="time_cycle_manual" eval="0.0"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+
     </data>
 </odoo>
