@@ -49,11 +49,15 @@ if [[ ! -e "$CONFIG_FILE" ]]; then
         printf 'log_level = info\n'
     } > "$CONFIG_FILE"
     unset master_password
-    chmod 600 "$CONFIG_FILE" 2>/dev/null || true
     echo "Created config/odoo.conf with a generated Odoo master password."
 else
     echo "Preserved existing config/odoo.conf."
 fi
+
+# The official Odoo container runs as a non-host user and must be able to read
+# the bind-mounted configuration file. Keep the directory read-only in Compose,
+# while allowing the container process to read this file.
+chmod 644 "$CONFIG_FILE" 2>/dev/null || true
 
 if grep -q 'REPLACE_WITH_GENERATED' "$ENV_FILE" "$CONFIG_FILE"; then
     echo "ERROR: An existing secret file still contains a template placeholder." >&2
