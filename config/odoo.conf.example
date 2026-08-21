@@ -1,0 +1,13 @@
+[options]
+
+addons_path = /usr/lib/python3/dist-packages/odoo/addons,/mnt/extra-addons,/mnt/legacy-addons,/mnt/third-party-addons,/mnt/private-addons
+
+data_dir = /var/lib/odoo
+
+admin_passwd = REPLACE_WITH_GENERATED_MASTER_PASSWORD
+
+list_db = True
+
+proxy_mode = True
+
+log_level = info

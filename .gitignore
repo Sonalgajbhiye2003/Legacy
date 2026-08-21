@@ -2,11 +2,15 @@
 __pycache__/
 *.py[cod]
 *.log
+.pytest_cache/
 
 # Generated document QA artifacts
 manual_render/
 ~$*.docx
 *.tmp.docx
+.codex_tmp/
+outputs/tsp_soya_oil_manual/qa_*/
+outputs/tsp_soya_oil_manual/rendered*/
 
 # Generated spreadsheet inspection artifacts
 *.inspect.ndjson
@@ -15,6 +19,24 @@ _import_template_source.json
 
 # Local configuration and secrets
 .env
+config/odoo.conf
 *.conf
 credentials.txt
 
+# Database backups and local Odoo data
+backup/
+backups/
+filestore/
+*.zip
+*.dump
+*.sql
+*.backup
+
+# Licensed add-ons may be supplied locally but must never enter Git
+private_addons/*
+!private_addons/.gitkeep
+
+# IDE and operating-system artifacts
+.idea/
+.DS_Store
+Thumbs.db

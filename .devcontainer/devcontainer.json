@@ -1,0 +1,24 @@
+{
+  "name": "Legacy Odoo 17 Sandbox",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "version": "latest",
+      "dockerDashComposeVersion": "v2"
+    },
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.11"
+    }
+  },
+  "forwardPorts": [8069],
+  "portsAttributes": {
+    "8069": {
+      "label": "Legacy Odoo 17",
+      "protocol": "http",
+      "onAutoForward": "notify",
+      "visibility": "private"
+    }
+  },
+  "postCreateCommand": "chmod +x scripts/*.sh && ./scripts/bootstrap.sh",
+  "remoteUser": "vscode"
+}
