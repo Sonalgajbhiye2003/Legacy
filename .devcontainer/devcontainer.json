@@ -5,15 +5,24 @@
     "ghcr.io/devcontainers/features/docker-in-docker:2": {
       "version": "latest",
       "dockerDashComposeVersion": "v2"
+    },
+    "ghcr.io/devcontainers/features/sshd:1": {
+      "version": "latest"
     }
   },
-  "forwardPorts": [8069],
+  "forwardPorts": [8069, 8077],
   "portsAttributes": {
     "8069": {
       "label": "Legacy Odoo 17",
       "protocol": "http",
       "onAutoForward": "notify",
-      "visibility": "private"
+      "visibility": "public"
+    },
+    "8077": {
+      "label": "Legacy Odoo 17 (Fallback)",
+      "protocol": "http",
+      "onAutoForward": "silent",
+      "visibility": "public"
     }
   },
   "postCreateCommand": "chmod +x scripts/*.sh && ./scripts/bootstrap.sh",
