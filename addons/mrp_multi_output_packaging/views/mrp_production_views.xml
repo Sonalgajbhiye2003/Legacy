@@ -9,6 +9,19 @@
                 <field name="manufacturing_workflow" invisible="1"/>
                 <field name="custom_process_type" invisible="1"/>
             </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_open_source_manufacturing_order"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-level-up"
+                        invisible="not source_byproduct_move_id">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_text">Source MO</span>
+                    </div>
+                </button>
+                <field name="source_byproduct_move_id" invisible="1"/>
+                <field name="source_manufacturing_order_id" invisible="1"/>
+            </xpath>
             <xpath expr="(//field[@name='bom_id'])[1]" position="after">
                 <field name="manufacturing_workflow" readonly="state != 'draft'" groups="mrp.group_mrp_manager"/>
                 <field name="custom_process_type" readonly="state != 'draft'"
@@ -127,6 +140,16 @@
                        column_invisible="parent.manufacturing_workflow != 'custom_multi_output'"/>
                 <field name="byproduct_variance_reason" optional="hide"
                        column_invisible="parent.manufacturing_workflow != 'custom_multi_output'"/>
+                <field name="downstream_manufacturing_enabled" column_invisible="True"/>
+                <field name="downstream_production_id" string="Downstream MO" readonly="1" optional="show"/>
+                <button name="action_create_or_open_downstream_mo"
+                        type="object"
+                        icon="fa-industry"
+                        title="Create/Open MO"
+                        aria-label="Create/Open MO"
+                        class="btn-link p-0"
+                        groups="mrp.group_mrp_user"
+                        invisible="not downstream_manufacturing_enabled"/>
             </xpath>
         </field>
     </record>

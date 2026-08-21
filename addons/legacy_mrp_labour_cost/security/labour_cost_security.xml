@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="labour_cost_company_rule" model="ir.rule">
+            <field name="name">Manufacturing Labour Cost: multi-company</field>
+            <field name="model_id" ref="model_mrp_production_labour_cost"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+        <record id="labour_preset_company_rule" model="ir.rule">
+            <field name="name">Manufacturing Labour Preset: multi-company</field>
+            <field name="model_id" ref="model_mrp_labour_cost_preset"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+        <record id="bom_labour_cost_company_rule" model="ir.rule">
+            <field name="name">BoM Labour Cost: multi-company</field>
+            <field name="model_id" ref="model_mrp_bom_labour_cost"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+    </data>
+</odoo>

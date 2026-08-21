@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mrp_labour_cost_tree" model="ir.ui.view">
+        <field name="name">mrp.production.labour.cost.tree</field>
+        <field name="model">mrp.production.labour.cost</field>
+        <field name="arch" type="xml">
+            <tree string="Labour Cost Analysis" create="0" delete="0">
+                <field name="production_id"/>
+                <field name="production_date"/>
+                <field name="product_id"/>
+                <field name="produced_quantity"/>
+                <field name="product_uom_id" optional="hide"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="workcenter_id"/>
+                <field name="operation_id"/>
+                <field name="labour_type"/>
+                <field name="description"/>
+                <field name="labour_count" sum="Total Headcount"/>
+                <field name="hours_per_labour"/>
+                <field name="total_hours" sum="Total Hours"/>
+                <field name="cost_per_hour"/>
+                <field name="total_cost" sum="Total Labour Cost"/>
+                <field name="labour_cost_per_unit"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="posting_state" widget="badge"/>
+                <field name="account_move_id"/>
+                <field name="posting_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mrp_labour_cost_form" model="ir.ui.view">
+        <field name="name">mrp.production.labour.cost.form</field>
+        <field name="model">mrp.production.labour.cost</field>
+        <field name="arch" type="xml">
+            <form string="Manufacturing Labour Cost">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="production_id" readonly="posting_state != 'draft'"/>
+                            <field name="company_id" readonly="1"/>
+                            <field name="workcenter_id" readonly="posting_state != 'draft'"/>
+                            <field name="operation_id" readonly="posting_state != 'draft'"/>
+                            <field name="workorder_id" readonly="posting_state != 'draft'"/>
+                            <field name="labour_type" readonly="posting_state != 'draft'"/>
+                            <field name="description" readonly="posting_state != 'draft'"/>
+                        </group>
+                        <group>
+                            <field name="labour_count" readonly="posting_state != 'draft'"/>
+                            <field name="hours_per_labour" readonly="posting_state != 'draft'"/>
+                            <field name="cost_per_hour" readonly="posting_state != 'draft'"/>
+                            <field name="total_hours" readonly="1"/>
+                            <field name="total_cost" readonly="1"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="posting_state" widget="badge"/>
+                            <field name="account_move_id"/>
+                            <field name="reversal_move_id" invisible="posting_state != 'reversed'"/>
+                        </group>
+                    </group>
+                    <group><field name="note"/></group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="mrp_labour_cost_pivot" model="ir.ui.view">
+        <field name="name">mrp.production.labour.cost.pivot</field>
+        <field name="model">mrp.production.labour.cost</field>
+        <field name="arch" type="xml">
+            <pivot string="Labour Cost Analysis">
+                <field name="workcenter_id" type="row"/>
+                <field name="product_id" type="col"/>
+                <field name="total_cost" type="measure"/>
+                <field name="total_hours" type="measure"/>
+                <field name="labour_count" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="mrp_labour_cost_graph" model="ir.ui.view">
+        <field name="name">mrp.production.labour.cost.graph</field>
+        <field name="model">mrp.production.labour.cost</field>
+        <field name="arch" type="xml">
+            <graph string="Labour Cost by Work Center" type="bar">
+                <field name="workcenter_id"/>
+                <field name="total_cost" type="measure"/>
+                <field name="total_hours" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="mrp_labour_cost_search" model="ir.ui.view">
+        <field name="name">mrp.production.labour.cost.search</field>
+        <field name="model">mrp.production.labour.cost</field>
+        <field name="arch" type="xml">
+            <search string="Labour Cost Analysis">
+                <field name="production_id"/>
+                <field name="product_id"/>
+                <field name="workcenter_id"/>
+                <field name="operation_id"/>
+                <field name="labour_type"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="production_date"/>
+                <separator/>
+                <filter string="Posted" name="posted" domain="[('posting_state','=','posted')]"/>
+                <filter string="Unposted" name="unposted" domain="[('posting_state','=','draft')]"/>
+                <filter string="Reversed" name="reversed" domain="[('posting_state','=','reversed')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Manufacturing Order" name="group_production" context="{'group_by':'production_id'}"/>
+                    <filter string="Product" name="group_product" context="{'group_by':'product_id'}"/>
+                    <filter string="Work Center" name="group_workcenter" context="{'group_by':'workcenter_id'}"/>
+                    <filter string="Operation" name="group_operation" context="{'group_by':'operation_id'}"/>
+                    <filter string="Labour Type" name="group_labour_type" context="{'group_by':'labour_type'}"/>
+                    <filter string="Company" name="group_company" context="{'group_by':'company_id'}" groups="base.group_multi_company"/>
+                    <filter string="Status" name="group_status" context="{'group_by':'posting_state'}"/>
+                    <filter string="Manufacturing Date" name="group_date" context="{'group_by':'production_date:day'}"/>
+                    <filter string="Month" name="group_month" context="{'group_by':'production_date:month'}"/>
+                    <filter string="Year" name="group_year" context="{'group_by':'production_date:year'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_mrp_labour_cost_analysis" model="ir.actions.act_window">
+        <field name="name">Labour Cost Analysis</field>
+        <field name="res_model">mrp.production.labour.cost</field>
+        <field name="view_mode">tree,pivot,graph,form</field>
+        <field name="search_view_id" ref="mrp_labour_cost_search"/>
+        <field name="context">{'create': False}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No manufacturing labour costs recorded</p>
+            <p>Add labour entries from the Labour Costs tab of a Manufacturing Order.</p>
+        </field>
+    </record>
+
+    <menuitem id="menu_mrp_labour_cost_analysis"
+              name="Labour Cost Analysis"
+              parent="mrp.menu_mrp_reporting"
+              action="action_mrp_labour_cost_analysis"
+              groups="mrp.group_mrp_user,account.group_account_user"
+              sequence="80"/>
+</odoo>

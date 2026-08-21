@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_mrp_labour_cost_user,mrp labour cost user,model_mrp_production_labour_cost,mrp.group_mrp_user,1,1,1,1
+access_mrp_labour_cost_account_user,mrp labour cost accounting reader,model_mrp_production_labour_cost,account.group_account_user,1,0,0,0
+access_mrp_labour_reversal_manager,mrp labour cost reversal manager,model_mrp_labour_cost_reversal_wizard,account.group_account_manager,1,1,1,1
+access_mrp_labour_preset_user,mrp labour preset user,model_mrp_labour_cost_preset,mrp.group_mrp_user,1,0,0,0
+access_mrp_labour_preset_manager,mrp labour preset manager,model_mrp_labour_cost_preset,mrp.group_mrp_manager,1,1,1,1
+access_mrp_bom_labour_user,mrp bom labour user,model_mrp_bom_labour_cost,mrp.group_mrp_user,1,0,0,0
+access_mrp_bom_labour_manager,mrp bom labour manager,model_mrp_bom_labour_cost,mrp.group_mrp_manager,1,1,1,1

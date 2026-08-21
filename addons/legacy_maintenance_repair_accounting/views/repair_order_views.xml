@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_repair_order_form_legacy" model="ir.ui.view">
+        <field name="name">repair.order.form.legacy</field>
+        <field name="model">repair.order</field>
+        <field name="inherit_id" ref="repair.view_repair_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_legacy_maintenance_request" type="object" class="oe_stat_button" icon="fa-wrench" invisible="not legacy_maintenance_request_id">
+                    <div class="o_field_widget o_stat_info"><span class="o_stat_text">Maintenance Request</span></div>
+                </button>
+                <button name="action_view_legacy_material_requests" type="object" class="oe_stat_button" icon="fa-cubes" invisible="not legacy_material_request_count">
+                    <field name="legacy_material_request_count" widget="statinfo" string="Material Requests"/>
+                </button>
+                <button name="action_view_legacy_journal_entries" type="object" class="oe_stat_button" icon="fa-book" invisible="not legacy_journal_entry_count" groups="account.group_account_user">
+                    <field name="legacy_journal_entry_count" widget="statinfo" string="Journal Entries"/>
+                </button>
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="before">
+                <field name="legacy_order_type" readonly="state != 'draft'"/>
+                <field name="legacy_maintenance_request_id" options="{'no_create': True}" readonly="state != 'draft'"/>
+                <field name="legacy_equipment_id" invisible="legacy_order_type != 'repair'" required="legacy_order_type == 'repair' and state != 'draft'" options="{'no_create': True}" readonly="state != 'draft'"/>
+                <field name="legacy_workcenter_id" invisible="legacy_order_type != 'repair'" required="legacy_order_type == 'repair' and state != 'draft'" readonly="state != 'draft'"/>
+                <field name="legacy_target_workcenter_id" invisible="legacy_order_type != 'build'" required="legacy_order_type == 'build' and state != 'draft'" readonly="state != 'draft'"/>
+                <field name="legacy_machine_name" invisible="legacy_order_type != 'build'" required="legacy_order_type == 'build' and state != 'draft'" readonly="state != 'draft'"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Accounting" name="legacy_accounting">
+                    <group>
+                        <group>
+                            <field name="legacy_proposed_expense_type" readonly="legacy_finance_approval_state == 'approved'"/>
+                            <field name="legacy_finance_expense_type" readonly="legacy_finance_approval_state == 'approved'" groups="legacy_maintenance_repair_accounting.group_finance_maintenance_approver"/>
+                            <field name="legacy_finance_approval_state" readonly="1"/>
+                            <field name="legacy_accounting_status" readonly="1"/>
+                            <field name="legacy_capitalization_status" readonly="1" invisible="legacy_order_type != 'build'"/>
+                        </group>
+                        <group string="Cost Summary">
+                            <field name="currency_id" invisible="1"/>
+                            <field name="legacy_material_cost"/>
+                            <field name="legacy_labour_cost"/>
+                            <field name="legacy_total_capex"/>
+                            <field name="legacy_total_opex"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_repair_order_tree_legacy" model="ir.ui.view">
+        <field name="name">repair.order.tree.legacy</field>
+        <field name="model">repair.order</field>
+        <field name="inherit_id" ref="repair.view_repair_order_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="legacy_order_type"/>
+                <field name="legacy_equipment_id" optional="show"/>
+                <field name="legacy_workcenter_id" optional="hide"/>
+                <field name="legacy_target_workcenter_id" optional="hide"/>
+                <field name="legacy_accounting_status" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_repair_order_search_legacy" model="ir.ui.view">
+        <field name="name">repair.order.search.legacy</field>
+        <field name="model">repair.order</field>
+        <field name="inherit_id" ref="repair.view_repair_order_form_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_id']" position="after">
+                <field name="legacy_order_type"/>
+                <field name="legacy_equipment_id"/>
+                <field name="legacy_workcenter_id"/>
+            </xpath>
+            <xpath expr="//filter[@name='filter_draft']" position="before">
+                <filter name="legacy_repair_type" string="Repair Existing Machine" domain="[('legacy_order_type', '=', 'repair')]"/>
+                <filter name="legacy_build_type" string="Build New Machine" domain="[('legacy_order_type', '=', 'build')]"/>
+                <separator/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_legacy_repair_orders" model="ir.actions.act_window">
+        <field name="name">Repair Existing Machines</field>
+        <field name="res_model">repair.order</field>
+        <field name="view_mode">tree,kanban,form,activity</field>
+        <field name="domain">[('legacy_order_type', '=', 'repair')]</field>
+        <field name="context">{'default_legacy_order_type': 'repair', 'default_legacy_proposed_expense_type': 'opex'}</field>
+        <field name="search_view_id" ref="repair.view_repair_order_form_filter"/>
+    </record>
+
+    <record id="action_legacy_build_orders" model="ir.actions.act_window">
+        <field name="name">Build New Machines</field>
+        <field name="res_model">repair.order</field>
+        <field name="view_mode">tree,kanban,form,activity</field>
+        <field name="domain">[('legacy_order_type', '=', 'build')]</field>
+        <field name="context">{'default_legacy_order_type': 'build', 'default_legacy_proposed_expense_type': 'capex'}</field>
+        <field name="search_view_id" ref="repair.view_repair_order_form_filter"/>
+    </record>
+
+    <menuitem id="menu_legacy_repair_orders" name="Repair Existing Machines" parent="repair.menu_repair_order" action="action_legacy_repair_orders" sequence="10" groups="legacy_maintenance_repair_accounting.group_repair_supervisor"/>
+    <menuitem id="menu_legacy_build_orders" name="Build New Machines" parent="repair.menu_repair_order" action="action_legacy_build_orders" sequence="20" groups="legacy_maintenance_repair_accounting.group_repair_supervisor"/>
+</odoo>
+

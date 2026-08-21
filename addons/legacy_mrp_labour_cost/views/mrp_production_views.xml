@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mrp_production_form_labour_cost" model="ir.ui.view">
+        <field name="name">mrp.production.form.inherit.labour.cost</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header/button[@name='action_confirm']" position="after">
+                <button name="action_post_labour_cost" type="object"
+                        string="Post Labour Cost" class="oe_highlight"
+                        groups="mrp.group_mrp_manager"
+                        invisible="state in ('draft', 'cancel') or labour_unposted_cost &lt;= 0"/>
+                <button name="action_open_labour_reversal_wizard" type="object"
+                        string="Reverse Labour Cost"
+                        groups="account.group_account_manager"
+                        invisible="labour_posted_cost &lt;= 0"/>
+            </xpath>
+            <xpath expr="//header" position="inside">
+                <field name="labour_unposted_cost" invisible="1"/>
+                <field name="labour_posted_cost" invisible="1"/>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_labour_journal_entries" type="object"
+                        class="oe_stat_button" icon="fa-book"
+                        groups="account.group_account_user"
+                        invisible="labour_journal_entry_count == 0">
+                    <field name="labour_journal_entry_count" widget="statinfo"
+                           string="Labour Journal Entries"/>
+                </button>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Labour Costs" name="labour_costs">
+                    <div class="d-flex justify-content-end mb-2">
+                        <button name="action_load_labour_from_bom" type="object"
+                                string="Load from BoM" class="btn-secondary"
+                                invisible="state != 'draft' or not bom_id"/>
+                    </div>
+                    <field name="company_currency_id" invisible="1"/>
+                    <field name="labour_cost_line_ids"
+                           context="{'default_company_id': company_id}"
+                           readonly="state == 'cancel'"
+                           options="{'delete': [('posting_state', '=', 'draft')]}">
+                        <tree editable="bottom" decoration-muted="posting_state == 'reversed'">
+                            <field name="company_id" column_invisible="1"/>
+                            <field name="currency_id" column_invisible="1"/>
+                            <field name="bom_labour_line_id" column_invisible="1"/>
+                            <field name="labour_preset_id" optional="show" readonly="1"/>
+                            <field name="workcenter_id" required="1"
+                                   readonly="posting_state != 'draft'"
+                                   domain="['|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"
+                                   options="{'no_create': True}"/>
+                            <field name="operation_id"
+                                   readonly="posting_state != 'draft'"
+                                   domain="[('bom_id', '=', parent.bom_id)]"
+                                   options="{'no_create': True}"/>
+                            <field name="workorder_id" optional="hide"
+                                   readonly="posting_state != 'draft'"
+                                   domain="[('production_id', '=', parent.id)]"
+                                   options="{'no_create': True}"/>
+                            <field name="labour_type" readonly="posting_state != 'draft'"/>
+                            <field name="description" readonly="posting_state != 'draft'"/>
+                            <field name="labour_count" readonly="posting_state != 'draft'"/>
+                            <field name="hours_per_labour" readonly="posting_state != 'draft'"/>
+                            <field name="cost_per_hour" readonly="posting_state != 'draft'"/>
+                            <field name="total_hours" readonly="1"/>
+                            <field name="total_cost" readonly="1" sum="Total"/>
+                            <field name="posting_state" widget="badge"/>
+                            <field name="account_move_id" optional="show"/>
+                        </tree>
+                    </field>
+                    <group string="Labour Summary" col="6">
+                        <field name="labour_line_count" readonly="1"/>
+                        <field name="labour_total_headcount" readonly="1"/>
+                        <field name="labour_total_hours" readonly="1"/>
+                        <field name="labour_total_cost" readonly="1"/>
+                        <field name="labour_posted_cost" readonly="1"/>
+                        <field name="labour_unposted_cost" readonly="1"/>
+                        <field name="labour_reversed_cost" readonly="1"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

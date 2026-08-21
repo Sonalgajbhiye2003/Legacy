@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_equipment_component_tree" model="ir.ui.view">
+        <field name="name">maintenance.equipment.component.tree</field>
+        <field name="model">maintenance.equipment.component</field>
+        <field name="arch" type="xml">
+            <tree decoration-muted="status in ('removed', 'recycled', 'scrapped')">
+                <field name="product_uom_category_id" column_invisible="1"/>
+                <field name="name"/>
+                <field name="equipment_id"/>
+                <field name="parent_id" optional="show"/>
+                <field name="product_id"/>
+                <field name="quantity"/>
+                <field name="uom_id"/>
+                <field name="lot_id"/>
+                <field name="status" widget="badge"/>
+                <field name="installed_date"/>
+                <field name="warranty_expiry" optional="show"/>
+                <field name="installed_repair_order_id" optional="show"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_equipment_component_form" model="ir.ui.view">
+        <field name="name">maintenance.equipment.component.form</field>
+        <field name="model">maintenance.equipment.component</field>
+        <field name="arch" type="xml">
+            <form>
+                <header><field name="status" widget="statusbar" statusbar_visible="planned,installed,under_repair,removed,recycled,scrapped"/></header>
+                <sheet>
+                    <field name="company_id" invisible="1"/>
+                    <field name="product_uom_category_id" invisible="1"/>
+                    <div class="oe_title"><h1><field name="name"/></h1></div>
+                    <group>
+                        <group>
+                            <field name="equipment_id"/>
+                            <field name="parent_id" domain="[('equipment_id', '=', equipment_id), ('id', '!=', id)]"/>
+                            <field name="product_id"/>
+                            <field name="description"/>
+                            <field name="quantity"/>
+                            <field name="uom_id"/>
+                            <field name="lot_id"/>
+                        </group>
+                        <group>
+                            <field name="manufacturer"/>
+                            <field name="model"/>
+                            <field name="installed_date"/>
+                            <field name="removed_date"/>
+                            <field name="warranty_expiry"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="installation_cost"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Traceability">
+                            <group>
+                                <field name="installed_repair_order_id"/>
+                                <field name="installation_move_id"/>
+                                <field name="removed_repair_order_id"/>
+                                <field name="removal_move_id"/>
+                            </group>
+                        </page>
+                        <page string="History"><field name="history_ids" readonly="1"/></page>
+                        <page string="Notes"><field name="notes"/></page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter"><field name="message_follower_ids"/><field name="activity_ids"/><field name="message_ids"/></div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_equipment_component_event_tree" model="ir.ui.view">
+        <field name="name">maintenance.equipment.component.event.tree</field>
+        <field name="model">maintenance.equipment.component.event</field>
+        <field name="arch" type="xml">
+            <tree create="0" edit="0" delete="0">
+                <field name="event_date"/>
+                <field name="equipment_id"/>
+                <field name="component_id"/>
+                <field name="from_status"/>
+                <field name="to_status"/>
+                <field name="repair_order_id"/>
+                <field name="stock_move_id"/>
+                <field name="user_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_equipment_components" model="ir.actions.act_window">
+        <field name="name">Equipment Components</field>
+        <field name="res_model">maintenance.equipment.component</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="action_equipment_component_history" model="ir.actions.act_window">
+        <field name="name">Component History</field>
+        <field name="res_model">maintenance.equipment.component.event</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <record id="view_maintenance_equipment_form_components" model="ir.ui.view">
+        <field name="name">maintenance.equipment.form.components</field>
+        <field name="model">maintenance.equipment</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_legacy_component_history" type="object" class="oe_stat_button" icon="fa-history" invisible="not legacy_component_history_count"><field name="legacy_component_history_count" widget="statinfo" string="Component History"/></button>
+                <button name="action_view_legacy_repair_orders" type="object" class="oe_stat_button" icon="fa-wrench" invisible="not legacy_repair_order_count"><field name="legacy_repair_order_count" widget="statinfo" string="Repair Orders"/></button>
+                <button name="action_view_legacy_material_requests" type="object" class="oe_stat_button" icon="fa-cubes" invisible="not legacy_material_request_count"><field name="legacy_material_request_count" widget="statinfo" string="Material Requests"/></button>
+                <button name="action_view_legacy_journal_entries" type="object" class="oe_stat_button" icon="fa-book" invisible="not legacy_journal_entry_count" groups="account.group_account_user"><field name="legacy_journal_entry_count" widget="statinfo" string="Journal Entries"/></button>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Components" name="legacy_components">
+                    <field name="legacy_component_ids" context="{'default_equipment_id': id, 'default_company_id': company_id}">
+                        <tree editable="bottom" decoration-muted="status in ('removed', 'recycled', 'scrapped')">
+                            <field name="company_id" column_invisible="1"/>
+                            <field name="product_uom_category_id" column_invisible="1"/>
+                            <field name="name"/>
+                            <field name="parent_id" domain="[('equipment_id', '=', parent.id)]"/>
+                            <field name="product_id"/>
+                            <field name="quantity"/>
+                            <field name="uom_id"/>
+                            <field name="lot_id"/>
+                            <field name="status" widget="badge"/>
+                            <field name="installed_date"/>
+                            <field name="warranty_expiry"/>
+                            <field name="installed_repair_order_id"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <menuitem id="menu_equipment_components" name="Equipment Components" parent="maintenance.menu_equipment_form" action="action_equipment_components" sequence="30" groups="legacy_maintenance_repair_accounting.group_repair_supervisor"/>
+</odoo>

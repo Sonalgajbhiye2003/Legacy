@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_maintenance_request_form_legacy_repair" model="ir.ui.view">
+        <field name="name">maintenance.request.form.legacy.repair</field>
+        <field name="model">maintenance.request</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_request_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/header" position="inside">
+                <button name="action_create_legacy_repair_order" type="object" string="Create Repair Order" class="btn-primary" invisible="maintenance_for != 'workcenter' or legacy_work_type != 'repair' or legacy_repair_order_count" groups="legacy_maintenance_repair_accounting.group_repair_supervisor"/>
+                <button name="action_create_legacy_repair_order" type="object" string="Create Build Order" class="btn-primary" invisible="maintenance_for != 'workcenter' or legacy_work_type != 'build' or legacy_repair_order_count" groups="legacy_maintenance_repair_accounting.group_repair_supervisor"/>
+            </xpath>
+            <xpath expr="//sheet/div[hasclass('oe_title')]" position="before">
+                <div class="oe_button_box" name="button_box">
+                    <button name="action_view_legacy_repair_orders" type="object" class="oe_stat_button" icon="fa-wrench" invisible="not legacy_repair_order_count">
+                        <field name="legacy_repair_order_count" widget="statinfo" string="Repair/Build Orders"/>
+                    </button>
+                    <button name="action_view_legacy_material_requests" type="object" class="oe_stat_button" icon="fa-cubes" invisible="not legacy_material_request_count">
+                        <field name="legacy_material_request_count" widget="statinfo" string="Material Requests"/>
+                    </button>
+                    <button name="action_view_legacy_journal_entries" type="object" class="oe_stat_button" icon="fa-book" invisible="not legacy_journal_entry_count" groups="account.group_account_user">
+                        <field name="legacy_journal_entry_count" widget="statinfo" string="Journal Entries"/>
+                    </button>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='equipment_id']" position="after">
+                <field name="legacy_work_type" invisible="maintenance_for != 'workcenter'" required="maintenance_for == 'workcenter'"/>
+                <field name="legacy_existing_equipment_id" invisible="maintenance_for != 'workcenter' or legacy_work_type != 'repair'" required="maintenance_for == 'workcenter' and legacy_work_type == 'repair'" options="{'no_create': True}"/>
+                <field name="legacy_proposed_expense_type" invisible="maintenance_for != 'workcenter'"/>
+                <field name="legacy_finance_expense_type" invisible="maintenance_for != 'workcenter'" readonly="legacy_finance_approval_state == 'approved'" groups="legacy_maintenance_repair_accounting.group_finance_maintenance_approver"/>
+                <field name="legacy_finance_approval_state" invisible="maintenance_for != 'workcenter'" readonly="1"/>
+                <field name="legacy_accounting_status" invisible="maintenance_for != 'workcenter'" readonly="1"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Cost Summary" name="legacy_cost_summary" invisible="maintenance_for != 'workcenter'">
+                    <group>
+                        <group>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="legacy_material_cost"/>
+                            <field name="legacy_labour_cost"/>
+                        </group>
+                        <group>
+                            <field name="legacy_total_capex"/>
+                            <field name="legacy_total_opex"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_maintenance_request_search_legacy_repair" model="ir.ui.view">
+        <field name="name">maintenance.request.search.legacy.repair</field>
+        <field name="model">maintenance.request</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_request_view_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='maintenance_team_id']" position="after">
+                <field name="legacy_work_type"/>
+                <field name="legacy_existing_equipment_id"/>
+            </xpath>
+            <xpath expr="//search" position="inside">
+                <filter name="legacy_repair_requests" string="Repair Existing Machine" domain="[('legacy_work_type', '=', 'repair')]"/>
+                <filter name="legacy_build_requests" string="Build New Machine" domain="[('legacy_work_type', '=', 'build')]"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

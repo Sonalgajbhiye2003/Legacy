@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_stock_request_tree" model="ir.ui.view">
+        <field name="name">stock.request.tree</field>
+        <field name="model">stock.request</field>
+        <field name="arch" type="xml">
+            <tree decoration-muted="state == 'cancel'"
+                  decoration-danger="state == 'rejected'"
+                  decoration-bf="message_needaction == True">
+                <field name="message_needaction" column_invisible="1"/>
+                <field name="name"/>
+                <field name="requested_by" widget="many2one_avatar_user"/>
+                <field name="product_id"/>
+                <field name="product_uom_qty"/>
+                <field name="product_uom_id" groups="uom.group_uom"
+                       options="{'no_open': True, 'no_create': True}"/>
+                <field name="current_approver_id" widget="many2one_avatar_user"
+                       optional="show"/>
+                <field name="approval_status" widget="badge"
+                       decoration-info="approval_status == 'requested'"
+                       decoration-success="approval_status == 'approved'"
+                       decoration-danger="approval_status == 'rejected'"/>
+                <field name="state" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="stock_request_search" model="ir.ui.view">
+        <field name="name">stock.request.search</field>
+        <field name="model">stock.request</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Stock Requests"/>
+                <field name="requested_by"/>
+                <field name="current_approver_id"/>
+                <field name="product_id"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <separator/>
+                <filter string="Draft" name="draft" domain="[('state','=','draft')]"/>
+                <filter string="Pending Approval" name="pending"
+                        domain="[('state','=','open')]"/>
+                <filter string="Approved" name="approved" domain="[('state','=','done')]"/>
+                <filter string="Rejected" name="rejected"
+                        domain="[('state','=','rejected')]"/>
+                <filter string="Cancelled" name="cancel"
+                        domain="[('state','=','cancel')]"/>
+                <separator/>
+                <filter string="My Requests" name="my_requests"
+                        domain="[('requested_by','=',uid)]"/>
+                <filter string="My Approvals" name="my_approvals"
+                        domain="[('current_approver_id','=',uid)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="requester" string="Requester" domain="[]"
+                            context="{'group_by':'requested_by'}"/>
+                    <filter name="approver" string="Current Approver" domain="[]"
+                            context="{'group_by':'current_approver_id'}"/>
+                    <filter name="status" string="Approval Status" domain="[]"
+                            context="{'group_by':'approval_status'}"/>
+                    <filter name="product" string="Product" domain="[]"
+                            context="{'group_by':'product_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_stock_request_form" model="ir.ui.view">
+        <field name="name">stock.request.form</field>
+        <field name="model">stock.request</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_request_approval" string="Request Approval"
+                            type="object" class="oe_highlight"
+                            groups="stock_request.group_stock_request_user,stock_request.group_stock_request_manager"
+                            invisible="state != 'draft'"/>
+                    <button name="action_approve_request" string="Approve"
+                            type="object" class="oe_highlight"
+                            groups="stock_request.group_stock_request_approver,stock_request.group_stock_request_manager"
+                            invisible="not can_current_user_approve"/>
+                    <button name="action_open_rejection_wizard" string="Reject"
+                            type="object" class="btn-secondary"
+                            groups="stock_request.group_stock_request_approver,stock_request.group_stock_request_manager"
+                            invisible="not can_current_user_approve"/>
+                    <button name="action_reset_request_approval" string="Reset to Draft"
+                            type="object"
+                            groups="stock_request.group_stock_request_manager"
+                            invisible="approval_state != 'rejected'"/>
+                    <button name="action_cancel" string="Cancel" type="object"
+                            invisible="state not in ['draft', 'open']"/>
+                    <field name="can_current_user_approve" invisible="1"/>
+                    <field name="approval_state" invisible="1"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,open,done,rejected,cancel"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" string="Stock Request"/>
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Request">
+                            <field name="requested_by" widget="many2one_avatar_user"
+                                   options="{'no_create': True}"
+                                   readonly="state != 'draft'"/>
+                            <field name="product_id" readonly="state != 'draft'"/>
+                            <label for="product_uom_qty" string="Quantity"/>
+                            <div>
+                                <field name="product_uom_qty" class="oe_inline"
+                                       readonly="state != 'draft'"/>
+                                <field name="allowed_uom_categ_id" invisible="1"/>
+                                <field name="product_uom_id" class="oe_inline"
+                                       options="{'no_open': True, 'no_create': True}"
+                                       groups="uom.group_uom"
+                                       readonly="state != 'draft'"/>
+                            </div>
+                            <field name="request_reason" placeholder="Explain why the stock is required..."
+                                   readonly="state != 'draft'"/>
+                        </group>
+                        <group string="Approval">
+                            <field name="approval_status" widget="badge"
+                                   decoration-info="approval_status == 'requested'"
+                                   decoration-success="approval_status == 'approved'"
+                                   decoration-danger="approval_status == 'rejected'"/>
+                            <field name="current_approver_id" widget="many2one_avatar_user"
+                                   invisible="approval_status != 'requested'"/>
+                            <field name="approval_requested_date"
+                                   invisible="approval_status == 'not_requested'"/>
+                            <field name="approval_config_id"
+                                   invisible="approval_status == 'not_requested'"/>
+                            <field name="rejected_by_id" widget="many2one_avatar_user"
+                                   invisible="approval_status != 'rejected'"/>
+                            <field name="rejected_date"
+                                   invisible="approval_status != 'rejected'"/>
+                            <field name="rejection_reason"
+                                   invisible="approval_status != 'rejected'"/>
+                        </group>
+                    </group>
+                    <notebook invisible="approval_status == 'not_requested'">
+                        <page string="Approval History" name="approval_history">
+                            <group col="6">
+                                <field name="level_1_approver_id" widget="many2one_avatar_user"/>
+                                <field name="level_1_approved_by" widget="many2one_avatar_user"/>
+                                <field name="level_1_approved_date"/>
+                                <field name="level_2_approver_id" widget="many2one_avatar_user"/>
+                                <field name="level_2_approved_by" widget="many2one_avatar_user"/>
+                                <field name="level_2_approved_date"/>
+                                <field name="level_3_approver_id" widget="many2one_avatar_user"/>
+                                <field name="level_3_approved_by" widget="many2one_avatar_user"/>
+                                <field name="level_3_approved_date"/>
+                            </group>
+                        </page>
+                    </notebook>
+
+                    <!-- Technical defaults retained for data integrity; they do not drive procurement. -->
+                    <field name="company_id" invisible="1"/>
+                    <field name="warehouse_id" invisible="1"/>
+                    <field name="location_id" invisible="1"/>
+                    <field name="allow_virtual_location" invisible="1"/>
+                    <field name="route_id" invisible="1"/>
+                    <field name="route_ids" invisible="1"/>
+                    <field name="procurement_group_id" invisible="1"/>
+                    <field name="expected_date" invisible="1"/>
+                    <field name="picking_policy" invisible="1"/>
+                    <field name="order_id" invisible="1"/>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_stock_request_form" model="ir.actions.act_window">
+        <field name="name">Stock Requests</field>
+        <field name="res_model">stock.request</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_draft': 1, 'search_default_pending': 1}</field>
+        <field name="view_id" ref="view_stock_request_tree"/>
+        <field name="search_view_id" ref="stock_request_search"/>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Create a Stock Request and submit it for approval.</p>
+        </field>
+    </record>
+</odoo>

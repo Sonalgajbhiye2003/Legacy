@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="stock_request_order_tree">
+        <field name="name">stock.request.order.tree</field>
+        <field name="model">stock.request.order</field>
+        <field name="arch" type="xml">
+            <tree string="Material Requisitions" decoration-info="state == 'open'" decoration-success="state == 'approved'">
+                <field name="name" string="Requisition"/>
+                <field name="requested_by"/>
+                <field name="requested_on"/>
+                <field name="warehouse_id"/>
+                <field name="expenditure_type" optional="show"/>
+                <field name="workcenter_id" optional="show"/>
+                <field name="estimated_total" sum="Total" optional="show"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="current_approver_id" optional="show"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'open'"
+                       decoration-success="state in ('approved', 'done')"
+                       decoration-danger="state == 'rejected'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="stock_request_order_form">
+        <field name="name">stock.request.order.form</field>
+        <field name="model">stock.request.order</field>
+        <field name="arch" type="xml">
+            <form string="Material Requisition">
+                <header>
+                    <field name="picking_count" invisible="1"/>
+                    <field name="purchase_count" invisible="1"/>
+                    <field name="purchase_creation_enabled" invisible="1"/>
+                    <button name="action_submit" string="Submit" type="object"
+                            class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_approve_request" string="Approve" type="object"
+                            class="oe_highlight" invisible="not can_current_user_approve"/>
+                    <button name="action_open_rejection_wizard" string="Refuse" type="object"
+                            invisible="not can_current_user_approve"/>
+                    <button name="action_open_purchase_wizard" string="Create Purchase Order"
+                            type="object" class="oe_highlight"
+                            groups="purchase.group_purchase_user"
+                            invisible="state != 'approved' or not purchase_creation_enabled or purchase_count != 0 or picking_count != 0"/>
+                    <button name="action_open_internal_transfer_wizard" string="Create Internal Transfer"
+                            type="object" class="oe_highlight"
+                            groups="stock.group_stock_user"
+                            invisible="state != 'approved' or purchase_count != 0 or picking_count != 0"/>
+                    <button name="action_done" string="Mark Done" type="object"
+                            class="oe_highlight" invisible="state != 'approved'"
+                            groups="stock_request.group_stock_request_manager"/>
+                    <button name="action_reset_request_approval" string="Reset to New" type="object"
+                            invisible="state != 'rejected'"
+                            groups="stock_request.group_stock_request_manager"/>
+                    <field name="can_current_user_approve" invisible="1"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,open,approved,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button type="object" name="action_view_stock_requests"
+                                class="oe_stat_button" icon="fa-truck">
+                            <field name="stock_request_count" widget="statinfo" string="Requisitions"/>
+                        </button>
+                        <button type="object" name="action_view_transfer"
+                                class="oe_stat_button" icon="fa-arrow-circle-up"
+                                groups="stock.group_stock_user">
+                            <field name="picking_count" widget="statinfo" string="Internal Transfer"/>
+                        </button>
+                        <button type="object" name="action_view_purchase_orders"
+                                class="oe_stat_button" icon="fa-shopping-cart"
+                                groups="purchase.group_purchase_user">
+                            <field name="purchase_count" widget="statinfo" string="Purchase"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1" placeholder="New"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="requested_by" readonly="state != 'draft'"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="expenditure_type" readonly="state != 'draft'"/>
+                            <field name="warehouse_id" readonly="state != 'draft'"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                        </group>
+                        <group>
+                            <field name="requested_on"/>
+                            <field name="workcenter_id" readonly="state != 'draft'"
+                                   options="{'no_create': True}"/>
+                            <field name="estimated_total" readonly="1"/>
+                        </group>
+                    </group>
+                    <field name="allow_virtual_location" invisible="1"/>
+                    <field name="location_id" invisible="1"/>
+                    <field name="expected_date" invisible="1"/>
+                    <field name="picking_policy" invisible="1"/>
+                    <field name="procurement_group_id" invisible="1"/>
+                    <field name="company_id" invisible="1"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="route_ids" invisible="1"/>
+                    <field name="route_id" invisible="1"/>
+                    <field name="picking_ids" invisible="1"/>
+                    <field name="generated_picking_ids" invisible="1"/>
+                    <field name="purchase_order_ids" invisible="1"/>
+                    <field name="purchase_creation_enabled" invisible="1"/>
+                    <notebook>
+                        <page name="products" string="Products">
+                            <field name="stock_request_ids"
+                                   readonly="state != 'draft'"
+                                   context="{
+                                       'default_expected_date': expected_date,
+                                       'default_picking_policy': picking_policy,
+                                       'default_warehouse_id': warehouse_id,
+                                       'default_location_id': location_id,
+                                       'default_procurement_group_id': procurement_group_id,
+                                       'default_company_id': company_id,
+                                       'default_requested_by': requested_by
+                                   }">
+                                <tree editable="bottom" string="Products">
+                                    <field name="product_id" string="Product Name"/>
+                                    <field name="request_reason" string="Description" optional="show"/>
+                                    <field name="product_uom_qty" string="Quantity"/>
+                                    <field name="estimated_unit_cost" string="Cost" optional="show"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                    <field name="allowed_uom_categ_id" column_invisible="1"/>
+                                    <field name="product_uom_id" string="Unit of Measure"
+                                           options="{'no_open': True, 'no_create': True}"/>
+                                    <field name="analytic_account_id" optional="show"/>
+                                    <field name="expected_date" column_invisible="1"/>
+                                    <field name="picking_policy" column_invisible="1"/>
+                                    <field name="warehouse_id" column_invisible="1"/>
+                                    <field name="allow_virtual_location" column_invisible="1"/>
+                                    <field name="location_id" column_invisible="1"/>
+                                    <field name="procurement_group_id" column_invisible="1"/>
+                                    <field name="company_id" column_invisible="1"/>
+                                    <field name="requested_by" column_invisible="1"/>
+                                    <field name="state" column_invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="approval_log" string="Approval Log">
+                            <group>
+                                <group string="Approval">
+                                    <field name="approval_state" widget="badge"/>
+                                    <field name="approval_config_id"/>
+                                    <field name="approval_requested_date"/>
+                                    <field name="current_approver_id"/>
+                                </group>
+                                <group string="Refusal" invisible="approval_state != 'rejected'">
+                                    <field name="rejected_by_id"/>
+                                    <field name="rejected_date"/>
+                                    <field name="rejection_reason"/>
+                                </group>
+                            </group>
+                            <group string="Approval History">
+                                <group>
+                                    <field name="level_1_approver_id"/>
+                                    <field name="level_1_approved_by"/>
+                                    <field name="level_1_approved_date"/>
+                                </group>
+                                <group>
+                                    <field name="level_2_approver_id"/>
+                                    <field name="level_2_approved_by"/>
+                                    <field name="level_2_approved_date"/>
+                                    <field name="level_3_approver_id"/>
+                                    <field name="level_3_approved_by"/>
+                                    <field name="level_3_approved_date"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="stock_request_order_search">
+        <field name="name">stock.request.order.search</field>
+        <field name="model">stock.request.order</field>
+        <field name="arch" type="xml">
+            <search string="Material Requisitions">
+                <field name="name"/>
+                <field name="requested_by"/>
+                <field name="warehouse_id"/>
+                <field name="workcenter_id"/>
+                <field name="current_approver_id"/>
+                <separator/>
+                <filter string="New" name="draft" domain="[('state','=','draft')]"/>
+                <filter string="Waiting for Approval" name="open" domain="[('state','=','open')]"/>
+                <filter string="Approved" name="approved" domain="[('state','=','approved')]"/>
+                <filter string="Done" name="done" domain="[('state','=','done')]"/>
+                <filter string="Refused" name="rejected" domain="[('state','=','rejected')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Requested By" name="requested_by" context="{'group_by':'requested_by'}"/>
+                    <filter string="Plant" name="warehouse" context="{'group_by':'warehouse_id'}"/>
+                    <filter string="Status" name="state" context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="stock_request_order_action">
+        <field name="name">Material Requisitions</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.request.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_draft': 0}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create a Material Requisition</p>
+            <p>Submit products for approval without creating a transfer or purchase order.</p>
+        </field>
+    </record>
+
+    <!-- Keep product lines available from the Requisitions smart button only. -->
+    <record model="ir.actions.act_window" id="action_stock_request_lines">
+        <field name="name">Requisition Products</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.request</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Redirect the legacy single-product action and old bookmarks to the
+         multi-product Material Requisition header. -->
+    <record model="ir.actions.act_window" id="action_stock_request_form">
+        <field name="name">Material Requisitions</field>
+        <field name="res_model">stock.request.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="stock_request_order_tree"/>
+        <field name="search_view_id" ref="stock_request_order_search"/>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create a Material Requisition</p>
+            <p>Add as many products as required in the Products table.</p>
+        </field>
+    </record>
+</odoo>

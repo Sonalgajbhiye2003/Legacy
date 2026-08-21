@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_repair_order_build_capitalization" model="ir.ui.view">
+        <field name="name">repair.order.form.build.capitalization</field><field name="model">repair.order</field><field name="inherit_id" ref="repair.view_repair_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/header" position="inside">
+                <button name="action_open_legacy_capitalization" type="object" string="Capitalize Build" class="btn-primary" invisible="legacy_order_type != 'build' or legacy_capitalization_status == 'capitalized'" groups="legacy_maintenance_repair_accounting.group_finance_maintenance_approver"/>
+                <button name="action_reverse_legacy_capitalization" type="object" string="Reverse Capitalization" invisible="legacy_capitalization_status != 'capitalized'" groups="legacy_maintenance_repair_accounting.group_finance_maintenance_approver"/>
+                <field name="legacy_capitalization_move_id" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='legacy_capitalization_status']" position="after"><field name="legacy_commissioning_date" invisible="legacy_order_type != 'build'"/></xpath>
+        </field>
+    </record>
+    <record id="view_maintenance_equipment_build_commissioning" model="ir.ui.view">
+        <field name="name">maintenance.equipment.form.build.commissioning</field><field name="model">maintenance.equipment</field><field name="inherit_id" ref="maintenance.hr_equipment_view_form"/>
+        <field name="arch" type="xml"><xpath expr="//sheet/group" position="after"><group string="Build Commissioning"><field name="legacy_commissioning_state"/><field name="legacy_commissioning_date"/><field name="legacy_capitalized_cost"/><field name="legacy_build_order_id"/></group></xpath></field>
+    </record>
+</odoo>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mrp_labour_cost_reversal_wizard_form" model="ir.ui.view">
+        <field name="name">mrp.labour.cost.reversal.wizard.form</field>
+        <field name="model">mrp.labour.cost.reversal.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Reverse Labour Cost">
+                <group>
+                    <field name="production_id"/>
+                    <field name="company_id" invisible="1"/>
+                    <field name="move_id" options="{'no_create': True}"/>
+                    <field name="date"/>
+                    <field name="reason"/>
+                </group>
+                <footer>
+                    <button name="action_reverse_labour_cost" type="object"
+                            string="Reverse" class="btn-primary"/>
+                    <button string="Cancel" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

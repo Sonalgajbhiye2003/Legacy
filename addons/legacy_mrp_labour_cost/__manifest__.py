@@ -1,0 +1,21 @@
+{
+    "name": "Legacy Manufacturing Labour Cost",
+    "version": "17.0.1.1.0",
+    "category": "Manufacturing/Manufacturing",
+    "summary": "Capture, post, reverse, and analyse manufacturing labour costs",
+    "author": "Legacy Group",
+    "license": "LGPL-3",
+    "depends": ["mrp", "mrp_account", "account", "mail"],
+    "data": [
+        "security/labour_cost_security.xml",
+        "security/ir.model.access.csv",
+        "wizard/labour_cost_reversal_views.xml",
+        "views/res_config_settings_views.xml",
+        "views/labour_preset_views.xml",
+        "views/mrp_bom_views.xml",
+        "views/mrp_production_views.xml",
+        "views/labour_cost_views.xml",
+    ],
+    "installable": True,
+    "application": False,
+}

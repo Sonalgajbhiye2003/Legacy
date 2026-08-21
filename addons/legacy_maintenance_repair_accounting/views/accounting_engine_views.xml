@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_stock_request_order_accounting_engine" model="ir.ui.view">
+        <field name="name">stock.request.order.form.accounting.engine</field><field name="model">stock.request.order</field><field name="inherit_id" ref="stock_request.stock_request_order_form"/>
+        <field name="arch" type="xml"><xpath expr="//form/header" position="inside"><button name="action_post_legacy_materials" type="object" string="Post Material Cost" class="btn-primary" invisible="not legacy_repair_order_id or legacy_accounting_status == 'posted'" groups="legacy_maintenance_repair_accounting.group_finance_maintenance_approver"/></xpath><xpath expr="//field[@name='stock_request_ids']/tree/field[@name='legacy_finance_approval_state']" position="after"><field name="legacy_accounting_status" widget="badge" optional="show"/><field name="legacy_posted_value" optional="show"/><field name="legacy_journal_entry_id" optional="hide"/><field name="legacy_return_entry_id" optional="hide"/></xpath></field>
+    </record>
+    <record id="view_repair_order_accounting_engine" model="ir.ui.view">
+        <field name="name">repair.order.form.accounting.engine</field><field name="model">repair.order</field><field name="inherit_id" ref="repair.view_repair_order_form"/>
+        <field name="arch" type="xml"><xpath expr="//form/header" position="inside"><button name="action_post_legacy_labour" type="object" string="Post Labour" invisible="not legacy_labour_count" groups="legacy_maintenance_repair_accounting.group_finance_maintenance_approver"/><button name="action_reverse_legacy_labour" type="object" string="Reverse Labour" invisible="not legacy_labour_posting_move_ids" groups="legacy_maintenance_repair_accounting.group_finance_maintenance_approver"/><field name="legacy_labour_posting_move_ids" invisible="1"/></xpath></field>
+    </record>
+</odoo>
+

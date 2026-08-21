@@ -17,6 +17,29 @@ class MrpProduction(models.Model):
     output_line_ids = fields.One2many("mrp.production.output.line", "production_id", copy=True)
     recipe_snapshot_ids = fields.One2many("mrp.production.recipe.snapshot", "production_id", copy=False)
     packaging_line_ids = fields.One2many("mrp.production.packaging.line", "production_id", copy=False)
+    source_byproduct_move_id = fields.Many2one(
+        "stock.move",
+        string="Source By-product Move",
+        readonly=True,
+        copy=False,
+        check_company=True,
+        index=True,
+        ondelete="restrict",
+    )
+    source_manufacturing_order_id = fields.Many2one(
+        "mrp.production",
+        string="Source Manufacturing Order",
+        related="source_byproduct_move_id.production_id",
+        readonly=True,
+    )
+
+    _sql_constraints = [
+        (
+            "source_byproduct_move_unique",
+            "UNIQUE(source_byproduct_move_id)",
+            "Only one downstream Manufacturing Order can be created from a by-product move.",
+        ),
+    ]
 
     bulk_product_id = fields.Many2one("product.product", check_company=True)
     planned_usable_output_qty = fields.Float(digits="Product Unit of Measure")
@@ -53,6 +76,30 @@ class MrpProduction(models.Model):
     )
     variance_reason = fields.Char(copy=False)
     variance_approved = fields.Boolean(string="Variance Approved", copy=False)
+
+    @api.constrains("source_byproduct_move_id", "company_id")
+    def _check_source_byproduct_move(self):
+        for production in self.filtered("source_byproduct_move_id"):
+            source_move = production.source_byproduct_move_id
+            if not source_move.byproduct_id or not source_move.production_id:
+                raise ValidationError("The source move must be a Manufacturing Order by-product move.")
+            if source_move.company_id != production.company_id:
+                raise ValidationError("The source by-product move and downstream Manufacturing Order companies must match.")
+
+    def action_open_source_manufacturing_order(self):
+        self.ensure_one()
+        source_production = self.source_manufacturing_order_id
+        if not source_production:
+            raise UserError("This Manufacturing Order is not linked to a source by-product.")
+        return {
+            "type": "ir.actions.act_window",
+            "name": _("Source Manufacturing Order"),
+            "res_model": "mrp.production",
+            "view_mode": "form",
+            "views": [(self.env.ref("mrp.mrp_production_form_view").id, "form")],
+            "res_id": source_production.id,
+            "target": "current",
+        }
 
     @api.depends(
         "output_line_ids.planned_qty", "output_line_ids.actual_qty",

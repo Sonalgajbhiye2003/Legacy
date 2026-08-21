@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mrp_labour_cost_preset_tree" model="ir.ui.view">
+        <field name="name">mrp.labour.cost.preset.tree</field>
+        <field name="model">mrp.labour.cost.preset</field>
+        <field name="arch" type="xml">
+            <tree string="Labour Presets">
+                <field name="name"/>
+                <field name="workcenter_id"/>
+                <field name="labour_type"/>
+                <field name="labour_count"/>
+                <field name="hours_per_labour"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="cost_per_hour"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="active" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mrp_labour_cost_preset_form" model="ir.ui.view">
+        <field name="name">mrp.labour.cost.preset.form</field>
+        <field name="model">mrp.labour.cost.preset</field>
+        <field name="arch" type="xml">
+            <form string="Labour Preset">
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <group>
+                        <group>
+                            <field name="active" invisible="1"/>
+                            <field name="company_id" invisible="1"/>
+                            <field name="name"/>
+                            <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                            <field name="workcenter_id" domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]" options="{'no_create': True}"/>
+                            <field name="labour_type"/>
+                            <field name="description"/>
+                        </group>
+                        <group string="Default Cost Inputs">
+                            <field name="labour_count"/>
+                            <field name="hours_per_labour"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="cost_per_hour"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="note" placeholder="Instructions or assumptions for this labour preset..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="mrp_labour_cost_preset_search" model="ir.ui.view">
+        <field name="name">mrp.labour.cost.preset.search</field>
+        <field name="model">mrp.labour.cost.preset</field>
+        <field name="arch" type="xml">
+            <search string="Labour Presets">
+                <field name="name"/>
+                <field name="workcenter_id"/>
+                <field name="labour_type"/>
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Work Center" name="group_workcenter" context="{'group_by': 'workcenter_id'}"/>
+                    <filter string="Labour Type" name="group_labour_type" context="{'group_by': 'labour_type'}"/>
+                    <filter string="Company" name="group_company" context="{'group_by': 'company_id'}" groups="base.group_multi_company"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_mrp_labour_cost_preset" model="ir.actions.act_window">
+        <field name="name">Labour Presets</field>
+        <field name="res_model">mrp.labour.cost.preset</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="mrp_labour_cost_preset_search"/>
+        <field name="context">{'default_company_id': allowed_company_ids[0]}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create a reusable labour preset</p>
+            <p>Presets provide default crew, hours, rate, work center, and labour type values for BoMs.</p>
+        </field>
+    </record>
+
+    <menuitem id="menu_mrp_labour_cost_preset"
+              name="Labour Presets"
+              parent="mrp.menu_mrp_configuration"
+              action="action_mrp_labour_cost_preset"
+              sequence="35"
+              groups="mrp.group_mrp_manager"/>
+</odoo>

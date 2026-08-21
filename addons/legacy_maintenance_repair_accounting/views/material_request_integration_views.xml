@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_repair_order_material_request" model="ir.ui.view">
+        <field name="name">repair.order.form.material.request</field><field name="model">repair.order</field><field name="inherit_id" ref="repair.view_repair_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/header" position="inside"><button name="action_create_legacy_material_request" type="object" string="Create Material Requisition" invisible="state in ('done', 'cancel')" groups="stock_request.group_stock_request_user,legacy_maintenance_repair_accounting.group_repair_supervisor"/></xpath>
+            <xpath expr="//field[@name='move_ids']/tree/field[@name='product_id']" position="before"><field name="legacy_request_material" string="Request" optional="show"/><field name="legacy_stock_request_line_id" string="MR Line" optional="show" readonly="1"/></xpath>
+            <xpath expr="//field[@name='move_ids']/tree/field[@name='product_id']" position="after"><field name="legacy_operation_id" optional="show" domain="[('repair_order_id', '=', parent.id)]"/><field name="legacy_expense_type" optional="show" readonly="1"/><field name="legacy_equipment_component_id" optional="hide"/></xpath>
+        </field>
+    </record>
+    <record id="view_stock_request_order_repair_integration" model="ir.ui.view">
+        <field name="name">stock.request.order.form.repair.integration</field><field name="model">stock.request.order</field><field name="inherit_id" ref="stock_request.stock_request_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/header" position="inside"><button name="action_submit_legacy_finance" type="object" string="Submit to Finance" invisible="not legacy_repair_order_id or legacy_finance_approval_state != 'draft'"/><button name="action_approve_legacy_finance" type="object" string="Finance Approve" class="btn-primary" invisible="not legacy_repair_order_id or legacy_finance_approval_state != 'pending'" groups="legacy_maintenance_repair_accounting.group_finance_maintenance_approver"/><button name="action_reserve_legacy_repair_materials" type="object" string="Reserve Repair Parts" invisible="not legacy_repair_order_id or state != 'approved' or legacy_finance_approval_state != 'approved'" groups="stock.group_stock_user"/></xpath>
+            <xpath expr="//field[@name='workcenter_id']" position="after"><field name="legacy_maintenance_request_id" options="{'no_create': True}"/><field name="legacy_repair_order_id" options="{'no_create': True}"/><field name="legacy_equipment_id" options="{'no_create': True}"/><field name="legacy_request_purpose"/><field name="legacy_default_expense_type"/><field name="legacy_finance_approval_state" readonly="1"/><field name="legacy_accounting_status" readonly="1"/></xpath>
+            <xpath expr="//field[@name='stock_request_ids']/tree/field[@name='product_id']" position="after"><field name="legacy_expense_type" optional="show"/><field name="legacy_approved_quantity" optional="show"/><field name="legacy_available_quantity" optional="show"/><field name="legacy_consumed_quantity" optional="show"/><field name="legacy_returned_quantity" optional="show"/><field name="legacy_finance_approval_state" widget="badge" optional="show"/><field name="legacy_fulfillment_owner" optional="hide"/><field name="legacy_repair_move_id" optional="hide"/></xpath>
+        </field>
+    </record>
+</odoo>
+

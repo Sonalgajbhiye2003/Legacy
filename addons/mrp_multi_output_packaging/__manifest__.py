@@ -1,7 +1,7 @@
 {
     "name": "MRP Multi-Output Packaging",
     "summary": "Quantity, packaging, and bulk reconciliation foundation for custom manufacturing",
-    "version": "17.0.1.2.0",
+    "version": "17.0.1.3.0",
     "category": "Manufacturing/Manufacturing",
     "license": "LGPL-3",
     "author": "Legacy Manufacturers",

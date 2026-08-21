@@ -15,6 +15,35 @@
                        invisible="manufacturing_workflow != 'custom_multi_output'"
                        required="manufacturing_workflow == 'custom_multi_output'"/>
             </xpath>
+            <xpath expr="//page[@name='by_products']//tree/field[@name='cost_share']" position="after">
+                <field name="enable_downstream_manufacturing"
+                       string="Create Downstream MO"
+                       groups="mrp.group_mrp_manager"
+                       optional="show"/>
+                <field name="downstream_bom_id"
+                       groups="mrp.group_mrp_manager"
+                       optional="show"
+                       required="enable_downstream_manufacturing"
+                       invisible="not enable_downstream_manufacturing"
+                       options="{'no_create': True}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_mrp_bom_byproduct_form_downstream" model="ir.ui.view">
+        <field name="name">mrp.bom.byproduct.form.downstream</field>
+        <field name="model">mrp.bom.byproduct</field>
+        <field name="inherit_id" ref="mrp.mrp_bom_byproduct_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="inside">
+                <field name="enable_downstream_manufacturing"
+                       groups="mrp.group_mrp_manager"/>
+                <field name="downstream_bom_id"
+                       groups="mrp.group_mrp_manager"
+                       required="enable_downstream_manufacturing"
+                       invisible="not enable_downstream_manufacturing"
+                       options="{'no_create': True}"/>
+            </xpath>
         </field>
     </record>
 </odoo>

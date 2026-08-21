@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mrp_bom_form_labour_presets" model="ir.ui.view">
+        <field name="name">mrp.bom.form.inherit.labour.presets</field>
+        <field name="model">mrp.bom</field>
+        <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='operations']" position="after">
+                <page string="Labour Presets" name="labour_presets">
+                    <field name="labour_preset_line_ids" context="{'default_bom_id': id}">
+                        <tree editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="company_id" column_invisible="1"/>
+                            <field name="currency_id" column_invisible="1"/>
+                            <field name="labour_preset_id"
+                                   domain="[('company_id', '=', parent.company_id)]"
+                                   options="{'no_create': True}"/>
+                            <field name="operation_id"
+                                   domain="[('bom_id', '=', parent.id)]"
+                                   options="{'no_create': True}"/>
+                            <field name="workcenter_id"
+                                   domain="['|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"
+                                   options="{'no_create': True}"/>
+                            <field name="labour_type"/>
+                            <field name="description"/>
+                            <field name="labour_count"/>
+                            <field name="hours_per_labour"/>
+                            <field name="cost_per_hour"/>
+                        </tree>
+                    </field>
+                    <div class="text-muted mt-2">
+                        These values are copied to a Manufacturing Order when this BoM is selected. The copied lines remain editable until posted.
+                    </div>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

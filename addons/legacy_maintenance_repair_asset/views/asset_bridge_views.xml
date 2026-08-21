@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_res_config_settings_asset_bridge" model="ir.ui.view">
+        <field name="name">res.config.settings.form.legacy.asset.bridge</field><field name="model">res.config.settings</field><field name="inherit_id" ref="legacy_maintenance_repair_accounting.view_res_config_settings_legacy_maintenance"/>
+        <field name="arch" type="xml"><xpath expr="//field[@name='legacy_capitalization_journal_id']" position="after"><field name="legacy_build_asset_model_id"/></xpath></field>
+    </record>
+    <record id="view_build_capitalization_wizard_asset_bridge" model="ir.ui.view">
+        <field name="name">legacy.build.capitalization.wizard.asset.bridge</field><field name="model">legacy.build.capitalization.wizard</field><field name="inherit_id" ref="legacy_maintenance_repair_accounting.view_legacy_build_capitalization_wizard_form"/>
+        <field name="arch" type="xml"><xpath expr="//field[@name='asset_availability']" position="before"><field name="asset_model_id"/></xpath></field>
+    </record>
+    <record id="view_repair_order_asset_bridge" model="ir.ui.view">
+        <field name="name">repair.order.form.asset.bridge</field><field name="model">repair.order</field><field name="inherit_id" ref="repair.view_repair_order_form"/>
+        <field name="arch" type="xml"><xpath expr="//field[@name='legacy_capitalization_status']" position="after"><field name="legacy_asset_id" readonly="1" invisible="legacy_order_type != 'build'"/></xpath></field>
+    </record>
+    <record id="view_maintenance_equipment_asset_bridge" model="ir.ui.view">
+        <field name="name">maintenance.equipment.form.asset.bridge</field><field name="model">maintenance.equipment</field><field name="inherit_id" ref="maintenance.hr_equipment_view_form"/>
+        <field name="arch" type="xml"><xpath expr="//field[@name='legacy_build_order_id']" position="after"><field name="legacy_asset_id"/></xpath></field>
+    </record>
+    <record id="view_account_asset_legacy_links" model="ir.ui.view">
+        <field name="name">account.asset.form.legacy.links</field><field name="model">account.asset</field><field name="inherit_id" ref="account_asset.view_account_asset_form"/>
+        <field name="arch" type="xml"><xpath expr="//sheet/group" position="after"><group string="Build Traceability"><field name="legacy_repair_order_id"/><field name="legacy_maintenance_request_id"/><field name="legacy_equipment_id"/></group></xpath></field>
+    </record>
+</odoo>
