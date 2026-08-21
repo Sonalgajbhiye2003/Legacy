@@ -31,6 +31,7 @@ services:
     command: ["odoo", "--config=/etc/odoo/odoo.conf"]
     ports:
       - "8069:8069"
+      - "8077:8069"
     volumes:
       - ./config:/etc/odoo:ro
       - ./custom_addons:/mnt/extra-addons:ro
