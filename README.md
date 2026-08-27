@@ -142,4 +142,6 @@ The committed `.env.example` and `config/odoo.conf.example` contain placeholders
 - `impersonate_login`
 - `web_chatter_position_cr`
 
+See [odoo_modules_catalog.md](C:/Users/SONAL/OneDrive/Documents/Legacy/odoo_modules_catalog.md) for dependencies and usage details.
+
 Some modules depend on licensed Odoo Enterprise or separately licensed add-ons. Supply those in the Git-ignored `private_addons/` directory before installing the dependent modules or restoring the Legacy database. The infrastructure does not modify or fabricate those dependencies.
