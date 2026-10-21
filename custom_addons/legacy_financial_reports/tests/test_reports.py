@@ -78,6 +78,14 @@ class TestLegacyFinance(TransactionCase):
         with self.assertRaises(ValidationError), self.cr.savepoint():
             self.env.ref('legacy_financial_reports.legacy_bs_row_15').write({'legacy_account_ids':[Command.set(self.accounts['CASH'].ids)],'legacy_mapping_confirmed':True})
 
+    def test_mapping_configuration_identifies_report_section_and_destination(self):
+        cash = self.env.ref('legacy_financial_reports.legacy_bs_row_17')
+        interest = self.env.ref('legacy_financial_reports.legacy_pl_row_83')
+        self.assertEqual(cash.legacy_section_name, 'Current Assets')
+        self.assertIn('Legacy Balance Sheet > Current Assets > Cash and Cash Equivalent', cash.legacy_destination_label)
+        self.assertEqual(interest.legacy_section_name, 'FINANCE COSTS')
+        self.assertIn('Interest on OD', interest.legacy_destination_label)
+
     def test_company_isolation(self):
         other=self.env['res.company'].create({'name':'Finance isolated fixture company','currency_id':self.env.company.currency_id.id,'sequence_prefix':'LFT'})
         with self.assertRaises(AccessError):

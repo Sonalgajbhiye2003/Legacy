@@ -142,6 +142,26 @@ class AccountReportLine(models.Model):
     _inherit = 'account.report.line'
 
     legacy_source = fields.Selection([('account', 'Account'), ('product', 'Product revenue'), ('production_material', 'Production materials'), ('total', 'Subtotal'), ('ratio', 'Margin'), ('heading', 'Heading')])
+    legacy_mapping_company_id = fields.Many2one(
+        related='report_id.legacy_company_id',
+        string='Company',
+        readonly=True,
+    )
+    legacy_report_kind = fields.Selection(
+        related='report_id.legacy_kind',
+        string='Legacy Report Type',
+        readonly=True,
+    )
+    legacy_section_name = fields.Char(
+        string='Report Section',
+        compute='_compute_legacy_mapping_destination',
+        help='The visible report heading under which this mapped balance is displayed.',
+    )
+    legacy_destination_label = fields.Char(
+        string='Report Destination',
+        compute='_compute_legacy_mapping_destination',
+        help='The exact Report > Section > Row destination of this mapping.',
+    )
     legacy_production_material_kind = fields.Selection([
         ('raw', 'Raw materials consumed'),
         ('packaging', 'Packaging consumed'),
@@ -154,6 +174,36 @@ class AccountReportLine(models.Model):
     legacy_source_row = fields.Integer(string='Customer spreadsheet row')
     legacy_percent_basis = fields.Selection([('revenue', 'YTD revenue'), ('costs', 'YTD cost of sales plus operating expenses')], string='Approved contribution denominator')
     legacy_variance_basis = fields.Selection([('actual_budget', 'Actual less budget'), ('budget_actual', 'Budget less actual')], string='Approved variance sign')
+
+    @api.depends('report_id', 'report_id.line_ids.sequence', 'report_id.line_ids.name', 'report_id.line_ids.legacy_source', 'sequence', 'name', 'code')
+    def _compute_legacy_mapping_destination(self):
+        for line in self:
+            line.legacy_section_name = False
+            line.legacy_destination_label = False
+        for report in self.mapped('report_id').filtered('legacy_kind'):
+            current_heading = self.env['account.report.line']
+            last_boundary = self.env['account.report.line']
+            requested = self.filtered(lambda item: item.report_id == report)
+            for line in report.line_ids.sorted(lambda item: (item.sequence, item.id)):
+                if line.legacy_source == 'heading':
+                    current_heading = line
+                    last_boundary = self.env['account.report.line']
+                if line in requested:
+                    if last_boundary:
+                        section = _('Unsectioned after %s', last_boundary.name.strip() or last_boundary.code)
+                    elif current_heading:
+                        section = current_heading.name.strip() or current_heading.code
+                    else:
+                        section = _('Top level')
+                    line.legacy_section_name = section
+                    line.legacy_destination_label = '%s > %s > %s (%s)' % (
+                        report.name,
+                        section,
+                        line.name.strip() or _('Unnamed row'),
+                        line.code,
+                    )
+                if line.legacy_source == 'total' and line.hierarchy_level == 0:
+                    last_boundary = line
 
     @api.constrains('legacy_account_ids', 'legacy_product_ids', 'legacy_mapping_confirmed')
     def _legacy_check_mapping(self):
