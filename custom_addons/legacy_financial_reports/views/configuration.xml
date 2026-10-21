@@ -1,0 +1,40 @@
+<odoo>
+    <record id="report_form" model="ir.ui.view">
+        <field name="name">Legacy report configuration</field>
+        <field name="model">account.report</field>
+        <field name="inherit_id" ref="account_reports.account_report_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group string="Legacy configuration" groups="account.group_account_manager">
+                    <field name="legacy_kind"/>
+                    <field name="legacy_company_id" invisible="not legacy_kind"/>
+                    <field name="legacy_notes" invisible="not legacy_kind"/>
+                    <field name="legacy_prior_basis" invisible="legacy_kind != 'pl'"/>
+                    <field name="legacy_budget_approved" invisible="legacy_kind != 'pl'"/>
+                    <field name="legacy_raw_material_category_ids" widget="many2many_tags" invisible="legacy_kind != 'pl'"/>
+                    <field name="legacy_packaging_category_ids" widget="many2many_tags" invisible="legacy_kind != 'pl'"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+    <record id="line_form" model="ir.ui.view">
+        <field name="name">Legacy report line mapping</field>
+        <field name="model">account.report.line</field>
+        <field name="inherit_id" ref="account_reports.account_report_line_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group string="Legacy mapping" groups="account.group_account_manager">
+                    <field name="legacy_source"/>
+                    <field name="legacy_production_material_kind" invisible="legacy_source != 'production_material'"/>
+                    <field name="legacy_source_row" readonly="1"/>
+                    <field name="legacy_account_ids" widget="many2many_tags" invisible="legacy_source != 'account'"/>
+                    <field name="legacy_product_ids" widget="many2many_tags" invisible="legacy_source != 'product'"/>
+                    <field name="legacy_mapping_confirmed" invisible="legacy_source not in ('account', 'product')"/>
+                    <field name="legacy_note"/>
+                    <field name="legacy_percent_basis"/>
+                    <field name="legacy_variance_basis"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

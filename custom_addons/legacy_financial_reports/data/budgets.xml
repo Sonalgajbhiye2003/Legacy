@@ -1,0 +1,587 @@
+<odoo><data noupdate="1">
+<record id="legacy_pl_row_7_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_7"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_8_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_8"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_9_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_9"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_10_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_10"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_11_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_11"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_12_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_12"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_13_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_13"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_14_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_14"/>
+<field name="label">budget</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS7.budget + LIS8.budget + LIS9.budget + LIS10.budget + LIS11.budget + LIS12.budget + LIS13.budget</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+
+</record>
+<record id="legacy_pl_row_16_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_16"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_17_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_17"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_18_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_18"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_19_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_19"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_20_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_20"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_21_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_21"/>
+<field name="label">budget</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS16.budget + LIS17.budget + LIS18.budget + LIS19.budget + LIS20.budget</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+
+</record>
+<record id="legacy_pl_row_23_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_23"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_24_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_24"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_25_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_25"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_26_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_26"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_27_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_27"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_28_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_28"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_29_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_29"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_30_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_30"/>
+<field name="label">budget</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS23.budget + LIS24.budget + LIS25.budget + LIS26.budget + LIS27.budget + LIS28.budget + LIS29.budget</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+
+</record>
+<record id="legacy_pl_row_32_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_32"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_33_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_33"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_34_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_34"/>
+<field name="label">budget</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS32.budget + LIS33.budget</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+
+</record>
+<record id="legacy_pl_row_36_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_36"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_38_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_38"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_39_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_39"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_40_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_40"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_41_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_41"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_42_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_42"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_43_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_43"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_44_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_44"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_45_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_45"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_46_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_46"/>
+<field name="label">budget</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS38.budget + LIS39.budget + LIS40.budget + LIS41.budget + LIS42.budget + LIS43.budget + LIS44.budget + LIS45.budget</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+
+</record>
+<record id="legacy_pl_row_47_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_47"/>
+<field name="label">budget</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS14.budget + LIS21.budget + LIS30.budget + LIS34.budget + LIS36.budget + LIS46.budget</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+
+</record>
+<record id="legacy_pl_row_51_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_51"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_52_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_52"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_53_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_53"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_54_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_54"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_55_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_55"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_56_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_56"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_57_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_57"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_58_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_58"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_59_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_59"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_61_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_61"/>
+<field name="label">budget</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS51.budget + LIS52.budget + LIS53.budget + LIS54.budget + LIS55.budget + LIS56.budget + LIS57.budget + LIS58.budget + LIS59.budget</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+
+</record>
+<record id="legacy_pl_row_63_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_63"/>
+<field name="label">budget</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS47.budget - LIS61.budget</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+
+</record>
+<record id="legacy_pl_row_64_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_64"/>
+<field name="label">budget</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS63.budget / LIS47.budget * 100</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">percentage</field>
+
+</record>
+<record id="legacy_pl_row_67_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_67"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_68_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_68"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_69_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_69"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_70_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_70"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_71_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_71"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_72_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_72"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_73_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_73"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_74_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_74"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_75_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_75"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_76_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_76"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_78_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_78"/>
+<field name="label">budget</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS67.budget + LIS68.budget + LIS69.budget + LIS70.budget + LIS71.budget + LIS72.budget + LIS73.budget + LIS74.budget + LIS75.budget + LIS76.budget</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+
+</record>
+<record id="legacy_pl_row_80_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_80"/>
+<field name="label">budget</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS63.budget - LIS78.budget</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+
+</record>
+<record id="legacy_pl_row_81_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_81"/>
+<field name="label">budget</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS80.budget / LIS47.budget * 100</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">percentage</field>
+
+</record>
+<record id="legacy_pl_row_83_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_83"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_84_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_84"/>
+<field name="label">budget</field>
+<field name="engine">external</field>
+<field name="formula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+<field name="subformula">editable;rounding=2</field>
+</record>
+<record id="legacy_pl_row_86_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_86"/>
+<field name="label">budget</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS80.budget - LIS83.budget - LIS84.budget</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">monetary</field>
+
+</record>
+<record id="legacy_pl_row_87_budget" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_87"/>
+<field name="label">budget</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS86.budget / LIS47.budget * 100</field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">percentage</field>
+
+</record>
+</data></odoo>

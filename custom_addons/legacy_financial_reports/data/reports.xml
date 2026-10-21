@@ -1,0 +1,2365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo><data noupdate="1">
+<record id="legacy_bs" model="account.report">
+<field name="name">Legacy Balance Sheet</field>
+<field name="legacy_kind">bs</field>
+<field name="legacy_company_id" ref="base.main_company"/>
+<field name="custom_handler_model_id" ref="model_legacy_financial_report_handler"/>
+<field name="legacy_notes">PROVISIONAL. Only verified mappings contribute. Pending detail rows and unmapped debit/credit coverage require Finance review; subtotals are partial. Template fixed amounts and external links are not ledger evidence. No historical opening balances imported. Loan, grant, gratuity, liability prepayment and some capital classifications remain unapproved.</field>
+<field name="filter_date_range" eval="False"/>
+<field name="filter_show_draft" eval="False"/>
+<field name="filter_period_comparison" eval="False"/>
+<field name="filter_growth_comparison" eval="False"/>
+<field name="filter_hide_0_lines">never</field>
+<field name="filter_multi_company">disabled</field>
+<field name="default_opening_date_filter">today</field>
+</record>
+<record id="legacy_bs_balance" model="account.report.column">
+<field name="report_id" ref="legacy_bs"/>
+<field name="name">Amount</field>
+<field name="expression_label">balance</field>
+<field name="figure_type">monetary</field>
+<field name="sequence">1</field>
+</record>
+<record id="legacy_bs_row_6" model="account.report.line">
+<field name="report_id" ref="legacy_bs"/>
+<field name="name">ASSET</field>
+<field name="code">LBS6</field>
+<field name="sequence">6</field>
+<field name="legacy_source">heading</field>
+<field name="legacy_source_row">6</field>
+<field name="hierarchy_level">0</field>
+</record>
+<record id="legacy_bs_row_8" model="account.report.line">
+<field name="report_id" ref="legacy_bs"/>
+<field name="name">Non-current</field>
+<field name="code">LBS8</field>
+<field name="sequence">8</field>
+<field name="legacy_source">heading</field>
+<field name="legacy_source_row">8</field>
+<field name="hierarchy_level">0</field>
+</record>
+<record id="legacy_bs_row_9" model="account.report.line">
+<field name="report_id" ref="legacy_bs"/>
+<field name="name">Property Plant and Equipment</field>
+<field name="code">LBS9</field>
+<field name="sequence">9</field>
+<field name="legacy_source">account</field>
+<field name="legacy_source_row">9</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_bs_row_9_balance" model="account.report.expression">
+<field name="report_line_id" ref="legacy_bs_row_9"/>
+<field name="label">balance</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">from_beginning</field>
+</record>
+<record id="legacy_bs_row_10" model="account.report.line">
+<field name="report_id" ref="legacy_bs"/>
+<field name="name">Capital Work in Progress</field>
+<field name="code">LBS10</field>
+<field name="sequence">10</field>
+<field name="legacy_source">account</field>
+<field name="legacy_source_row">10</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_bs_row_10_balance" model="account.report.expression">
+<field name="report_line_id" ref="legacy_bs_row_10"/>
+<field name="label">balance</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">from_beginning</field>
+</record>
+<record id="legacy_bs_row_12" model="account.report.line">
+<field name="report_id" ref="legacy_bs"/>
+<field name="name">Total non-current Assets</field>
+<field name="code">LBS12</field>
+<field name="sequence">12</field>
+<field name="legacy_source">total</field>
+<field name="legacy_source_row">12</field>
+<field name="hierarchy_level">0</field>
+</record>
+<record id="legacy_bs_row_12_balance" model="account.report.expression">
+<field name="report_line_id" ref="legacy_bs_row_12"/>
+<field name="label">balance</field>
+<field name="engine">aggregation</field>
+<field name="formula">LBS9.balance + LBS10.balance</field>
+<field name="subformula"></field>
+<field name="date_scope">from_beginning</field>
+</record>
+<record id="legacy_bs_row_14" model="account.report.line">
+<field name="report_id" ref="legacy_bs"/>
+<field name="name">Current Assets</field>
+<field name="code">LBS14</field>
+<field name="sequence">14</field>
+<field name="legacy_source">heading</field>
+<field name="legacy_source_row">14</field>
+<field name="hierarchy_level">0</field>
+</record>
+<record id="legacy_bs_row_15" model="account.report.line">
+<field name="report_id" ref="legacy_bs"/>
+<field name="name">Inventories</field>
+<field name="code">LBS15</field>
+<field name="sequence">15</field>
+<field name="legacy_source">account</field>
+<field name="legacy_source_row">15</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_bs_row_15_balance" model="account.report.expression">
+<field name="report_line_id" ref="legacy_bs_row_15"/>
+<field name="label">balance</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">from_beginning</field>
+</record>
+<record id="legacy_bs_row_16" model="account.report.line">
+<field name="report_id" ref="legacy_bs"/>
+<field name="name">Receivables</field>
+<field name="code">LBS16</field>
+<field name="sequence">16</field>
+<field name="legacy_source">account</field>
+<field name="legacy_source_row">16</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_bs_row_16_balance" model="account.report.expression">
+<field name="report_line_id" ref="legacy_bs_row_16"/>
+<field name="label">balance</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">from_beginning</field>
+</record>
+<record id="legacy_bs_row_17" model="account.report.line">
+<field name="report_id" ref="legacy_bs"/>
+<field name="name">Cash and Cash Equivalent</field>
+<field name="code">LBS17</field>
+<field name="sequence">17</field>
+<field name="legacy_source">account</field>
+<field name="legacy_source_row">17</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_bs_row_17_balance" model="account.report.expression">
+<field name="report_line_id" ref="legacy_bs_row_17"/>
+<field name="label">balance</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">from_beginning</field>
+</record>
+<record id="legacy_bs_row_18" model="account.report.line">
+<field name="report_id" ref="legacy_bs"/>
+<field name="name">Total current Assets</field>
+<field name="code">LBS18</field>
+<field name="sequence">18</field>
+<field name="legacy_source">total</field>
+<field name="legacy_source_row">18</field>
+<field name="hierarchy_level">0</field>
+</record>
+<record id="legacy_bs_row_18_balance" model="account.report.expression">
+<field name="report_line_id" ref="legacy_bs_row_18"/>
+<field name="label">balance</field>
+<field name="engine">aggregation</field>
+<field name="formula">LBS15.balance + LBS16.balance + LBS17.balance</field>
+<field name="subformula"></field>
+<field name="date_scope">from_beginning</field>
+</record>
+<record id="legacy_bs_row_20" model="account.report.line">
+<field name="report_id" ref="legacy_bs"/>
+<field name="name">Total Assets</field>
+<field name="code">LBS20</field>
+<field name="sequence">20</field>
+<field name="legacy_source">total</field>
+<field name="legacy_source_row">20</field>
+<field name="hierarchy_level">0</field>
+</record>
+<record id="legacy_bs_row_20_balance" model="account.report.expression">
+<field name="report_line_id" ref="legacy_bs_row_20"/>
+<field name="label">balance</field>
+<field name="engine">aggregation</field>
+<field name="formula">LBS12.balance + LBS18.balance</field>
+<field name="subformula"></field>
+<field name="date_scope">from_beginning</field>
+</record>
+<record id="legacy_bs_row_22" model="account.report.line">
+<field name="report_id" ref="legacy_bs"/>
+<field name="name">Equity and Liability</field>
+<field name="code">LBS22</field>
+<field name="sequence">22</field>
+<field name="legacy_source">heading</field>
+<field name="legacy_source_row">22</field>
+<field name="hierarchy_level">0</field>
+</record>
+<record id="legacy_bs_row_24" model="account.report.line">
+<field name="report_id" ref="legacy_bs"/>
+<field name="name">Capital and Reserves</field>
+<field name="code">LBS24</field>
+<field name="sequence">24</field>
+<field name="legacy_source">heading</field>
+<field name="legacy_source_row">24</field>
+<field name="hierarchy_level">0</field>
+</record>
+<record id="legacy_bs_row_25" model="account.report.line">
+<field name="report_id" ref="legacy_bs"/>
+<field name="name">Share capital</field>
+<field name="code">LBS25</field>
+<field name="sequence">25</field>
+<field name="legacy_source">account</field>
+<field name="legacy_source_row">25</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_bs_row_25_balance" model="account.report.expression">
+<field name="report_line_id" ref="legacy_bs_row_25"/>
+<field name="label">balance</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_beginning</field>
+</record>
+<record id="legacy_bs_row_26" model="account.report.line">
+<field name="report_id" ref="legacy_bs"/>
+<field name="name">Retained Earnings</field>
+<field name="code">LBS26</field>
+<field name="sequence">26</field>
+<field name="legacy_source">account</field>
+<field name="legacy_source_row">26</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_bs_row_26_native" model="account.report.expression">
+<field name="report_line_id" ref="legacy_bs_row_26"/>
+<field name="label">native_earnings</field>
+<field name="engine">aggregation</field>
+<field name="formula">UNAFFECTED_EARNINGS.balance</field>
+<field name="subformula">cross_report</field>
+<field name="date_scope">normal</field>
+</record>
+<record id="legacy_bs_row_26_mapped" model="account.report.expression">
+<field name="report_line_id" ref="legacy_bs_row_26"/>
+<field name="label">mapped_equity</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_beginning</field>
+</record>
+<record id="legacy_bs_row_26_balance" model="account.report.expression">
+<field name="report_line_id" ref="legacy_bs_row_26"/>
+<field name="label">balance</field>
+<field name="engine">aggregation</field>
+<field name="formula">LBS26.native_earnings + LBS26.mapped_equity</field>
+<field name="subformula"></field>
+<field name="date_scope">from_beginning</field>
+</record>
+<record id="legacy_bs_row_27" model="account.report.line">
+<field name="report_id" ref="legacy_bs"/>
+<field name="name">Other Components of Equity</field>
+<field name="code">LBS27</field>
+<field name="sequence">27</field>
+<field name="legacy_source">account</field>
+<field name="legacy_source_row">27</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_bs_row_27_balance" model="account.report.expression">
+<field name="report_line_id" ref="legacy_bs_row_27"/>
+<field name="label">balance</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_beginning</field>
+</record>
+<record id="legacy_bs_row_28" model="account.report.line">
+<field name="report_id" ref="legacy_bs"/>
+<field name="name">Total Equity</field>
+<field name="code">LBS28</field>
+<field name="sequence">28</field>
+<field name="legacy_source">total</field>
+<field name="legacy_source_row">28</field>
+<field name="hierarchy_level">0</field>
+</record>
+<record id="legacy_bs_row_28_balance" model="account.report.expression">
+<field name="report_line_id" ref="legacy_bs_row_28"/>
+<field name="label">balance</field>
+<field name="engine">aggregation</field>
+<field name="formula">LBS25.balance + LBS26.balance + LBS27.balance</field>
+<field name="subformula"></field>
+<field name="date_scope">from_beginning</field>
+</record>
+<record id="legacy_bs_row_30" model="account.report.line">
+<field name="report_id" ref="legacy_bs"/>
+<field name="name">Non-Current Liability</field>
+<field name="code">LBS30</field>
+<field name="sequence">30</field>
+<field name="legacy_source">heading</field>
+<field name="legacy_source_row">30</field>
+<field name="hierarchy_level">0</field>
+</record>
+<record id="legacy_bs_row_31" model="account.report.line">
+<field name="report_id" ref="legacy_bs"/>
+<field name="name">Returnable Grant</field>
+<field name="code">LBS31</field>
+<field name="sequence">31</field>
+<field name="legacy_source">account</field>
+<field name="legacy_source_row">31</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_bs_row_31_balance" model="account.report.expression">
+<field name="report_line_id" ref="legacy_bs_row_31"/>
+<field name="label">balance</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_beginning</field>
+</record>
+<record id="legacy_bs_row_32" model="account.report.line">
+<field name="report_id" ref="legacy_bs"/>
+<field name="name">Long Term Share Holder Loans</field>
+<field name="code">LBS32</field>
+<field name="sequence">32</field>
+<field name="legacy_source">account</field>
+<field name="legacy_source_row">32</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_bs_row_32_balance" model="account.report.expression">
+<field name="report_line_id" ref="legacy_bs_row_32"/>
+<field name="label">balance</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_beginning</field>
+</record>
+<record id="legacy_bs_row_33" model="account.report.line">
+<field name="report_id" ref="legacy_bs"/>
+<field name="name">Gratuities</field>
+<field name="code">LBS33</field>
+<field name="sequence">33</field>
+<field name="legacy_source">account</field>
+<field name="legacy_source_row">33</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_bs_row_33_balance" model="account.report.expression">
+<field name="report_line_id" ref="legacy_bs_row_33"/>
+<field name="label">balance</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_beginning</field>
+</record>
+<record id="legacy_bs_row_34" model="account.report.line">
+<field name="report_id" ref="legacy_bs"/>
+<field name="name">Long Term Bank Loans (Property facility)</field>
+<field name="code">LBS34</field>
+<field name="sequence">34</field>
+<field name="legacy_source">account</field>
+<field name="legacy_source_row">34</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_bs_row_34_balance" model="account.report.expression">
+<field name="report_line_id" ref="legacy_bs_row_34"/>
+<field name="label">balance</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_beginning</field>
+</record>
+<record id="legacy_bs_row_35" model="account.report.line">
+<field name="report_id" ref="legacy_bs"/>
+<field name="name">Total Non-Current Liability</field>
+<field name="code">LBS35</field>
+<field name="sequence">35</field>
+<field name="legacy_source">total</field>
+<field name="legacy_source_row">35</field>
+<field name="hierarchy_level">0</field>
+</record>
+<record id="legacy_bs_row_35_balance" model="account.report.expression">
+<field name="report_line_id" ref="legacy_bs_row_35"/>
+<field name="label">balance</field>
+<field name="engine">aggregation</field>
+<field name="formula">LBS31.balance + LBS32.balance + LBS33.balance + LBS34.balance</field>
+<field name="subformula"></field>
+<field name="date_scope">from_beginning</field>
+</record>
+<record id="legacy_bs_row_37" model="account.report.line">
+<field name="report_id" ref="legacy_bs"/>
+<field name="name">Current Liability</field>
+<field name="code">LBS37</field>
+<field name="sequence">37</field>
+<field name="legacy_source">heading</field>
+<field name="legacy_source_row">37</field>
+<field name="hierarchy_level">0</field>
+</record>
+<record id="legacy_bs_row_38" model="account.report.line">
+<field name="report_id" ref="legacy_bs"/>
+<field name="name">Prepayments</field>
+<field name="code">LBS38</field>
+<field name="sequence">38</field>
+<field name="legacy_source">account</field>
+<field name="legacy_source_row">38</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_bs_row_38_balance" model="account.report.expression">
+<field name="report_line_id" ref="legacy_bs_row_38"/>
+<field name="label">balance</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_beginning</field>
+</record>
+<record id="legacy_bs_row_39" model="account.report.line">
+<field name="report_id" ref="legacy_bs"/>
+<field name="name">Trade and other Payables</field>
+<field name="code">LBS39</field>
+<field name="sequence">39</field>
+<field name="legacy_source">account</field>
+<field name="legacy_source_row">39</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_bs_row_39_balance" model="account.report.expression">
+<field name="report_line_id" ref="legacy_bs_row_39"/>
+<field name="label">balance</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_beginning</field>
+</record>
+<record id="legacy_bs_row_40" model="account.report.line">
+<field name="report_id" ref="legacy_bs"/>
+<field name="name"> Taxes Payable</field>
+<field name="code">LBS40</field>
+<field name="sequence">40</field>
+<field name="legacy_source">account</field>
+<field name="legacy_source_row">40</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_bs_row_40_balance" model="account.report.expression">
+<field name="report_line_id" ref="legacy_bs_row_40"/>
+<field name="label">balance</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_beginning</field>
+</record>
+<record id="legacy_bs_row_41" model="account.report.line">
+<field name="report_id" ref="legacy_bs"/>
+<field name="name">Long Term Bank Loans (Overdraft)</field>
+<field name="code">LBS41</field>
+<field name="sequence">41</field>
+<field name="legacy_source">account</field>
+<field name="legacy_source_row">41</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_bs_row_41_balance" model="account.report.expression">
+<field name="report_line_id" ref="legacy_bs_row_41"/>
+<field name="label">balance</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_beginning</field>
+</record>
+<record id="legacy_bs_row_42" model="account.report.line">
+<field name="report_id" ref="legacy_bs"/>
+<field name="name">Total current Liabilities</field>
+<field name="code">LBS42</field>
+<field name="sequence">42</field>
+<field name="legacy_source">total</field>
+<field name="legacy_source_row">42</field>
+<field name="hierarchy_level">0</field>
+</record>
+<record id="legacy_bs_row_42_balance" model="account.report.expression">
+<field name="report_line_id" ref="legacy_bs_row_42"/>
+<field name="label">balance</field>
+<field name="engine">aggregation</field>
+<field name="formula">LBS38.balance + LBS39.balance + LBS40.balance + LBS41.balance</field>
+<field name="subformula"></field>
+<field name="date_scope">from_beginning</field>
+</record>
+<record id="legacy_bs_row_45" model="account.report.line">
+<field name="report_id" ref="legacy_bs"/>
+<field name="name">Total Equity and Liabilities</field>
+<field name="code">LBS45</field>
+<field name="sequence">45</field>
+<field name="legacy_source">total</field>
+<field name="legacy_source_row">45</field>
+<field name="hierarchy_level">0</field>
+</record>
+<record id="legacy_bs_row_45_balance" model="account.report.expression">
+<field name="report_line_id" ref="legacy_bs_row_45"/>
+<field name="label">balance</field>
+<field name="engine">aggregation</field>
+<field name="formula">LBS28.balance + LBS35.balance + LBS42.balance</field>
+<field name="subformula"></field>
+<field name="date_scope">from_beginning</field>
+</record>
+<record id="legacy_bs_action" model="ir.actions.client">
+<field name="name">Legacy Balance Sheet</field>
+<field name="tag">account_report</field>
+<field name="context" eval="{'report_id': ref('legacy_bs')}"/>
+</record>
+<menuitem id="legacy_bs_menu" name="Legacy Balance Sheet" parent="account.menu_finance_reports" action="legacy_bs_action" sequence="95" groups="account.group_account_readonly"/>
+<record id="legacy_pl" model="account.report">
+<field name="name">Legacy Detailed Income Statement</field>
+<field name="legacy_kind">pl</field>
+<field name="legacy_company_id" ref="base.main_company"/>
+<field name="custom_handler_model_id" ref="model_legacy_financial_report_handler"/>
+<field name="legacy_notes">PROVISIONAL. Only verified mappings contribute. Pending detail rows and unmapped debit/credit coverage require Finance review; subtotals are partial. Template fixed amounts and external links are not ledger evidence. No historical opening balances imported. Budget YTD, variance and contribution % are blank pending an approved budget source and formula decisions. Last Year This Period is blank pending confirmation of period versus YTD. Margin is undefined at zero revenue. Soya Chips/Corn Sticks and Thobwa totals differ in the source; the subtotal definitions require review.</field>
+<field name="filter_date_range" eval="True"/>
+<field name="filter_show_draft" eval="False"/>
+<field name="filter_period_comparison" eval="False"/>
+<field name="filter_growth_comparison" eval="False"/>
+<field name="filter_hide_0_lines">never</field>
+<field name="filter_multi_company">disabled</field>
+<field name="default_opening_date_filter">this_month</field>
+</record>
+<record id="legacy_pl_contribution" model="account.report.column">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">%</field>
+<field name="expression_label">contribution</field>
+<field name="figure_type">percentage</field>
+<field name="sequence">1</field>
+</record>
+<record id="legacy_pl_period" model="account.report.column">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Period Actual</field>
+<field name="expression_label">period</field>
+<field name="figure_type">monetary</field>
+<field name="sequence">2</field>
+</record>
+<record id="legacy_pl_ytd" model="account.report.column">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Actual YTD</field>
+<field name="expression_label">ytd</field>
+<field name="figure_type">monetary</field>
+<field name="sequence">3</field>
+</record>
+<record id="legacy_pl_budget" model="account.report.column">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Budget YTD</field>
+<field name="expression_label">budget</field>
+<field name="figure_type">monetary</field>
+<field name="sequence">4</field>
+</record>
+<record id="legacy_pl_variance" model="account.report.column">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Variance</field>
+<field name="expression_label">variance</field>
+<field name="figure_type">monetary</field>
+<field name="sequence">5</field>
+</record>
+<record id="legacy_pl_variance_pct" model="account.report.column">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">% Variance</field>
+<field name="expression_label">variance_pct</field>
+<field name="figure_type">percentage</field>
+<field name="sequence">6</field>
+</record>
+<record id="legacy_pl_prior" model="account.report.column">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Last Year This Period</field>
+<field name="expression_label">prior</field>
+<field name="figure_type">monetary</field>
+<field name="sequence">7</field>
+</record>
+<record id="legacy_pl_row_5" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">REVENUE</field>
+<field name="code">LIS5</field>
+<field name="sequence">5</field>
+<field name="legacy_source">heading</field>
+<field name="legacy_source_row">5</field>
+<field name="hierarchy_level">0</field>
+</record>
+<record id="legacy_pl_row_6" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">SOYA PIECES</field>
+<field name="code">LIS6</field>
+<field name="sequence">6</field>
+<field name="legacy_source">heading</field>
+<field name="legacy_source_row">6</field>
+<field name="hierarchy_level">0</field>
+</record>
+<record id="legacy_pl_row_7" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Soya pieces 3kg</field>
+<field name="code">LIS7</field>
+<field name="sequence">7</field>
+<field name="legacy_source">product</field>
+<field name="legacy_source_row">7</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_7_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_7"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_7_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_7"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_8" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Soya pieces 20*150g</field>
+<field name="code">LIS8</field>
+<field name="sequence">8</field>
+<field name="legacy_source">product</field>
+<field name="legacy_source_row">8</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_8_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_8"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_8_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_8"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_9" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Soya pieces 8kg</field>
+<field name="code">LIS9</field>
+<field name="sequence">9</field>
+<field name="legacy_source">product</field>
+<field name="legacy_source_row">9</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_9_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_9"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_9_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_9"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_10" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Soya pieces 20*90g</field>
+<field name="code">LIS10</field>
+<field name="sequence">10</field>
+<field name="legacy_source">product</field>
+<field name="legacy_source_row">10</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_10_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_10"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_10_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_10"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_11" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Soya pieces 5*700g</field>
+<field name="code">LIS11</field>
+<field name="sequence">11</field>
+<field name="legacy_source">product</field>
+<field name="legacy_source_row">11</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_11_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_11"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_11_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_11"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_12" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Soya pieces 10*700g</field>
+<field name="code">LIS12</field>
+<field name="sequence">12</field>
+<field name="legacy_source">product</field>
+<field name="legacy_source_row">12</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_12_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_12"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_12_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_12"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_13" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Soya Chips</field>
+<field name="code">LIS13</field>
+<field name="sequence">13</field>
+<field name="legacy_source">product</field>
+<field name="legacy_source_row">13</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_13_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_13"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_13_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_13"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_14" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name"> </field>
+<field name="code">LIS14</field>
+<field name="sequence">14</field>
+<field name="legacy_source">total</field>
+<field name="legacy_source_row">14</field>
+<field name="hierarchy_level">0</field>
+</record>
+<record id="legacy_pl_row_14_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_14"/>
+<field name="label">period</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS7.period + LIS8.period + LIS9.period + LIS10.period + LIS11.period + LIS12.period + LIS13.period</field>
+<field name="subformula"></field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_14_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_14"/>
+<field name="label">ytd</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS7.ytd + LIS8.ytd + LIS9.ytd + LIS10.ytd + LIS11.ytd + LIS12.ytd + LIS13.ytd</field>
+<field name="subformula"></field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_15" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">CORN SNACKS</field>
+<field name="code">LIS15</field>
+<field name="sequence">15</field>
+<field name="legacy_source">heading</field>
+<field name="legacy_source_row">15</field>
+<field name="hierarchy_level">0</field>
+</record>
+<record id="legacy_pl_row_16" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Cheese puffs 30*60g</field>
+<field name="code">LIS16</field>
+<field name="sequence">16</field>
+<field name="legacy_source">product</field>
+<field name="legacy_source_row">16</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_16_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_16"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_16_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_16"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_17" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Cheese puffs 30*90g</field>
+<field name="code">LIS17</field>
+<field name="sequence">17</field>
+<field name="legacy_source">product</field>
+<field name="legacy_source_row">17</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_17_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_17"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_17_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_17"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_18" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Cheese puffs 22*60g</field>
+<field name="code">LIS18</field>
+<field name="sequence">18</field>
+<field name="legacy_source">product</field>
+<field name="legacy_source_row">18</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_18_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_18"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_18_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_18"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_19" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Cheese puffs 50*16g</field>
+<field name="code">LIS19</field>
+<field name="sequence">19</field>
+<field name="legacy_source">product</field>
+<field name="legacy_source_row">19</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_19_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_19"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_19_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_19"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_20" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Corn Sticks</field>
+<field name="code">LIS20</field>
+<field name="sequence">20</field>
+<field name="legacy_source">product</field>
+<field name="legacy_source_row">20</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_20_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_20"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_20_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_20"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_21" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name"> </field>
+<field name="code">LIS21</field>
+<field name="sequence">21</field>
+<field name="legacy_source">total</field>
+<field name="legacy_source_row">21</field>
+<field name="hierarchy_level">0</field>
+</record>
+<record id="legacy_pl_row_21_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_21"/>
+<field name="label">period</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS16.period + LIS17.period + LIS18.period + LIS19.period + LIS20.period</field>
+<field name="subformula"></field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_21_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_21"/>
+<field name="label">ytd</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS16.ytd + LIS17.ytd + LIS18.ytd + LIS19.ytd + LIS20.ytd</field>
+<field name="subformula"></field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_22" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">INSTANT PORRIDGE</field>
+<field name="code">LIS22</field>
+<field name="sequence">22</field>
+<field name="legacy_source">heading</field>
+<field name="legacy_source_row">22</field>
+<field name="hierarchy_level">0</field>
+</record>
+<record id="legacy_pl_row_23" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Instant porridge 500g</field>
+<field name="code">LIS23</field>
+<field name="sequence">23</field>
+<field name="legacy_source">product</field>
+<field name="legacy_source_row">23</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_23_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_23"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_23_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_23"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_24" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Instant porridge 1kg</field>
+<field name="code">LIS24</field>
+<field name="sequence">24</field>
+<field name="legacy_source">product</field>
+<field name="legacy_source_row">24</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_24_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_24"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_24_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_24"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_25" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Instant porridge 10kg</field>
+<field name="code">LIS25</field>
+<field name="sequence">25</field>
+<field name="legacy_source">product</field>
+<field name="legacy_source_row">25</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_25_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_25"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_25_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_25"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_26" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Instant porridge 20*500g</field>
+<field name="code">LIS26</field>
+<field name="sequence">26</field>
+<field name="legacy_source">product</field>
+<field name="legacy_source_row">26</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_26_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_26"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_26_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_26"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_27" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Instant porridge 8*500g boxed</field>
+<field name="code">LIS27</field>
+<field name="sequence">27</field>
+<field name="legacy_source">product</field>
+<field name="legacy_source_row">27</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_27_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_27"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_27_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_27"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_28" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Instant porridge 25kg</field>
+<field name="code">LIS28</field>
+<field name="sequence">28</field>
+<field name="legacy_source">product</field>
+<field name="legacy_source_row">28</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_28_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_28"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_28_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_28"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_29" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Instant porridge 50kg</field>
+<field name="code">LIS29</field>
+<field name="sequence">29</field>
+<field name="legacy_source">product</field>
+<field name="legacy_source_row">29</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_29_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_29"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_29_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_29"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_30" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name"> </field>
+<field name="code">LIS30</field>
+<field name="sequence">30</field>
+<field name="legacy_source">total</field>
+<field name="legacy_source_row">30</field>
+<field name="hierarchy_level">0</field>
+</record>
+<record id="legacy_pl_row_30_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_30"/>
+<field name="label">period</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS23.period + LIS24.period + LIS25.period + LIS26.period + LIS27.period + LIS28.period + LIS29.period</field>
+<field name="subformula"></field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_30_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_30"/>
+<field name="label">ytd</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS23.ytd + LIS24.ytd + LIS25.ytd + LIS26.ytd + LIS27.ytd + LIS28.ytd + LIS29.ytd</field>
+<field name="subformula"></field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_31" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Thobwa</field>
+<field name="code">LIS31</field>
+<field name="sequence">31</field>
+<field name="legacy_source">heading</field>
+<field name="legacy_source_row">31</field>
+<field name="hierarchy_level">0</field>
+</record>
+<record id="legacy_pl_row_32" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Thobwa</field>
+<field name="code">LIS32</field>
+<field name="sequence">32</field>
+<field name="legacy_source">product</field>
+<field name="legacy_source_row">32</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_32_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_32"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_32_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_32"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_33" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Thobwa 25Kg</field>
+<field name="code">LIS33</field>
+<field name="sequence">33</field>
+<field name="legacy_source">product</field>
+<field name="legacy_source_row">33</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_33_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_33"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_33_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_33"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_34" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name"> </field>
+<field name="code">LIS34</field>
+<field name="sequence">34</field>
+<field name="legacy_source">total</field>
+<field name="legacy_source_row">34</field>
+<field name="hierarchy_level">0</field>
+</record>
+<record id="legacy_pl_row_34_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_34"/>
+<field name="label">period</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS32.period + LIS33.period</field>
+<field name="subformula"></field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_34_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_34"/>
+<field name="label">ytd</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS32.ytd + LIS33.ytd</field>
+<field name="subformula"></field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_35" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">NOODLES</field>
+<field name="code">LIS35</field>
+<field name="sequence">35</field>
+<field name="legacy_source">heading</field>
+<field name="legacy_source_row">35</field>
+<field name="hierarchy_level">0</field>
+</record>
+<record id="legacy_pl_row_36" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Noodles 20*75g</field>
+<field name="code">LIS36</field>
+<field name="sequence">36</field>
+<field name="legacy_source">product</field>
+<field name="legacy_source_row">36</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_36_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_36"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_36_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_36"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_37" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">BY PRODUCTS</field>
+<field name="code">LIS37</field>
+<field name="sequence">37</field>
+<field name="legacy_source">heading</field>
+<field name="legacy_source_row">37</field>
+<field name="hierarchy_level">0</field>
+</record>
+<record id="legacy_pl_row_38" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Low Fat</field>
+<field name="code">LIS38</field>
+<field name="sequence">38</field>
+<field name="legacy_source">product</field>
+<field name="legacy_source_row">38</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_38_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_38"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_38_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_38"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_39" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Crude oil</field>
+<field name="code">LIS39</field>
+<field name="sequence">39</field>
+<field name="legacy_source">product</field>
+<field name="legacy_source_row">39</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_39_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_39"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_39_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_39"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_40" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Granules</field>
+<field name="code">LIS40</field>
+<field name="sequence">40</field>
+<field name="legacy_source">product</field>
+<field name="legacy_source_row">40</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_40_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_40"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_40_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_40"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_41" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Cheese Powder</field>
+<field name="code">LIS41</field>
+<field name="sequence">41</field>
+<field name="legacy_source">product</field>
+<field name="legacy_source_row">41</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_41_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_41"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_41_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_41"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_42" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Rejected noodles</field>
+<field name="code">LIS42</field>
+<field name="sequence">42</field>
+<field name="legacy_source">product</field>
+<field name="legacy_source_row">42</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_42_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_42"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_42_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_42"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_43" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Sludge</field>
+<field name="code">LIS43</field>
+<field name="sequence">43</field>
+<field name="legacy_source">product</field>
+<field name="legacy_source_row">43</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_43_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_43"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_43_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_43"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_44" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Rejected Puffs</field>
+<field name="code">LIS44</field>
+<field name="sequence">44</field>
+<field name="legacy_source">product</field>
+<field name="legacy_source_row">44</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_44_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_44"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_44_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_44"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_45" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Other</field>
+<field name="code">LIS45</field>
+<field name="sequence">45</field>
+<field name="legacy_source">product</field>
+<field name="legacy_source_row">45</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_45_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_45"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_45_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_45"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">-sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_46" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name"> </field>
+<field name="code">LIS46</field>
+<field name="sequence">46</field>
+<field name="legacy_source">total</field>
+<field name="legacy_source_row">46</field>
+<field name="hierarchy_level">0</field>
+</record>
+<record id="legacy_pl_row_46_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_46"/>
+<field name="label">period</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS38.period + LIS39.period + LIS40.period + LIS41.period + LIS42.period + LIS43.period + LIS44.period + LIS45.period</field>
+<field name="subformula"></field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_46_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_46"/>
+<field name="label">ytd</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS38.ytd + LIS39.ytd + LIS40.ytd + LIS41.ytd + LIS42.ytd + LIS43.ytd + LIS44.ytd + LIS45.ytd</field>
+<field name="subformula"></field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_47" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">TOTAL REVENUE</field>
+<field name="code">LIS47</field>
+<field name="sequence">47</field>
+<field name="legacy_source">total</field>
+<field name="legacy_source_row">47</field>
+<field name="hierarchy_level">0</field>
+</record>
+<record id="legacy_pl_row_47_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_47"/>
+<field name="label">period</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS14.period + LIS21.period + LIS30.period + LIS34.period + LIS36.period + LIS46.period</field>
+<field name="subformula"></field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_47_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_47"/>
+<field name="label">ytd</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS14.ytd + LIS21.ytd + LIS30.ytd + LIS34.ytd + LIS36.ytd + LIS46.ytd</field>
+<field name="subformula"></field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_50" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">COST OF SALES</field>
+<field name="code">LIS50</field>
+<field name="sequence">50</field>
+<field name="legacy_source">heading</field>
+<field name="legacy_source_row">50</field>
+<field name="hierarchy_level">0</field>
+</record>
+<record id="legacy_pl_row_51" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Direct materials</field>
+<field name="code">LIS51</field>
+<field name="sequence">51</field>
+<field name="legacy_source">account</field>
+<field name="legacy_source_row">51</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_51_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_51"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_51_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_51"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_52" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Direct labour</field>
+<field name="code">LIS52</field>
+<field name="sequence">52</field>
+<field name="legacy_source">account</field>
+<field name="legacy_source_row">52</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_52_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_52"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_52_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_52"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_53" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Packaging</field>
+<field name="code">LIS53</field>
+<field name="sequence">53</field>
+<field name="legacy_source">account</field>
+<field name="legacy_source_row">53</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_53_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_53"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_53_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_53"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_54" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Machine Maintenance</field>
+<field name="code">LIS54</field>
+<field name="sequence">54</field>
+<field name="legacy_source">account</field>
+<field name="legacy_source_row">54</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_54_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_54"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_54_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_54"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_55" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Other factory expenses (Energy)</field>
+<field name="code">LIS55</field>
+<field name="sequence">55</field>
+<field name="legacy_source">account</field>
+<field name="legacy_source_row">55</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_55_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_55"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_55_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_55"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_56" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Other cost of sales</field>
+<field name="code">LIS56</field>
+<field name="sequence">56</field>
+<field name="legacy_source">account</field>
+<field name="legacy_source_row">56</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_56_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_56"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_56_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_56"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_57" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Rent</field>
+<field name="code">LIS57</field>
+<field name="sequence">57</field>
+<field name="legacy_source">account</field>
+<field name="legacy_source_row">57</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_57_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_57"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_57_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_57"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_58" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Electricity</field>
+<field name="code">LIS58</field>
+<field name="sequence">58</field>
+<field name="legacy_source">account</field>
+<field name="legacy_source_row">58</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_58_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_58"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_58_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_58"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_59" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Depreciation</field>
+<field name="code">LIS59</field>
+<field name="sequence">59</field>
+<field name="legacy_source">account</field>
+<field name="legacy_source_row">59</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_59_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_59"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_59_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_59"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_61" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">TOTAL COST OF SALES</field>
+<field name="code">LIS61</field>
+<field name="sequence">61</field>
+<field name="legacy_source">total</field>
+<field name="legacy_source_row">61</field>
+<field name="hierarchy_level">0</field>
+</record>
+<record id="legacy_pl_row_61_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_61"/>
+<field name="label">period</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS51.period + LIS52.period + LIS53.period + LIS54.period + LIS55.period + LIS56.period + LIS57.period + LIS58.period + LIS59.period</field>
+<field name="subformula"></field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_61_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_61"/>
+<field name="label">ytd</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS51.ytd + LIS52.ytd + LIS53.ytd + LIS54.ytd + LIS55.ytd + LIS56.ytd + LIS57.ytd + LIS58.ytd + LIS59.ytd</field>
+<field name="subformula"></field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_63" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">GROSS PROFIT</field>
+<field name="code">LIS63</field>
+<field name="sequence">63</field>
+<field name="legacy_source">total</field>
+<field name="legacy_source_row">63</field>
+<field name="hierarchy_level">0</field>
+</record>
+<record id="legacy_pl_row_63_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_63"/>
+<field name="label">period</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS47.period - LIS61.period</field>
+<field name="subformula"></field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_63_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_63"/>
+<field name="label">ytd</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS47.ytd - LIS61.ytd</field>
+<field name="subformula"></field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_64" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Gross Profit Margin</field>
+<field name="code">LIS64</field>
+<field name="sequence">64</field>
+<field name="legacy_source">ratio</field>
+<field name="legacy_source_row">64</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_64_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_64"/>
+<field name="label">period</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS63.period / LIS47.period * 100</field>
+<field name="subformula"></field>
+<field name="date_scope">strict_range</field>
+<field name="figure_type">percentage</field>
+</record>
+<record id="legacy_pl_row_64_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_64"/>
+<field name="label">ytd</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS63.ytd / LIS47.ytd * 100</field>
+<field name="subformula"></field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">percentage</field>
+</record>
+<record id="legacy_pl_row_66" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">OPERATING EXPENSES</field>
+<field name="code">LIS66</field>
+<field name="sequence">66</field>
+<field name="legacy_source">heading</field>
+<field name="legacy_source_row">66</field>
+<field name="hierarchy_level">0</field>
+</record>
+<record id="legacy_pl_row_67" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Administration</field>
+<field name="code">LIS67</field>
+<field name="sequence">67</field>
+<field name="legacy_source">account</field>
+<field name="legacy_source_row">67</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_67_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_67"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_67_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_67"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_68" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Admin Salaries</field>
+<field name="code">LIS68</field>
+<field name="sequence">68</field>
+<field name="legacy_source">account</field>
+<field name="legacy_source_row">68</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_68_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_68"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_68_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_68"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_69" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Distribution Costs</field>
+<field name="code">LIS69</field>
+<field name="sequence">69</field>
+<field name="legacy_source">account</field>
+<field name="legacy_source_row">69</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_69_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_69"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_69_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_69"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_70" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Vehicle Maintenance</field>
+<field name="code">LIS70</field>
+<field name="sequence">70</field>
+<field name="legacy_source">account</field>
+<field name="legacy_source_row">70</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_70_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_70"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_70_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_70"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_71" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Fuel</field>
+<field name="code">LIS71</field>
+<field name="sequence">71</field>
+<field name="legacy_source">account</field>
+<field name="legacy_source_row">71</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_71_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_71"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_71_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_71"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_72" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Sales and Marketing</field>
+<field name="code">LIS72</field>
+<field name="sequence">72</field>
+<field name="legacy_source">account</field>
+<field name="legacy_source_row">72</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_72_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_72"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_72_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_72"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_73" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Consultancy, Training and Projects</field>
+<field name="code">LIS73</field>
+<field name="sequence">73</field>
+<field name="legacy_source">account</field>
+<field name="legacy_source_row">73</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_73_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_73"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_73_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_73"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_74" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Director's Expenses</field>
+<field name="code">LIS74</field>
+<field name="sequence">74</field>
+<field name="legacy_source">account</field>
+<field name="legacy_source_row">74</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_74_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_74"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_74_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_74"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_75" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Insurance Expense</field>
+<field name="code">LIS75</field>
+<field name="sequence">75</field>
+<field name="legacy_source">account</field>
+<field name="legacy_source_row">75</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_75_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_75"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_75_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_75"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_76" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Bank Charge - Facility fee for O/D</field>
+<field name="code">LIS76</field>
+<field name="sequence">76</field>
+<field name="legacy_source">account</field>
+<field name="legacy_source_row">76</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_76_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_76"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_76_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_76"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_78" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">TOTAL OPERATING EXPENSES</field>
+<field name="code">LIS78</field>
+<field name="sequence">78</field>
+<field name="legacy_source">total</field>
+<field name="legacy_source_row">78</field>
+<field name="hierarchy_level">0</field>
+</record>
+<record id="legacy_pl_row_78_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_78"/>
+<field name="label">period</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS67.period + LIS68.period + LIS69.period + LIS70.period + LIS71.period + LIS72.period + LIS73.period + LIS74.period + LIS75.period + LIS76.period</field>
+<field name="subformula"></field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_78_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_78"/>
+<field name="label">ytd</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS67.ytd + LIS68.ytd + LIS69.ytd + LIS70.ytd + LIS71.ytd + LIS72.ytd + LIS73.ytd + LIS74.ytd + LIS75.ytd + LIS76.ytd</field>
+<field name="subformula"></field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_80" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">OPERATING PROFIT</field>
+<field name="code">LIS80</field>
+<field name="sequence">80</field>
+<field name="legacy_source">total</field>
+<field name="legacy_source_row">80</field>
+<field name="hierarchy_level">0</field>
+</record>
+<record id="legacy_pl_row_80_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_80"/>
+<field name="label">period</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS63.period - LIS78.period</field>
+<field name="subformula"></field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_80_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_80"/>
+<field name="label">ytd</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS63.ytd - LIS78.ytd</field>
+<field name="subformula"></field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_81" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Operating Profit Margin</field>
+<field name="code">LIS81</field>
+<field name="sequence">81</field>
+<field name="legacy_source">ratio</field>
+<field name="legacy_source_row">81</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_81_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_81"/>
+<field name="label">period</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS80.period / LIS47.period * 100</field>
+<field name="subformula"></field>
+<field name="date_scope">strict_range</field>
+<field name="figure_type">percentage</field>
+</record>
+<record id="legacy_pl_row_81_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_81"/>
+<field name="label">ytd</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS80.ytd / LIS47.ytd * 100</field>
+<field name="subformula"></field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">percentage</field>
+</record>
+<record id="legacy_pl_row_83" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Interest on OD</field>
+<field name="code">LIS83</field>
+<field name="sequence">83</field>
+<field name="legacy_source">account</field>
+<field name="legacy_source_row">83</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_83_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_83"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_83_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_83"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_84" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Interest on Loan</field>
+<field name="code">LIS84</field>
+<field name="sequence">84</field>
+<field name="legacy_source">account</field>
+<field name="legacy_source_row">84</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_84_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_84"/>
+<field name="label">period</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_84_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_84"/>
+<field name="label">ytd</field>
+<field name="engine">domain</field>
+<field name="formula">[('id', '=', 0)]</field>
+<field name="subformula">sum</field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_86" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">NET PROFIT</field>
+<field name="code">LIS86</field>
+<field name="sequence">86</field>
+<field name="legacy_source">total</field>
+<field name="legacy_source_row">86</field>
+<field name="hierarchy_level">0</field>
+</record>
+<record id="legacy_pl_row_86_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_86"/>
+<field name="label">period</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS80.period - LIS83.period - LIS84.period</field>
+<field name="subformula"></field>
+<field name="date_scope">strict_range</field>
+</record>
+<record id="legacy_pl_row_86_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_86"/>
+<field name="label">ytd</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS80.ytd - LIS83.ytd - LIS84.ytd</field>
+<field name="subformula"></field>
+<field name="date_scope">from_fiscalyear</field>
+</record>
+<record id="legacy_pl_row_87" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Net Profit Margin</field>
+<field name="code">LIS87</field>
+<field name="sequence">87</field>
+<field name="legacy_source">ratio</field>
+<field name="legacy_source_row">87</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_87_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_87"/>
+<field name="label">period</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS86.period / LIS47.period * 100</field>
+<field name="subformula"></field>
+<field name="date_scope">strict_range</field>
+<field name="figure_type">percentage</field>
+</record>
+<record id="legacy_pl_row_87_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_87"/>
+<field name="label">ytd</field>
+<field name="engine">aggregation</field>
+<field name="formula">LIS86.ytd / LIS47.ytd * 100</field>
+<field name="subformula"></field>
+<field name="date_scope">from_fiscalyear</field>
+<field name="figure_type">percentage</field>
+</record>
+<record id="legacy_pl_row_89" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">COST OF PRODUCTION — RAW MATERIALS AND PACKAGING ONLY</field>
+<field name="code">LIS89</field>
+<field name="sequence">88</field>
+<field name="legacy_source">heading</field>
+<field name="legacy_source_row">89</field>
+<field name="hierarchy_level">0</field>
+</record>
+<record id="legacy_pl_row_90" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Raw materials consumed</field>
+<field name="code">LIS90</field>
+<field name="sequence">89</field>
+<field name="legacy_source">production_material</field>
+<field name="legacy_production_material_kind">raw</field>
+<field name="legacy_source_row">90</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_90_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_90"/>
+<field name="label">period</field><field name="engine">custom</field>
+<field name="formula">_report_custom_engine_legacy_raw_material_consumed</field>
+<field name="date_scope">strict_range</field><field name="figure_type">monetary</field>
+</record>
+<record id="legacy_pl_row_90_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_90"/>
+<field name="label">ytd</field><field name="engine">custom</field>
+<field name="formula">_report_custom_engine_legacy_raw_material_consumed</field>
+<field name="date_scope">from_fiscalyear</field><field name="figure_type">monetary</field>
+</record>
+<record id="legacy_pl_row_91" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Packaging consumed</field>
+<field name="code">LIS91</field>
+<field name="sequence">90</field>
+<field name="legacy_source">production_material</field>
+<field name="legacy_production_material_kind">packaging</field>
+<field name="legacy_source_row">91</field>
+<field name="hierarchy_level">2</field>
+</record>
+<record id="legacy_pl_row_91_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_91"/>
+<field name="label">period</field><field name="engine">custom</field>
+<field name="formula">_report_custom_engine_legacy_packaging_consumed</field>
+<field name="date_scope">strict_range</field><field name="figure_type">monetary</field>
+</record>
+<record id="legacy_pl_row_91_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_91"/>
+<field name="label">ytd</field><field name="engine">custom</field>
+<field name="formula">_report_custom_engine_legacy_packaging_consumed</field>
+<field name="date_scope">from_fiscalyear</field><field name="figure_type">monetary</field>
+</record>
+<record id="legacy_pl_row_92" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Total production material cost</field>
+<field name="code">LIS92</field>
+<field name="sequence">91</field>
+<field name="legacy_source">production_material</field>
+<field name="legacy_production_material_kind">total</field>
+<field name="legacy_source_row">92</field>
+<field name="hierarchy_level">0</field>
+</record>
+<record id="legacy_pl_row_92_period" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_92"/>
+<field name="label">period</field><field name="engine">custom</field>
+<field name="formula">_report_custom_engine_legacy_production_material_total</field>
+<field name="date_scope">strict_range</field><field name="figure_type">monetary</field>
+</record>
+<record id="legacy_pl_row_92_ytd" model="account.report.expression">
+<field name="report_line_id" ref="legacy_pl_row_92"/>
+<field name="label">ytd</field><field name="engine">custom</field>
+<field name="formula">_report_custom_engine_legacy_production_material_total</field>
+<field name="date_scope">from_fiscalyear</field><field name="figure_type">monetary</field>
+</record>
+<record id="legacy_pl_row_88" model="account.report.line">
+<field name="report_id" ref="legacy_pl"/>
+<field name="name">Credit balance</field>
+<field name="code">LIS88</field>
+<field name="sequence">88</field>
+<field name="legacy_source">heading</field>
+<field name="legacy_source_row">88</field>
+<field name="hierarchy_level">0</field>
+</record>
+<record id="legacy_pl_action" model="ir.actions.client">
+<field name="name">Legacy Detailed Income Statement</field>
+<field name="tag">account_report</field>
+<field name="context" eval="{'report_id': ref('legacy_pl')}"/>
+</record>
+<menuitem id="legacy_pl_menu" name="Legacy Detailed Income Statement" parent="account.menu_finance_reports" action="legacy_pl_action" sequence="96" groups="account.group_account_readonly"/>
+</data></odoo>
